@@ -20,7 +20,6 @@
 *   Copyright (c) 2013-2024 Ramon Santamaria (@raysan5)
 *
 ********************************************************************************************/
-#include "gframework.c"
 #include "raylib.h"
 
 //------------------------------------------------------------------------------------
@@ -28,29 +27,18 @@
 //------------------------------------------------------------------------------------
 int main(void)
 {
-    initFramework();
-
+    /*
     // Main game loop
     while (!WindowShouldClose())
     {
         
-        fDrawBegin();
 
-            ClearBackground(RAYWHITE);
-
-            DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-            draw(0,0,0);
-            draw(1,32,0);
-            draw(2,64,0);
-            draw(3,96,0);
-            draw(4,128,0);
+            ClearBackground(BLACK);
             
 
-        fDrawEnd();
         
     }
-
-	disposeFramework();
+    CloseWindow();*/
     
 
     return 0;
