@@ -6,6 +6,8 @@ declare -a compile_paths=("./src" "./src/gameLib")
 
 POSITIONAL_ARGS=()
 
+clear
+
 #set up flags
 keep_output="false"
 debug="false"
@@ -46,7 +48,7 @@ mv ./*.o "$output_directory"/
 if [ $debug = "false" ]; then
     "$output_directory"/a.out
 else
-    valgrind "$output_directory"/a.out
+    valgrind "$output_directory"/a.out debug
 fi
 #clean up
 if [ $keep_output = "false" ]; then

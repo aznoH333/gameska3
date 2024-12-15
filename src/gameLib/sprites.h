@@ -5,10 +5,10 @@
 
 
 enum SpriteFlip {
-    NONE,
-    X,
-    Y,
-    BOTH,
+    FLIP_NONE,
+    FLIP_X,
+    FLIP_Y,
+    FLIP_BOTH,
 };
 typedef enum SpriteFlip SpriteFlip ;
 

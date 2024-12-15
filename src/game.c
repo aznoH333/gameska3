@@ -1,11 +1,18 @@
 
 #include "screenUtils.h"
 #include "raylib.h"
-#include "vector.h"
-#include <stdio.h>
+#include "debug.h"
 
-int main(void)
+int main(int argc, char **argv)
 {
+
+    setDebugLevel(DEBUG_LEVEL_NORMAL);
+    // handle args
+    for (int i = 0; i < argc; i++){
+        if (TextIsEqual(argv[i], "debug")){
+            setDebugLevel(DEBUG_LEVEL_DEBUG);
+        }
+    }
 
     initWindow(800, 420, "Test window", 60);
     fullscreen();

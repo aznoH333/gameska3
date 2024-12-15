@@ -1,5 +1,6 @@
 #include "vector.h"
 #include <stdlib.h>
+#include "debug.h"
 
 #define DEFAULT_VECTOR_SIZE 25
 
@@ -35,6 +36,10 @@ void VectorAdd(Vector* this, void* element){
 
 
 void* VectorGet(Vector* this, int index){
+    if (index > this->elementCount || index < 0){
+        crashMessage("Invalid vector access -> Vector[] vector size []", index, this->size);
+    }
+    
     return this->elements[index];
 }
 
