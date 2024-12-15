@@ -40,7 +40,7 @@ done
 
 #TODO windows
 gcc $target_files -o $output_directory/a.out -I ./glib -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
-mv ./game.o "$output_directory"/game.o
+mv ./*.o "$output_directory"/
 
 # run
 if [ $debug = "false" ]; then
@@ -50,5 +50,6 @@ else
 fi
 #clean up
 if [ $keep_output = "false" ]; then
+    rm $output_directory/*.o
     rm $output_directory/*.out
 fi
