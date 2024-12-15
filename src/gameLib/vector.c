@@ -44,6 +44,12 @@ void* VectorGet(Vector* this, int index){
 }
 
 
+void VectorClear(Vector* this){
+    this->elementCount = 0;
+}
+
+
+
 void VectorFree(Vector* this){
     free(this);
 }

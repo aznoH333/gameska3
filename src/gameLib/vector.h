@@ -12,6 +12,7 @@ Vector* VectorInit();
 void VectorAdd(Vector* this, void* element);
 void* VectorGet(Vector* this, int index);
 void VectorFree(Vector* this);
+void VectorClear(Vector* this);
 
 
 #endif
