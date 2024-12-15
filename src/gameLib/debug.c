@@ -43,7 +43,6 @@ void printMessage(enum MessageType type, const char* format, va_list args){
     
     vprintf(format, args);
     printf("\033[1;0m \n");
-
 }
 
 

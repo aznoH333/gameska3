@@ -12,11 +12,13 @@ clear
 keep_output="false"
 debug="false"
 windows="false"
+valg="false"
 for flag in $@
 do
     case $flag in
         keep) keep_output="true";;
         debug) debug="true";;
+        valg) valg="true";;
         windows) windows="true";;
     esac
 done
@@ -44,11 +46,14 @@ done
 gcc $target_files -o $output_directory/a.out -I ./glib -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 mv ./*.o "$output_directory"/
 
+
 # run
-if [ $debug = "false" ]; then
-    "$output_directory"/a.out
-else
+if [ $debug = "true" ]; then
+    gdb -ex=r --args "$output_directory"/a.out debug
+elif [ $valg = "true" ]; then
     valgrind "$output_directory"/a.out debug
+else
+    "$output_directory"/a.out
 fi
 #clean up
 if [ $keep_output = "false" ]; then

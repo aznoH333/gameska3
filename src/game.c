@@ -2,6 +2,7 @@
 #include "screenUtils.h"
 #include "raylib.h"
 #include "debug.h"
+#include "gamelib.h"
 
 int main(int argc, char **argv)
 {
@@ -14,8 +15,13 @@ int main(int argc, char **argv)
         }
     }
 
+    // init window
     initWindow(800, 420, "Test window", 60);
     fullscreen();
+
+
+    // init lib
+    gameLibInit();
 
     while (!WindowShouldClose())
     {
@@ -33,6 +39,7 @@ int main(int argc, char **argv)
     }
 
     closeWindow();
+    gameLibEnd();    
 
     return 0;
 }
