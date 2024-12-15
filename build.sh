@@ -2,7 +2,7 @@
 target_files=""
 output_directory="./out"
 
-declare -a compile_paths=("./src")
+declare -a compile_paths=("./src" "./src/gameLib")
 
 POSITIONAL_ARGS=()
 
@@ -27,7 +27,7 @@ function compile_file() {
     target_name=./$target_name
     target_files+=" ${target_name/.c/.o}"
     
-    gcc -c $file_name -I ./glib
+    gcc -c $file_name -I ./src/gameLib
 }
 
 
