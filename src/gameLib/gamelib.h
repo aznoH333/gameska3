@@ -3,5 +3,6 @@
 
 void gameLibInit();
 void gameLibEnd();
+void gameLibUpdate();
 
 #endif

@@ -3,6 +3,7 @@
 #include "raylib.h"
 #include "debug.h"
 #include "gamelib.h"
+#include "sprites.h"
 
 int main(int argc, char **argv)
 {
@@ -23,19 +24,30 @@ int main(int argc, char **argv)
     // init lib
     gameLibInit();
 
+    int x = 0;
+    int y = 0;
+
     while (!WindowShouldClose())
     {
-        BeginDrawing();
 
-            ClearBackground(RAYWHITE);
+        gameLibUpdate();
 
-            DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+        if (IsKeyPressed(KEY_D)){
+            fullscreen();
+        }
 
-            if (IsKeyPressed(KEY_D)){
-                fullscreen();
-            }
+        if (IsKeyDown(KEY_LEFT)){
+            x--;
+        }
+        if (IsKeyDown(KEY_RIGHT)){
+            x++;
+        }if (IsKeyDown(KEY_UP)){
+            y--;
+        }if (IsKeyDown(KEY_DOWN)){
+            y++;
+        }
+        spriteDrawBasic("debug_man", x, y, FLIP_NONE, 0);
 
-        EndDrawing();
     }
 
     closeWindow();

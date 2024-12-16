@@ -1,10 +1,12 @@
 #include "sprites.h"
 #include "sprites.h"
 #include "fileUtils.h"
+#include <raylib.h>
 #include <stdlib.h>
 #include "debug.h"
 #include "vector.h"
-
+#include "screenUtils.h"
+#include "stringUtils.h"
 
 struct DrawData{
     int spriteIndex;
@@ -31,6 +33,7 @@ struct TexturePair{
 struct TexturePair textureAtlas[MAX_LOADED_TEXTURES];
 Vector* drawQueue[MAX_SUPPORTED_LAYERS];
 Vector* staticDrawQueue[MAX_SUPPORTED_LAYERS];
+RenderTexture2D renderTexture;
 
 int loadedTextures;
 
@@ -44,8 +47,23 @@ void spritesLoadAll(){
         if (i > MAX_LOADED_TEXTURES){
             crashMessage("Loaded textures exceeded max textures [%d]", MAX_LOADED_TEXTURES);
         }
-        debugMessage("Loaded texture [%s]", VectorGet(spritePaths, i));
-        textureAtlas[i] = (struct TexturePair){VectorGet(spritePaths, i), LoadTexture(VectorGet(spritePaths, i))};
+
+        char* path = VectorGet(spritePaths, i);
+        int indexOf = StringLastIndexOf(path, "/");
+
+        char* textureFileName = StringSubstring(path, indexOf + 1, StringLength(path) - indexOf);
+        char* textureName = StringSubstring(textureFileName, 0, StringIndexOf(textureFileName, "."));
+        
+        debugMessage("Loaded texture [%s] with name [%s]", VectorGet(spritePaths, i), textureName);
+        
+        
+        textureAtlas[i] = (struct TexturePair){textureName, LoadTexture(VectorGet(spritePaths, i))};
+
+        free(path);
+        free(textureFileName);
+
+        loadedTextures++;
+
     }
     VectorFree(spritePaths);
 
@@ -54,11 +72,15 @@ void spritesLoadAll(){
         drawQueue[i] = VectorInit();
         staticDrawQueue[i] = VectorInit();
     }
+
+    // render texture
+    renderTexture = LoadRenderTexture(getWindowWidth(), getWindowHeight());
 }
 
 
 void spritesUnloadAll(){
     for (int i = 0; i < loadedTextures; i++){
+        debugMessage("unloading texture [%s]", textureAtlas[i].name);
         UnloadTexture(textureAtlas[i].texture);
         free(textureAtlas[i].name);
     }
@@ -68,6 +90,9 @@ void spritesUnloadAll(){
         VectorFree(drawQueue[i]);
         VectorFree(staticDrawQueue[i]);
     }
+
+    // unload render texture
+    UnloadRenderTexture(renderTexture);
 }
 
 
@@ -114,10 +139,50 @@ void spriteDrawBasic(const char* spriteName, float x, float y, SpriteFlip flip, 
 
 
 void drawSprite(struct DrawData* data){
-    // TODO
+    DrawTexturePro(textureAtlas[data->spriteIndex].texture, 
+    (Rectangle){0, 0, textureAtlas[data->spriteIndex].texture.width, textureAtlas[data->spriteIndex].texture.height}, 
+    (Rectangle){data->x, data->y, textureAtlas[data->spriteIndex].texture.width * data->width, textureAtlas[data->spriteIndex].texture.height * data->height}, 
+    (Vector2) {data->width / 2}, data->height / 2, data->color);
 }
 
 
 void drawSpriteBatch(Camera2D* camera){
-    // TODO
+    BeginTextureMode(renderTexture);
+    ClearBackground(WHITE);
+    
+    BeginDrawing();
+    BeginMode2D(*camera);
+
+    // normal sprites
+    for (int i = 0; i < MAX_SUPPORTED_LAYERS; i++){
+        for (int j = 0; j < drawQueue[i]->elementCount; j++){
+            struct DrawData* data = VectorGet(drawQueue[i], j);
+            drawSprite(data);
+            free(data);
+        }
+        VectorClear(drawQueue[i]);
+    }
+
+    EndMode2D();
+
+    // static sprites
+    for (int i = 0; i < MAX_SUPPORTED_LAYERS; i++){
+        for (int j = 0; j < staticDrawQueue[i]->elementCount; j++){
+            struct DrawData* data = VectorGet(staticDrawQueue[i], j);
+            drawSprite(data);
+            free(data);
+        }
+        VectorClear(staticDrawQueue[i]);
+    }
+
+    EndTextureMode();
+    
+    BeginDrawing();
+    
+    DrawTexturePro(renderTexture.texture,
+    (Rectangle) {0,renderTexture.texture.height, renderTexture.texture.width, -renderTexture.texture.height} ,
+    (Rectangle) {0,0, GetScreenWidth(), GetScreenHeight()}, 
+    (Vector2) {0,0}, 0, WHITE);
+
+    EndDrawing();
 }

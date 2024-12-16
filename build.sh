@@ -42,6 +42,11 @@ for p in "${compile_paths[@]}"; do
 done
 
 
+#create out
+if [ ! -d "$output_directory" ]; then 
+    mkdir "$output_directory"
+fi
+
 #TODO windows
 gcc $target_files -o $output_directory/a.out -I ./glib -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 mv ./*.o "$output_directory"/
