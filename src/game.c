@@ -47,11 +47,13 @@ int main(int argc, char **argv)
             y++;
         }
         spriteDrawBasic("debug_man", x, y, FLIP_NONE, 0);
+        spriteDrawBasic("debug_enemy", 100, 100, FLIP_NONE, 0);
+
 
     }
 
-    closeWindow();
     gameLibEnd();    
+    closeWindow();
 
     return 0;
 }

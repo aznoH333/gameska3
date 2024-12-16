@@ -56,7 +56,6 @@ void spritesLoadAll(){
         
         debugMessage("Loaded texture [%s] with name [%s]", VectorGet(spritePaths, i), textureName);
         
-        
         textureAtlas[i] = (struct TexturePair){textureName, LoadTexture(VectorGet(spritePaths, i))};
 
         free(path);
