@@ -5,6 +5,8 @@
 #include "gamelib.h"
 #include "sprites.h"
 
+#include "worldObjectManager.h"
+
 int main(int argc, char **argv)
 {
 
@@ -27,6 +29,11 @@ int main(int argc, char **argv)
     int x = 0;
     int y = 0;
 
+
+    WorldObject* test = InitWorldObject(20, 20, 16, 16);
+    test->spriteIndex = getSpriteIndex("debug_items_0001");
+    WorldObjectManagerAddObject(test);
+
     while (!WindowShouldClose())
     {
 
@@ -38,8 +45,11 @@ int main(int argc, char **argv)
 
         if (IsKeyDown(KEY_LEFT)){
             x--;
+            test->x -= 1;
         }
         if (IsKeyDown(KEY_RIGHT)){
+            test->x += 1;
+
             x++;
         }if (IsKeyDown(KEY_UP)){
             y--;

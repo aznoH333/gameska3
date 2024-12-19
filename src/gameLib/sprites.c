@@ -107,28 +107,7 @@ int findSpriteIndex(const char* spriteName){
 
 
 void spriteDraw(const char* spriteName, float x, float y, SpriteFlip flip, float rotation, float width, float height, Color color, int layer, bool isStatic){
-    if (layer < 0 || layer > MAX_SUPPORTED_LAYERS){
-        crashMessage("Draw call invalid [%s], layer[%d] outside of allowed range [0...%d]", spriteName, layer, MAX_SUPPORTED_LAYERS);
-    }
-
-    struct DrawData* data = malloc(sizeof(struct DrawData));
-    data->spriteIndex = findSpriteIndex(spriteName);
-    data->x = x;
-    data->y = y;
-    data->flip = flip;
-    data->rotation = rotation;
-    data->color = color;
-    data->width = width;
-    data->height = height;
-    data->isStatic = isStatic;
-
-    
-
-    if (isStatic){
-        VectorAdd(staticDrawQueue[layer], data);
-    }else {
-        VectorAdd(drawQueue[layer], data);
-    }
+    spriteDrawIndexed(findSpriteIndex(spriteName), x, y, flip, rotation, width, height, color, layer, isStatic);
 }
 
 
@@ -184,4 +163,35 @@ void drawSpriteBatch(Camera2D* camera){
     (Vector2) {0,0}, 0, WHITE);
 
     EndDrawing();
+}
+
+
+void spriteDrawIndexed(int spriteIndex, float x, float y, SpriteFlip flip, float rotation, float width, float height, Color color, int layer, bool isStatic){
+    if (layer < 0 || layer > MAX_SUPPORTED_LAYERS){
+        crashMessage("Draw call invalid [%d], layer[%d] outside of allowed range [0...%d]", spriteIndex, layer, MAX_SUPPORTED_LAYERS);
+    }
+
+    struct DrawData* data = malloc(sizeof(struct DrawData));
+    data->spriteIndex = spriteIndex;
+    data->x = x;
+    data->y = y;
+    data->flip = flip;
+    data->rotation = rotation;
+    data->color = color;
+    data->width = width;
+    data->height = height;
+    data->isStatic = isStatic;
+
+    
+
+    if (isStatic){
+        VectorAdd(staticDrawQueue[layer], data);
+    }else {
+        VectorAdd(drawQueue[layer], data);
+    }
+}
+
+
+int getSpriteIndex(const char* spriteName){
+    return findSpriteIndex(spriteName);
 }
