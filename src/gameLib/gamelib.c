@@ -5,6 +5,7 @@
 
 Camera2D cam;
 
+
 void gameLibInit(){
     spritesLoadAll();
     cam.target = (Vector2){0, 0};
@@ -15,6 +16,7 @@ void gameLibInit(){
 void gameLibEnd(){
     spritesUnloadAll();
 }
+
 
 void gameLibUpdate(){
     drawSpriteBatch(&cam);

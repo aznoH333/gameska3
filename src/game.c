@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     }
 
     // init window
-    initWindow(800, 420, "Test window", 60);
+    initWindow(800, 400, "Test window", 60);
     fullscreen();
 
 
@@ -35,15 +35,16 @@ int main(int argc, char **argv)
         if (IsKeyPressed(KEY_D)){
             fullscreen();
         }
-
         if (IsKeyDown(KEY_LEFT)){
             x--;
         }
         if (IsKeyDown(KEY_RIGHT)){
             x++;
-        }if (IsKeyDown(KEY_UP)){
+        }
+        if (IsKeyDown(KEY_UP)){
             y--;
-        }if (IsKeyDown(KEY_DOWN)){
+        }
+        if (IsKeyDown(KEY_DOWN)){
             y++;
         }
         spriteDrawBasic("debug_man", x, y, FLIP_NONE, 0);
