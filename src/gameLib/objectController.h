@@ -12,5 +12,6 @@ struct ObjectController{
 typedef struct ObjectController ObjectController ;
 
 ObjectController* ObjectControllerInit();
+unsigned int ObjectControllerGetHash(ObjectController* this);
 
 #endif

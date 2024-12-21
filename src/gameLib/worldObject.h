@@ -4,6 +4,7 @@
 struct WorldObject{
     int spriteIndex;
     int controllerId;
+    int dataId;
     float x;
     float y;
     float width;

@@ -10,6 +10,7 @@ WorldObject* InitWorldObject(float x, float y, float width, float height){
     this->height = height;
     this->controllerId = -1;
     this->spriteIndex = -1;
+    this->dataId = -1;
 
     return this;
 }

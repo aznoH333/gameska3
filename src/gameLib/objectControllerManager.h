@@ -6,7 +6,8 @@
 
 void ObjectControllerManagerInit();
 void ObjectControllerManagerDispose();
-int ObjectControllerManagerAdd(ObjectController* controller);
+int ObjectControllerManageRegisterOrGet(ObjectController* controller);
+
 
 
 #endif

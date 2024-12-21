@@ -19,7 +19,7 @@ void ObjectControllerManagerDispose(){
 }
 
 
-int ObjectControllerManagerAdd(ObjectController* controller){
-    VectorAdd(objectControllers, controller);
+int ObjectControllerManageRegisterOrGet(ObjectController* controller){
+    VectorAdd(objectControllers, controller); // TODO : rework to use map
     return objectControllers->elementCount;
 }
