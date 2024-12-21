@@ -11,6 +11,6 @@ struct ObjectController{
 };
 typedef struct ObjectController ObjectController ;
 
-ObjectController* ObjectControllerInit(); //TODO : implementation
+ObjectController* ObjectControllerInit();
 
 #endif
