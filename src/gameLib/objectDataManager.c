@@ -13,25 +13,44 @@ void ObjectDataManagerInit(){
 
 
 int ObjectDataManagerAdd(void* data){
-    MapPut(objectDataStorage, Pair{elementIdCounter, data});
-    return objectDataStorage->elementCount;
+    int* key = malloc(sizeof(int));
+    *key = elementIdCounter;
+
+    MapPut(objectDataStorage, (Pair){key, data});
+    return elementIdCounter++;
 }
 
 
 void ObjectDataManagerRemove(int index){
-    VectorGet(objectDataStorage, index);
+    int* key = malloc(sizeof(int));
+    *key = elementIdCounter;
+    Pair* value = MapGet(objectDataStorage, key);
+    MapRemove(objectDataStorage, key);
+    free(value->first);
+    free(value);
+    free(key);
 }
 
 
 
 void* ObjectDataManagerGet(int index){
-    return VectorGet(objectDataStorage, index);
+    int* key = malloc(sizeof(int));
+    *key = elementIdCounter;
+    Pair* value = MapGet(objectDataStorage, key);
+    free(key);
+    return value->second;
 }
 
 
 void ObjectDataManagerDispose(){
-    for (int i = 0; i < objectDataStorage->elementCount;i++){
-        free(VectorGet(objectDataStorage, i));
+    Vector* values = MapGetAsVector(objectDataStorage);
+
+    for (int i = 0; i < values->elementCount;i++){
+        Pair* p = VectorGet(values, i);
+
+        free(p->first);
+        free(p->second);
     }
-    VectorFree(objectDataStorage);
+
+    MapFree(objectDataStorage);
 }

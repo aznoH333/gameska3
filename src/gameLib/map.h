@@ -12,7 +12,8 @@ struct Map{
 
 Map* MapInit(bool (*comparisonFunction)(void*, void*));
 void MapPut(Map* this, Pair pair);
-void* MapGet(Map* this, void* key);
+Pair* MapGet(Map* this, void* key);
+Vector* MapGetAsVector(Map* this);
 void MapRemove(Map* this, void* key);
 void MapFree(Map* this);
 

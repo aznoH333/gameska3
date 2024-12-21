@@ -34,7 +34,7 @@ int findIndexOf(Map* this, void* key){
 }
 
 
-void* MapGet(Map* this, void* key){
+Pair* MapGet(Map* this, void* key){
     int indexOf = findIndexOf(this, key);
     if (indexOf == -1){
         crashMessage("No value found for [%p] in map", key);
@@ -61,4 +61,9 @@ void MapFree(Map* this){
     }
     VectorFree(this->values);
     free(this);
+}
+
+
+Vector* MapGetAsVector(Map* this){
+    return this->values;
 }
