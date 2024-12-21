@@ -35,6 +35,20 @@ void VectorAdd(Vector* this, void* element){
 }
 
 
+void VectorRemove(Vector* this, int index){
+    if (index < 0 || index > this->elementCount){
+        crashMessage("Unable to remove element. Index [%d] is outside vector", index);
+    }
+
+    this->elementCount--;
+
+    for (int i = index; i < this->elementCount; i++){
+        this->elements[i] = this->elements[i+1];
+    }
+}
+
+
+
 void* VectorGet(Vector* this, int index){
     if (index > this->elementCount || index < 0){
         crashMessage("Invalid vector access -> Vector[%d], element count [%d]", index, this->elementCount);

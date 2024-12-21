@@ -1,18 +1,27 @@
 #include "objectDataManager.h"
-#include "vector.h"
 #include <stdlib.h>
+#include "genericComparisons.h"
+#include "map.h"
 
-Vector* objectDataStorage;
+Map* objectDataStorage;
+int elementIdCounter;
 
 void ObjectDataManagerInit(){
-    objectDataStorage = VectorInit();
+    elementIdCounter = 0;
+    objectDataStorage = MapInit(&intEquals);
 }
 
 
 int ObjectDataManagerAdd(void* data){
-    VectorAdd(objectDataStorage, data);
+    MapPut(objectDataStorage, Pair{elementIdCounter, data});
     return objectDataStorage->elementCount;
 }
+
+
+void ObjectDataManagerRemove(int index){
+    VectorGet(objectDataStorage, index);
+}
+
 
 
 void* ObjectDataManagerGet(int index){

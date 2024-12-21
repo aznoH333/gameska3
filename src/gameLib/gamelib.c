@@ -2,6 +2,7 @@
 #include "sprites.h"
 #include <raylib.h>
 #include "worldObjectManager.h"
+#include "objectControllerManager.h"
 
 
 Camera2D cam;
@@ -13,6 +14,7 @@ void gameLibInit(){
     cam.zoom = 1.0f;
 
     WorldObjectManagerInit();
+    ObjectControllerManagerInit();
 }
 
 
@@ -25,6 +27,7 @@ void gameLibEnd(){
 
 void gameLibUpdate(){
     WorldObjectManagerUpdate();
+    ObjectControllerManagerDispose();
 
     drawSpriteBatch(&cam);
 }

@@ -4,6 +4,7 @@
 void ObjectDataManagerInit();
 int ObjectDataManagerAdd(void* data);
 void* ObjectDataManagerGet(int index);
+void ObjectDataManagerRemove(int index);
 void ObjectDataManagerDispose();
 
 
