@@ -65,5 +65,6 @@ void VectorClear(Vector* this){
 
 
 void VectorFree(Vector* this){
+    free(this->elements);
     free(this);
 }
