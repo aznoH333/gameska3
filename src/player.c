@@ -12,7 +12,7 @@ void PlayerInit(float x, float y){
 
     // controller
     ObjectController* controller = ObjectControllerInit();
-    controller->objectUpdate = &PlayerUpdate;
+    controller->objectUpdate = (void (*)(WorldObject *, void *))&PlayerUpdate;
 
     PlayerData* peanis = malloc(sizeof(PlayerData));
     peanis->test = 26;

@@ -16,8 +16,8 @@ ObjectController* ObjectControllerInit(){
 
 
 unsigned int ObjectControllerGetHash(ObjectController* this){
-    unsigned int hash = hashInt((unsigned int)this->objectCollide);
-    hash ^= hashInt((unsigned int)this->objectDestroy);
-    hash ^= hashInt((unsigned int)this->objectUpdate);
+    unsigned int hash = hashLong((unsigned long)this->objectCollide);
+    hash ^= hashLong((unsigned long)this->objectDestroy);
+    hash ^= hashLong((unsigned long)this->objectUpdate);
     return hash;
 }

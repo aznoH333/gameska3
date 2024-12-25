@@ -26,7 +26,8 @@ int main(int argc, char **argv)
 
     PlayerInit(20, 20);
 
-
+    // TODO : object collisions
+    
     while (!WindowShouldClose())
     {
 
