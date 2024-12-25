@@ -1,25 +1,42 @@
 #include "objectControllerManager.h"
-#include "vector.h"
 #include <stdlib.h>
+#include "map.h"
+#include "genericComparisons.h"
+#include "memoryMacros.h"
 
-
-Vector* objectControllers;
-
+Map* objectControllers;
 
 void ObjectControllerManagerInit(){
-    objectControllers = VectorInit();
+    objectControllers = MapInit(&intEquals);
 }
 
 
 void ObjectControllerManagerDispose(){
-    for (int i = 0; i < objectControllers->elementCount; i++){
-        free(VectorGet(objectControllers, i));
-    }
-    VectorFree(objectControllers);
+    MapFreeKeys(objectControllers);
+    MapFreeValues(objectControllers);
+    MapFree(objectControllers);
 }
 
 
 int ObjectControllerManageRegisterOrGet(ObjectController* controller){
-    VectorAdd(objectControllers, controller); // TODO : rework to use map
-    return objectControllers->elementCount;
+    initHeapVariable(int, hashedController, ObjectControllerGetHash(controller));
+    
+    if (MapContains(objectControllers, hashedController)){
+        int output = *hashedController;
+        free(hashedController);
+        free(controller);
+        return output;
+    }
+    MapPut(objectControllers, (Pair){hashedController, controller});
+    return *hashedController;
 }
+
+
+ObjectController* ObjectControllerManagerGet(int id){
+    initHeapVariable(int, key, id);
+
+    ObjectController* output = MapGet(objectControllers, key)->second;
+    free(key);
+    return output;
+}
+

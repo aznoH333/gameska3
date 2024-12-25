@@ -45,6 +45,12 @@ Pair* MapGet(Map* this, void* key){
 }
 
 
+bool MapContains(Map* this, void* key){
+    return findIndexOf(this, key) >= 0;
+}
+
+
+
 void MapRemove(Map* this, void* key){
     int indexOf = findIndexOf(this, key);
     if (indexOf == -1){
@@ -61,6 +67,20 @@ void MapFree(Map* this){
     }
     VectorFree(this->values);
     free(this);
+}
+
+
+void MapFreeKeys(Map* this){
+    for (int i = 0; i < this->values->elementCount; i++){
+        free(((Pair*)VectorGet(this->values, i))->first);
+    }
+}
+
+
+void MapFreeValues(Map* this){
+    for (int i = 0; i < this->values->elementCount; i++){
+        free(((Pair*)VectorGet(this->values, i))->second);
+    }
 }
 
 

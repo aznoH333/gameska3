@@ -1,26 +1,33 @@
 #include "worldObjectManager.h"
 
-#include "vector.h"
 #include <stdlib.h>
 #include "sprites.h"
+#include "map.h"
+#include "memoryMacros.h"
+#include "objectControllerManager.h"
+#include "objectDataManager.h"
+#include "genericComparisons.h"
+#include "debug.h"
 
-Vector* worldObjects;
-
+Map* worldObjects;
+int keyIterator;
 
 void WorldObjectManagerInit(){
-    worldObjects = VectorInit();
+    keyIterator = 0;
+    worldObjects = MapInit(&intEquals);
 }
 
 
 int WorldObjectManagerAddObject(WorldObject* object){
-    VectorAdd(worldObjects, object);
-    return worldObjects->elementCount;
+    initHeapVariable(int, id, keyIterator++);
+    MapPut(worldObjects, (Pair){id, object});
+    return *id;
 }
 
 
 void WorldObjectManagerUpdate(){
-    for (int i = 0; i < worldObjects->elementCount; i++){
-        WorldObject* object = VectorGet(worldObjects, i);
+    for (int i = 0; i < worldObjects->values->elementCount; i++){
+        WorldObject* object = ((Pair*)VectorGet(worldObjects->values, i))->second;
 
         // TODO: rotation
         // TODO: flipping
@@ -29,20 +36,50 @@ void WorldObjectManagerUpdate(){
         // TODO: color
         // TODO: layers
 
-        if (object->spriteIndex != -1){
+        if (object->spriteIndex != UNDEFINED){
             spriteDrawIndexed(object->spriteIndex, object->x, object->y, FLIP_NONE, 0.0f, 1.0f, 1.0f, WHITE, 0, false);
         }
 
-        if (object->controllerId != -1){
-            // TODO: controllers
+        void* body = UNDEFINED;
+
+
+        if (object->dataId != UNDEFINED){
+            body = ObjectDataManagerGet(object->dataId);
+        }
+
+        debugMessage("body id [%d] body prt [%p]", object->dataId, body);
+
+
+
+        if (object->controllerId != UNDEFINED){
+            // update
+            ObjectController* controller = ObjectControllerManagerGet(object->controllerId);
+
+            controller->objectUpdate(object, body);
         }
     }
 }
 
 
+void WorldObjectManagerRemove(int id){
+    initHeapVariable(int, key, id);
+    MapRemove(worldObjects, key);
+    free(key);
+}
+
+
+WorldObject* WorldObjectManagerGet(int id){
+    initHeapVariable(int, key, id);
+    WorldObject* output = MapGet(worldObjects, key)->second;
+    free(key);
+    return output;
+}
+
+
+
+
 void WorldObjectManagerDispose(){
-    for (int i = 0; i < worldObjects->elementCount; i++){
-        free(VectorGet(worldObjects, i));
-    }
-    VectorFree(worldObjects);
+    MapFreeKeys(worldObjects);
+    MapFreeValues(worldObjects);
+    MapFree(worldObjects);
 }

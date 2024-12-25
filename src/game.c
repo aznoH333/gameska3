@@ -3,9 +3,7 @@
 #include "raylib.h"
 #include "debug.h"
 #include "gamelib.h"
-#include "sprites.h"
-
-#include "worldObjectManager.h"
+#include "player.h"
 
 int main(int argc, char **argv)
 {
@@ -26,41 +24,13 @@ int main(int argc, char **argv)
     // init lib
     gameLibInit();
 
-    int x = 0;
-    int y = 0;
+    PlayerInit(20, 20);
 
-
-    WorldObject* test = InitWorldObject(20, 20, 16, 16);
-    test->spriteIndex = getSpriteIndex("debug_items_0001");
-    WorldObjectManagerAddObject(test);
 
     while (!WindowShouldClose())
     {
 
         gameLibUpdate();
-
-        if (IsKeyPressed(KEY_D)){
-            fullscreen();
-        }
-        if (IsKeyDown(KEY_LEFT)){
-            x--;
-            test->x -= 1;
-        }
-        if (IsKeyDown(KEY_RIGHT)){
-            test->x += 1;
-
-            x++;
-        }
-        if (IsKeyDown(KEY_UP)){
-            y--;
-        }
-        if (IsKeyDown(KEY_DOWN)){
-            y++;
-        }
-        spriteDrawBasic("debug_man", x, y, FLIP_NONE, 0);
-        spriteDrawBasic("debug_enemy", 100, 100, FLIP_NONE, 0);
-
-
     }
 
     gameLibEnd();    

@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include "genericComparisons.h"
 #include "map.h"
+#include "debug.h"
+#include "memoryMacros.h"
 
 Map* objectDataStorage;
 int elementIdCounter;
 
 void ObjectDataManagerInit(){
-    elementIdCounter = 0;
+    elementIdCounter = 1;
     objectDataStorage = MapInit(&intEquals);
 }
 
@@ -34,9 +36,10 @@ void ObjectDataManagerRemove(int index){
 
 
 void* ObjectDataManagerGet(int index){
-    int* key = malloc(sizeof(int));
-    *key = elementIdCounter;
+    initHeapVariable(int, key, index);
+    debugMessage("val %d", key);
     Pair* value = MapGet(objectDataStorage, key);
+
     free(key);
     return value->second;
 }

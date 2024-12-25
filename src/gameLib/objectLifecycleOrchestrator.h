@@ -5,7 +5,7 @@
 #include "objectController.h"
 
 void GameObjectCreate(WorldObject* body, ObjectController* mind, void* soul);
-void GameObjectRemove(int objectIndex);
+void GameObjectRemove(int objectId);
 
 
 #endif

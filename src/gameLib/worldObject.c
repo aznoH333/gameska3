@@ -1,5 +1,6 @@
 #include "worldObject.h"
 #include <stdlib.h>
+#include "memoryMacros.h"
 
 WorldObject* InitWorldObject(float x, float y, float width, float height){
     WorldObject* this = malloc(sizeof(WorldObject));
@@ -8,9 +9,9 @@ WorldObject* InitWorldObject(float x, float y, float width, float height){
     this->y = y;
     this->width = width;
     this->height = height;
-    this->controllerId = -1;
-    this->spriteIndex = -1;
-    this->dataId = -1;
+    this->controllerId = UNDEFINED;
+    this->spriteIndex = UNDEFINED;
+    this->dataId = UNDEFINED;
 
     return this;
 }

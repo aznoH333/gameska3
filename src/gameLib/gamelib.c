@@ -3,6 +3,7 @@
 #include <raylib.h>
 #include "worldObjectManager.h"
 #include "objectControllerManager.h"
+#include "objectDataManager.h"
 
 
 Camera2D cam;
@@ -15,19 +16,21 @@ void gameLibInit(){
 
     WorldObjectManagerInit();
     ObjectControllerManagerInit();
+    ObjectDataManagerInit();
 }
 
 
 void gameLibEnd(){
     WorldObjectManagerDispose();
     spritesUnloadAll();
+    ObjectControllerManagerDispose();
+    ObjectDataManagerDispose();
 
 }
 
 
 void gameLibUpdate(){
     WorldObjectManagerUpdate();
-    ObjectControllerManagerDispose();
 
     drawSpriteBatch(&cam);
 }

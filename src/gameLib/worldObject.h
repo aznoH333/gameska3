@@ -9,6 +9,7 @@ struct WorldObject{
     float y;
     float width;
     float height;
+    int id;
 }; typedef struct WorldObject WorldObject ;
 
 

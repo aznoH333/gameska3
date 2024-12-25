@@ -6,7 +6,9 @@
 
 void WorldObjectManagerInit();
 int WorldObjectManagerAddObject(WorldObject* object);
+void WorldObjectManagerRemove(int id);
 void WorldObjectManagerUpdate();
 void WorldObjectManagerDispose();
+WorldObject* WorldObjectManagerGet(int id);
 
 #endif

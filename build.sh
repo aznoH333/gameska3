@@ -56,7 +56,7 @@ mv ./*.o "$output_directory"/
 if [ $debug = "true" ]; then
     gdb -ex=r --args "$output_directory"/a.out debug
 elif [ $valg = "true" ]; then
-    valgrind "$output_directory"/a.out debug
+    valgrind --leak-check=full --show-leak-kinds=definite,possible --track-origins=yes "$output_directory"/a.out 
 else
     "$output_directory"/a.out
 fi

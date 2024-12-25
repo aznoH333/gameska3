@@ -1,14 +1,15 @@
 #include "objectController.h"
 #include <stdlib.h>
 #include "numberUtils.h"
+#include "memoryMacros.h"
 
 
 ObjectController* ObjectControllerInit(){
     ObjectController* this = malloc(sizeof(ObjectController));
 
-    this->objectCollide = 0;
-    this->objectDestroy = 0;
-    this->objectUpdate = 0;
+    this->objectCollide = UNDEFINED;
+    this->objectDestroy = UNDEFINED;
+    this->objectUpdate = UNDEFINED;
 
     return this;
 }

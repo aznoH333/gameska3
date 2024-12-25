@@ -7,6 +7,7 @@
 void ObjectControllerManagerInit();
 void ObjectControllerManagerDispose();
 int ObjectControllerManageRegisterOrGet(ObjectController* controller);
+ObjectController* ObjectControllerManagerGet(int id);
 
 
 

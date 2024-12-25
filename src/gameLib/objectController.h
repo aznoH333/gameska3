@@ -5,9 +5,9 @@
 #include "worldObject.h"
 
 struct ObjectController{
-    void (*objectUpdate) (WorldObject* this);
-    void (*objectCollide) (WorldObject* this, WorldObject* other);
-    void (*objectDestroy) (WorldObject* this);
+    void (*objectUpdate) (WorldObject* this, void* data);
+    void (*objectCollide) (WorldObject* this, void* data, WorldObject* other);
+    void (*objectDestroy) (WorldObject* this, void* data);
 };
 typedef struct ObjectController ObjectController ;
 
