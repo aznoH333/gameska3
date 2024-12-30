@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     gameLibRegisterAdditionalSystem(&terrainUpdate);
 
     // temporary initialization
-    PlayerInit(20, 20);
+    PlayerInit(128, 128);
     generateNewRoom();
 
     // TODO : object collisions

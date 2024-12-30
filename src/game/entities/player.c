@@ -1,12 +1,13 @@
 #include "game/entities/player.h"
 #include "gameLib/gamelibInclude.h"
 #include "stdlib.h"
+#include "game/systemsInclude.h"
 
 void PlayerUpdate(WorldObject* this, PlayerData* data);
 
 void PlayerInit(float x, float y){
     // init gameobject
-    WorldObject* playerWorldObject = InitWorldObject(x, y, 16, 16);
+    WorldObject* playerWorldObject = InitWorldObject(x, y, 32, 32);
     playerWorldObject->spriteIndex = getSpriteIndex("debug_man");
 
     // controller
@@ -46,6 +47,20 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     }else if (IsKeyDown(KEY_S)) {
         data->yVelocity = limitedIncrement(data->yVelocity, 1.0f, PLAYER_SPEED_BUILDUP);
     }
+
+
+    // terrain collisions
+    float xCollisionCheck = this->x + (data->xVelocity * PLAYER_SPEED_MULTIPLIER);
+    if (collidesWithTerrain(xCollisionCheck, this->y, this->width, this->height)){
+        data->xVelocity = 0;
+    }
+
+
+    float yCollisionCheck = this->y + (data->yVelocity * PLAYER_SPEED_MULTIPLIER);
+    if (collidesWithTerrain(this->x, yCollisionCheck, this->width, this->height)){
+        data->yVelocity = 0;
+    }
+
 
 
     // update position

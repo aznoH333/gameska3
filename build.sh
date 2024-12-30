@@ -116,7 +116,7 @@ if [ $keep_output = "false" ]; then
     rm $output_directory/*.out
 fi
 #clean up accidental gch files
-find . -type f -name '*.*.gch' -print -delete
+find . -type f -name '*.*.gch' -delete
 
 # section break ================================
 echo build complete
