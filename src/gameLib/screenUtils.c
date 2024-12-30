@@ -1,6 +1,7 @@
 #include "screenUtils.h"
 #include "raylib.h"
-
+#include <unistd.h>
+#include "debug.h"
 
 int windowWidth;
 int windowHeight;
@@ -30,7 +31,6 @@ void closeWindow(){
 void fullscreen(){
     isFullscreen = !isFullscreen;
     
-    
     // set width / height
     if (isFullscreen){
         int currentMonitorWidth = GetMonitorWidth(GetCurrentMonitor());
@@ -38,12 +38,15 @@ void fullscreen(){
         SetWindowSize(currentMonitorWidth, currentMonitorHeight);
         SetWindowPosition(0, 0);
         ToggleFullscreen();
+        windowWidth = currentMonitorWidth;
+        windowHeight = currentMonitorHeight;
 
     }else {
-        SetWindowSize(defaultWindowWidth, defaultWindowHeight);
         ToggleFullscreen();
+        SetWindowSize(defaultWindowWidth, defaultWindowHeight);
+        windowWidth = defaultWindowWidth;
+        windowHeight = defaultWindowHeight;
     }
-
 }
 
 

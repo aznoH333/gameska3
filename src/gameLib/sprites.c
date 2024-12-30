@@ -159,7 +159,7 @@ void drawSpriteBatch(Camera2D* camera){
     
     DrawTexturePro(renderTexture.texture,
     (Rectangle) {0,renderTexture.texture.height, renderTexture.texture.width, -renderTexture.texture.height} ,
-    (Rectangle) {0,0, GetScreenWidth(), GetScreenHeight()}, 
+    (Rectangle) {0,0, getWindowWidth(), getWindowHeight()}, 
     (Vector2) {0,0}, 0, WHITE);
 
     EndDrawing();

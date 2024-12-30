@@ -1,12 +1,11 @@
 
 #include "gameLib/gamelibInclude.h"
 #include "game/entitiesInclude.h"
+#include "game/systemsInclude.h"
 
 
 int main(int argc, char **argv)
 {
-
-    
     setDebugLevel(DEBUG_LEVEL_NORMAL);
     // handle args
     for (int i = 0; i < argc; i++){
@@ -16,20 +15,23 @@ int main(int argc, char **argv)
     }
 
     // init window
-    initWindow(800, 400, "Test window", 60);
+    initWindow(1280, 720, "Test window", 60);
     fullscreen();
 
 
     // init lib
     gameLibInit();
 
+    // system init
+    gameLibRegisterAdditionalSystem(&terrainUpdate);
+
+    // temporary initialization
     PlayerInit(20, 20);
 
     // TODO : object collisions
     
     while (!WindowShouldClose())
     {
-
         gameLibUpdate();
     }
 
@@ -38,3 +40,5 @@ int main(int argc, char **argv)
 
     return 0;
 }
+
+

@@ -58,10 +58,8 @@ function compile_file() {
     target_name=./$target_name
     
     if [[ $1 == *.c ]]; then 
-        echo "${file_name/.c/.o}"
         target_files+=" ${target_name/.c/.o}"
     elif [[ $1 == *.h ]]; then 
-        echo "${1/.c/.o}"
         target_files+=" ${1/.c/.o}"
     fi
     
