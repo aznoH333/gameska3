@@ -4,7 +4,8 @@
 
 struct PlayerData{
 
-    float test;
+    float xVelocity;
+    float yVelocity;
 
 }; typedef struct PlayerData PlayerData;
 

@@ -27,6 +27,7 @@ int main(int argc, char **argv)
 
     // temporary initialization
     PlayerInit(20, 20);
+    generateNewRoom();
 
     // TODO : object collisions
     

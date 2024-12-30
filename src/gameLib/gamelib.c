@@ -15,7 +15,7 @@ void gameLibInit(){
     spritesLoadAll();
     additionalSystems = VectorInit();
     cam.target = (Vector2){0, 0};
-    cam.zoom = 1.0f;
+    cam.zoom = 3.0f;
 
     WorldObjectManagerInit();
     ObjectControllerManagerInit();

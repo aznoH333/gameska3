@@ -1,5 +1,6 @@
 #include "numberUtils.h"
 #include <stdint.h>
+#include "math.h"
 
 unsigned int hashInt(unsigned int input){
     input = ((input >> 16) ^ input) * 0x45d9f3b;
@@ -15,3 +16,20 @@ unsigned long hashLong(unsigned long input){
     input = input ^ (input >> 30) ^ (input >> 60);
     return input;
 }
+
+
+float limitedIncrement(float value, float target, float increment){
+    int direction = sign(target- value);
+    value += direction * increment;
+
+    if (fabs(value - target) < 0.15f){
+        return target;
+    }
+    return value;
+}
+
+
+float sign(float input){
+    return (input > 0) + (input >= 0) - 1; 
+}
+
