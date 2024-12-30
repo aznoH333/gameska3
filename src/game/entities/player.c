@@ -1,6 +1,5 @@
-#include "player.h"
-#include "objectLifecycleOrchestrator.h"
-#include "sprites.h"
+#include "game/entities/player.h"
+#include "gameLib/gamelibInclude.h"
 #include "stdlib.h"
 
 void PlayerUpdate(WorldObject* this, PlayerData* data);
