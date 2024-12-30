@@ -4,10 +4,1100 @@
       "/usr/bin/gcc",
       "-c",
       "-I",
-      "./src/gameLib",
+      "./src",
       "src/game.c"
     ],
     "directory": "/mnt/disk1/Dev/c/gameska3",
     "file": "/mnt/disk1/Dev/c/gameska3/src/game.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/game/entitiesInclude.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/game/entitiesInclude.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/game/entities/player.c"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/game/entities/player.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/game/entities/player.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/game/entities/player.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/debug.c"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/debug.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/debug.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/debug.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/fileUtils.c"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/fileUtils.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/fileUtils.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/fileUtils.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/gamelib.c"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/gamelib.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/gamelib.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/gamelib.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/gamelibInclude.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/gamelibInclude.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/genericComparisons.c"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/genericComparisons.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/genericComparisons.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/genericComparisons.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/map.c"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/map.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/map.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/map.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/memoryMacros.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/memoryMacros.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/numberUtils.c"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/numberUtils.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/numberUtils.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/numberUtils.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/objectController.c"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/objectController.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/objectController.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/objectController.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/objectControllerManager.c"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/objectControllerManager.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/objectControllerManager.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/objectControllerManager.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/objectDataManager.c"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/objectDataManager.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/objectDataManager.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/objectDataManager.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/objectLifecycleOrchestrator.c"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/objectLifecycleOrchestrator.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/objectLifecycleOrchestrator.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/objectLifecycleOrchestrator.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/pair.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/pair.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/screenUtils.c"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/screenUtils.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/screenUtils.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/screenUtils.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/sprites.c"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/sprites.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/sprites.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/sprites.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/stringUtils.c"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/stringUtils.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/stringUtils.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/stringUtils.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/vector.c"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/vector.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/vector.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/vector.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/worldObject.c"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/worldObject.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/worldObject.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/worldObject.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/worldObjectManager.c"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/worldObjectManager.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "./src",
+      "src/gameLib/worldObjectManager.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/worldObjectManager.h"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/game/entitiesInclude.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/game/entitiesInclude.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/game/entities/player.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/game/entities/player.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/debug.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/debug.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/fileUtils.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/fileUtils.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/gamelib.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/gamelib.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/gamelibInclude.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/gamelibInclude.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/genericComparisons.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/genericComparisons.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/map.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/map.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/memoryMacros.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/memoryMacros.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/numberUtils.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/numberUtils.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/objectController.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/objectController.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/objectControllerManager.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/objectControllerManager.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/objectDataManager.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/objectDataManager.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/objectLifecycleOrchestrator.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/objectLifecycleOrchestrator.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/pair.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/pair.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/screenUtils.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/screenUtils.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/sprites.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/sprites.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/stringUtils.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/stringUtils.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/vector.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/vector.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/worldObject.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/worldObject.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "./game.o",
+      "./player.o",
+      "./debug.o",
+      "./fileUtils.o",
+      "./gamelib.o",
+      "./genericComparisons.o",
+      "./map.o",
+      "./numberUtils.o",
+      "./objectController.o",
+      "./objectControllerManager.o",
+      "./objectDataManager.o",
+      "./objectLifecycleOrchestrator.o",
+      "./screenUtils.o",
+      "./sprites.o",
+      "./stringUtils.o",
+      "./vector.o",
+      "./worldObject.o",
+      "./worldObjectManager.o",
+      "-I",
+      "./glib",
+      "-o",
+      "./out/a.out",
+      "./src/gameLib/worldObjectManager.h"
+    ],
+    "directory": "/mnt/disk1/Dev/c/gameska3",
+    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/worldObjectManager.h",
+    "output": "/mnt/disk1/Dev/c/gameska3/out/a.out"
   }
 ]
