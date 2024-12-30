@@ -9,16 +9,5 @@
     ],
     "directory": "/mnt/disk1/Dev/c/gameska3",
     "file": "/mnt/disk1/Dev/c/gameska3/src/game.c"
-  },
-  {
-    "arguments": [
-      "/usr/bin/gcc",
-      "-c",
-      "-I",
-      "./src/gameLib",
-      "src/gameLib/screenUtils.c"
-    ],
-    "directory": "/mnt/disk1/Dev/c/gameska3",
-    "file": "/mnt/disk1/Dev/c/gameska3/src/gameLib/screenUtils.c"
   }
 ]

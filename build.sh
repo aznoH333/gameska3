@@ -1,12 +1,34 @@
 #!/bin/bash
 target_files=""
 output_directory="./out"
+src_path="./src"
+declare -a compile_paths=()
 
-declare -a compile_paths=("./src" "./src/gameLib")
+clear
+
+
+#find compile paths
+function search_for_compile_paths() {
+    compile_paths+=" $1"
+
+    
+    for entry in "$1"/*
+    do
+        if [ -d "$entry" ]; then
+            search_for_compile_paths "$entry" 
+        fi
+    done
+}
+
+search_for_compile_paths "$src_path"
+
+for test in "$compile_paths"
+do 
+    echo "$test"
+done
 
 POSITIONAL_ARGS=()
 
-clear
 
 #set up flags
 keep_output="false"
@@ -31,15 +53,8 @@ function compile_file() {
     target_name=./$target_name
     target_files+=" ${target_name/.c/.o}"
     
-    gcc -c $file_name -I ./src/gameLib
+    gcc -c $file_name -I ./src
 }
-
-
-for p in "${compile_paths[@]}"; do 
-    for f in $p/*.c; do
-        compile_file $f
-    done
-done
 
 
 #create out

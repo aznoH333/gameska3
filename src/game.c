@@ -1,9 +1,6 @@
 
-#include "screenUtils.h"
-#include "raylib.h"
-#include "debug.h"
-#include "gamelib.h"
-#include "player.h"
+#include "gamelibInclude.h"
+#include "game/entitiesInclude.h"
 
 int main(int argc, char **argv)
 {
