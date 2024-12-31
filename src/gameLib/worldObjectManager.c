@@ -59,6 +59,15 @@ void WorldObjectManagerUpdate(){
 
 
         if (object->state != OBJECT_STATE_NORMAL){
+            
+            if (object->state != OBJECT_STATE_HIDDEN_DESTROY && object->controllerId != UNDEFINED){
+                ObjectController* controller = ObjectControllerManagerGet(object->controllerId);
+
+                if (controller->objectDestroy != UNDEFINED){
+                    controller->objectDestroy(object, body);
+                }
+            }
+            
             GameObjectRemove(object->id);
             i--;
             continue;
