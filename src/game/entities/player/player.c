@@ -75,6 +75,8 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
 
     // gun
     // temp
+    float gunDirection = directionTowards(this->x, this->y, getInWorldMousePositionX(), getInWorldMousePositionY());
     spriteDrawBasic("debug_gun", getInWorldMousePositionX(), getInWorldMousePositionY(), FLIP_NONE, 1);
+    spriteDraw("debug_gun", this->x, this->y, FLIP_NONE, gunDirection, 1.0f, 1.0f, WHITE, 1, false);
 
 }

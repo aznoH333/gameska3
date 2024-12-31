@@ -17,3 +17,4 @@
 #include "worldObjectManager.h"
 #include "debug.h"
 #include "camera.h"
+#include "worldSpaceUtils.h"

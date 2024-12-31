@@ -117,10 +117,16 @@ void spriteDrawBasic(const char* spriteName, float x, float y, SpriteFlip flip, 
 
 
 void drawSprite(struct DrawData* data){
-    DrawTexturePro(textureAtlas[data->spriteIndex].texture, 
-    (Rectangle){0, 0, textureAtlas[data->spriteIndex].texture.width, textureAtlas[data->spriteIndex].texture.height}, 
-    (Rectangle){data->x, data->y, textureAtlas[data->spriteIndex].texture.width * data->width, textureAtlas[data->spriteIndex].texture.height * data->height}, 
-    (Vector2) {data->width / 2}, data->height / 2, data->color);
+    Texture2D* texture = &textureAtlas[data->spriteIndex].texture;
+    float originOffsetX = (texture->width * data->width) / 2;
+    float originOffsetY = (texture->height * data->height) / 2;
+    
+    DrawTexturePro(*texture, 
+    (Rectangle){0, 0, texture->width, texture->height}, 
+    (Rectangle){data->x + originOffsetX, data->y + originOffsetY, textureAtlas[data->spriteIndex].texture.width * data->width, textureAtlas[data->spriteIndex].texture.height * data->height}, 
+    (Vector2) {originOffsetX, originOffsetY}, data->rotation * RAD2DEG, data->color);
+
+    
 }
 
 
