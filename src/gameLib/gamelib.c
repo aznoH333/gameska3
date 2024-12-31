@@ -5,6 +5,7 @@
 #include "objectControllerManager.h"
 #include "objectDataManager.h"
 #include "vector.h"
+#include "camera.h"
 
 
 Camera2D cam;
@@ -20,6 +21,7 @@ void gameLibInit(){
     WorldObjectManagerInit();
     ObjectControllerManagerInit();
     ObjectDataManagerInit();
+    resetCamera();
 }
 
 
@@ -40,7 +42,7 @@ void gameLibRegisterAdditionalSystem(void (*systemUpdateFunction)()){
 
 void gameLibUpdate(){
     WorldObjectManagerUpdate();
-    drawSpriteBatch(&cam);
+    drawSpriteBatch(getCamera());
 
     // additional updates
     for (int i = 0; i < additionalSystems->elementCount; i++){

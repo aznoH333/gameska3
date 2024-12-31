@@ -126,7 +126,7 @@ void drawSprite(struct DrawData* data){
 
 void drawSpriteBatch(Camera2D* camera){
     BeginTextureMode(renderTexture);
-    ClearBackground(WHITE);
+    ClearBackground(BLACK);
     
     BeginDrawing();
     BeginMode2D(*camera);

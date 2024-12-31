@@ -1,4 +1,4 @@
-#include "game/entities/player.h"
+#include "player.h"
 #include "gameLib/gamelibInclude.h"
 #include "stdlib.h"
 #include "game/systemsInclude.h"
@@ -66,5 +66,9 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     // update position
     this->x += data->xVelocity * PLAYER_SPEED_MULTIPLIER;
     this->y += data->yVelocity * PLAYER_SPEED_MULTIPLIER;
+
+
+    // camera follow
+    setCameraTarget(this->x, this->y);
 
 }
