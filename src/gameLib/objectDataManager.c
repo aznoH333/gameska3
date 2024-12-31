@@ -25,7 +25,7 @@ int ObjectDataManagerAdd(void* data){
 
 void ObjectDataManagerRemove(int index){
     int* key = malloc(sizeof(int));
-    *key = elementIdCounter;
+    *key = index;
     Pair* value = MapGet(objectDataStorage, key);
     MapRemove(objectDataStorage, key);
     free(value->first);

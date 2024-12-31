@@ -34,7 +34,7 @@ void ProjectileUpdate(WorldObject* this, ProjectileData* data){
 
     // collisions
     if (collidesWithTerrain(this->x, this->y, this->width, this->height)){
-        // TODO : delete
+        this->state = OBJECT_STATE_DESTROY;
     }
     
 }

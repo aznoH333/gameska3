@@ -8,6 +8,7 @@
 #include "objectDataManager.h"
 #include "genericComparisons.h"
 #include "debug.h"
+#include "objectLifecycleOrchestrator.h"
 
 Map* worldObjects;
 int keyIterator;
@@ -54,6 +55,13 @@ void WorldObjectManagerUpdate(){
             ObjectController* controller = ObjectControllerManagerGet(object->controllerId);
 
             controller->objectUpdate(object, body);
+        }
+
+
+        if (object->state != OBJECT_STATE_NORMAL){
+            GameObjectRemove(object->id);
+            i--;
+            continue;
         }
     }
 }

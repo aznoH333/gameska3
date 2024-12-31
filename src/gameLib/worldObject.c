@@ -14,6 +14,7 @@ WorldObject* InitWorldObject(float x, float y, float width, float height){
     this->dataId = UNDEFINED;
     this->rotation = 0;
     this->layer = 0;
+    this->state = OBJECT_STATE_NORMAL;
 
     return this;
 }

@@ -3,6 +3,7 @@
 #include "objectDataManager.h"
 #include "objectControllerManager.h"
 #include "memoryMacros.h"
+#include "debug.h"
 
 
 void GameObjectCreate(WorldObject* body, ObjectController* mind, void* soul){
@@ -20,9 +21,12 @@ void GameObjectCreate(WorldObject* body, ObjectController* mind, void* soul){
 
 void GameObjectRemove(int objectId){
     WorldObject* object = WorldObjectManagerGet(objectId);
+
     if (object->dataId != UNDEFINED){
         ObjectDataManagerRemove(object->dataId);
     }
+
     WorldObjectManagerRemove(objectId);
+
 
 }
