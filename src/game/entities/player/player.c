@@ -3,6 +3,7 @@
 #include "stdlib.h"
 #include "game/systemsInclude.h"
 #include "math.h"
+#include "game/entities/projectiles/projectile.h"
 
 void PlayerUpdate(WorldObject* this, PlayerData* data);
 
@@ -18,6 +19,7 @@ void PlayerInit(float x, float y){
     PlayerData* data = malloc(sizeof(PlayerData));
     data->xVelocity = 0;
     data->yVelocity = 0;
+    data->fireCooldown = 0;
 
 
     GameObjectCreate(playerWorldObject, controller, data);
@@ -73,14 +75,28 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     // camera follow
     setCameraTarget(this->x, this->y);
 
+    // TODO: dashing
 
 
+    
     // gun
     // temp
     float gunDirection = directionTowards(this->x + (this->width / 2), this->y + (this->height / 2), getInWorldMousePositionX(), getInWorldMousePositionY());
     float gunX = this->x + (cos(gunDirection) * GUN_OFFSET * 1.25f);
     float gunY = this->y + (sin(gunDirection) * GUN_OFFSET);
+    float bulletOriginX = gunX + (cos(gunDirection) * 24);
+    float bulletOriginY = gunY + (sin(gunDirection) * 24);
+    
+
+    data->fireCooldown -= data->fireCooldown > 0;
+
+    if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && data->fireCooldown == 0){
+        ProjectileInit(bulletOriginX, bulletOriginY, gunDirection, 8);
+        data->fireCooldown = 10;
+    }
 
     spriteDraw("debug_gun", gunX, gunY, FLIP_NONE, gunDirection, 1.0f, 1.0f, WHITE, 1, false);
+
+
 
 }

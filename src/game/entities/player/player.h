@@ -6,6 +6,7 @@ struct PlayerData{
 
     float xVelocity;
     float yVelocity;
+    int fireCooldown;
 
 }; typedef struct PlayerData PlayerData;
 
