@@ -29,15 +29,13 @@ void WorldObjectManagerUpdate(){
     for (int i = 0; i < worldObjects->values->elementCount; i++){
         WorldObject* object = ((Pair*)VectorGet(worldObjects->values, i))->second;
 
-        // TODO: rotation
         // TODO: flipping
         // TODO: width
         // TODO: height
         // TODO: color
-        // TODO: layers
 
         if (object->spriteIndex != UNDEFINED){
-            spriteDrawIndexed(object->spriteIndex, object->x, object->y, FLIP_NONE, 0.0f, 1.0f, 1.0f, WHITE, 0, false);
+            spriteDrawIndexed(object->spriteIndex, object->x, object->y, FLIP_NONE, object->rotation, 1.0f, 1.0f, WHITE, object->layer, false);
         }
 
         void* body = UNDEFINED;

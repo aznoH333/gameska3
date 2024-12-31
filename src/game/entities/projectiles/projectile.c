@@ -7,8 +7,11 @@ void ProjectileUpdate(WorldObject* this, ProjectileData* data);
 
 void ProjectileInit(float x, float y, float direction, float velocity){
     // init gameobject
-    WorldObject* playerWorldObject = InitWorldObject(x, y, 32, 32);
-    playerWorldObject->spriteIndex = getSpriteIndex("debug_bullet");
+    WorldObject* worldObject = InitWorldObject(x, y, 32, 32);
+    worldObject->spriteIndex = getSpriteIndex("debug_bullet");
+    worldObject->layer = 0;
+    worldObject->rotation = direction;
+    
 
     // controller
     ObjectController* controller = ObjectControllerInit();
@@ -19,7 +22,7 @@ void ProjectileInit(float x, float y, float direction, float velocity){
     data->velocity = velocity;
 
 
-    GameObjectCreate(playerWorldObject, controller, data);
+    GameObjectCreate(worldObject, controller, data);
 }
 
 
@@ -27,6 +30,7 @@ void ProjectileUpdate(WorldObject* this, ProjectileData* data){
     // update
     this->x += cos(data->direction) * data->velocity;
     this->y += sin(data->direction) * data->velocity;
+    this->rotation = data->direction;
 
     // collisions
     if (collidesWithTerrain(this->x, this->y, this->width, this->height)){

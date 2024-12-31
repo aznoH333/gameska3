@@ -10,6 +10,8 @@ struct WorldObject{
     float width;
     float height;
     int id;
+    float rotation;
+    float layer;
 }; typedef struct WorldObject WorldObject ;
 
 

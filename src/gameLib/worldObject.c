@@ -12,6 +12,8 @@ WorldObject* InitWorldObject(float x, float y, float width, float height){
     this->controllerId = UNDEFINED;
     this->spriteIndex = UNDEFINED;
     this->dataId = UNDEFINED;
+    this->rotation = 0;
+    this->layer = 0;
 
     return this;
 }
