@@ -6,6 +6,9 @@
 void resetCamera();
 void setCameraTarget(float x, float y);
 Camera2D* getCamera();
+float getInWorldMousePositionX();
+float getInWorldMousePositionY();
+
 
 
 #endif

@@ -21,3 +21,13 @@ Camera2D* getCamera(){
     return &camera;
 }
 
+
+float getInWorldMousePositionX(){
+    return (GetMouseX() / camera.zoom) + camera.target.x - (camera.offset.x / camera.zoom);
+}
+
+
+float getInWorldMousePositionY(){
+    return (GetMouseY() / camera.zoom) + camera.target.y - (camera.offset.y / camera.zoom);
+}
+

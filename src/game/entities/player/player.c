@@ -71,4 +71,10 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     // camera follow
     setCameraTarget(this->x, this->y);
 
+
+
+    // gun
+    // temp
+    spriteDrawBasic("debug_gun", getInWorldMousePositionX(), getInWorldMousePositionY(), FLIP_NONE, 1);
+
 }
