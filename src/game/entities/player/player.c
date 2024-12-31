@@ -2,6 +2,7 @@
 #include "gameLib/gamelibInclude.h"
 #include "stdlib.h"
 #include "game/systemsInclude.h"
+#include "math.h"
 
 void PlayerUpdate(WorldObject* this, PlayerData* data);
 
@@ -25,6 +26,7 @@ void PlayerInit(float x, float y){
 
 #define PLAYER_SPEED_MULTIPLIER 2.0f
 #define PLAYER_SPEED_BUILDUP 0.07f
+#define GUN_OFFSET 23.0f
 
 void PlayerUpdate(WorldObject* this, PlayerData* data){
     
@@ -75,8 +77,10 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
 
     // gun
     // temp
-    float gunDirection = directionTowards(this->x, this->y, getInWorldMousePositionX(), getInWorldMousePositionY());
-    spriteDrawBasic("debug_gun", getInWorldMousePositionX(), getInWorldMousePositionY(), FLIP_NONE, 1);
-    spriteDraw("debug_gun", this->x, this->y, FLIP_NONE, gunDirection, 1.0f, 1.0f, WHITE, 1, false);
+    float gunDirection = directionTowards(this->x + (this->width / 2), this->y + (this->height / 2), getInWorldMousePositionX(), getInWorldMousePositionY());
+    float gunX = this->x + (cos(gunDirection) * GUN_OFFSET * 1.25f);
+    float gunY = this->y + (sin(gunDirection) * GUN_OFFSET);
+
+    spriteDraw("debug_gun", gunX, gunY, FLIP_NONE, gunDirection, 1.0f, 1.0f, WHITE, 1, false);
 
 }
