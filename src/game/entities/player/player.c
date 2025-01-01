@@ -85,7 +85,7 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     // camera follow
     setCameraTarget(this->x, this->y);
 
-
+    // TODO : tweak dashing
     
     // gun
     bool isReloading = data->reloadTimer > 0;
@@ -96,6 +96,10 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     float bulletOriginY = gunY + (sin(gunDirection) * 24);
     
     data->fireCooldown -= data->fireCooldown > 0;
+    int flipGun = FLIP_Y;
+    if (gunDirection < PI/2 && gunDirection > -PI/2){
+        flipGun = FLIP_NONE;
+    }    
 
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && data->fireCooldown == 0 && !isReloading){
         if (data->ammoCount > 0){
@@ -109,7 +113,7 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
         }
     }
 
-    if (IsKeyPressed(KEY_R) && !isReloading){
+    if (IsKeyPressed(KEY_R) && !isReloading && data->ammoCount < 10){
         data->reloadTimer = 30;
         // TODO : reload sound effect
     }
@@ -124,7 +128,7 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
         }
     }
 
-    spriteDraw("debug_gun", gunX, gunY, FLIP_NONE, gunDirection, 1.0f, 1.0f, WHITE, 1, false);
+    spriteDraw("debug_gun", gunX, gunY, flipGun, gunDirection, 1.0f, 1.0f, WHITE, 1, false);
 
 
 

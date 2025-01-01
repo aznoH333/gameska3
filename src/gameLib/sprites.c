@@ -7,6 +7,7 @@
 #include "vector.h"
 #include "screenUtils.h"
 #include "stringUtils.h"
+#include "numberUtils.h"
 
 struct DrawData{
     int spriteIndex;
@@ -120,9 +121,13 @@ void drawSprite(struct DrawData* data){
     Texture2D* texture = &textureAtlas[data->spriteIndex].texture;
     float originOffsetX = (texture->width * data->width) / 2;
     float originOffsetY = (texture->height * data->height) / 2;
+
+    bool flipX = data->flip == FLIP_X || data->flip == FLIP_BOTH;
+    bool flipY = data->flip == FLIP_Y || data->flip == FLIP_BOTH;
+
     
     DrawTexturePro(*texture, 
-    (Rectangle){0, 0, texture->width, texture->height}, 
+    (Rectangle){0, 0, texture->width * boolToSign(!flipX), texture->height * boolToSign(!flipY)}, 
     (Rectangle){data->x + originOffsetX, data->y + originOffsetY, textureAtlas[data->spriteIndex].texture.width * data->width, textureAtlas[data->spriteIndex].texture.height * data->height}, 
     (Vector2) {originOffsetX, originOffsetY}, data->rotation * RAD2DEG, data->color);
 

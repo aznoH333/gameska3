@@ -33,3 +33,8 @@ float sign(float input){
     return (input > 0) + (input >= 0) - 1; 
 }
 
+
+int boolToSign(bool input){
+    return input * 2 - 1;
+}
+
