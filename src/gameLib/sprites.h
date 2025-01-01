@@ -12,6 +12,12 @@ enum SpriteFlip {
 };
 typedef enum SpriteFlip SpriteFlip ;
 
+enum ShaderType{
+    SHADER_FRAGMENT,
+    SHADER_VERTEX
+}; 
+typedef enum ShaderType ShaderType ;
+
 
 void spritesLoadAll();
 void spritesUnloadAll();
@@ -21,5 +27,6 @@ void spriteDrawIndexed(int spriteIndex, float x, float y, SpriteFlip flip, float
 int getSpriteIndex(const char* spriteName);
 void spriteDrawBasic(const char* spriteName, float x, float y, SpriteFlip flip, int layer);
 void drawSpriteBatch(Camera2D* camera);
+void registerShader(const char* shaderPath, ShaderType shaderType);
 
 #endif

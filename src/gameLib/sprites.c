@@ -35,7 +35,7 @@ struct TexturePair textureAtlas[MAX_LOADED_TEXTURES];
 Vector* drawQueue[MAX_SUPPORTED_LAYERS];
 Vector* staticDrawQueue[MAX_SUPPORTED_LAYERS];
 RenderTexture2D renderTexture;
-
+Vector* loadedShaders;
 int loadedTextures;
 
 
@@ -75,6 +75,9 @@ void spritesLoadAll(){
 
     // render texture
     renderTexture = LoadRenderTexture(getWindowWidth(), getWindowHeight());
+
+    // shaders
+    loadedShaders = VectorInit();
 }
 
 
@@ -93,6 +96,14 @@ void spritesUnloadAll(){
 
     // unload render texture
     UnloadRenderTexture(renderTexture);
+
+
+    // unload shaders
+    for (int i = 0; i < loadedShaders->elementCount; i++){
+        Shader* shader = VectorGet(loadedShaders, i);
+        UnloadShader(*shader);
+        free(shader);
+    }
 }
 
 
@@ -140,6 +151,11 @@ void drawSpriteBatch(Camera2D* camera){
     ClearBackground(BLACK);
     
     BeginDrawing();
+    // start shaders
+    for (int i = 0; i < loadedShaders->elementCount; i++){
+        BeginShaderMode(*((Shader*)VectorGet(loadedShaders, i)));
+    }
+
     BeginMode2D(*camera);
 
     // normal sprites
@@ -164,6 +180,10 @@ void drawSpriteBatch(Camera2D* camera){
         VectorClear(staticDrawQueue[i]);
     }
 
+    // end shaders
+    for (int i = 0; i < loadedShaders->elementCount; i++){
+        EndShaderMode();
+    }
     EndTextureMode();
     
     BeginDrawing();
@@ -205,4 +225,24 @@ void spriteDrawIndexed(int spriteIndex, float x, float y, SpriteFlip flip, float
 
 int getSpriteIndex(const char* spriteName){
     return findSpriteIndex(spriteName);
+}
+
+
+void registerShader(const char* shaderPath, ShaderType shaderType){
+    Shader shader;
+
+    switch (shaderType) {
+        case SHADER_FRAGMENT:
+            shader = LoadShader(0, shaderPath);
+            break;
+        case SHADER_VERTEX:
+            shader = LoadShader(shaderPath, 0);
+            break;
+    }
+
+    Shader* s = malloc(sizeof(shader));
+    s->id = shader.id;
+    s->locs = shader.locs;
+
+    VectorAdd(loadedShaders, s);
 }

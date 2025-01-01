@@ -24,6 +24,7 @@ int main(int argc, char **argv)
 
     // system init
     gameLibRegisterAdditionalSystem(&terrainUpdate);
+    registerShader("resources/shaders/testShader.fs", SHADER_FRAGMENT);
 
     // temporary initialization
     PlayerInit(128, 128);
