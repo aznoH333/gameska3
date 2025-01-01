@@ -8,15 +8,14 @@
 #include "camera.h"
 
 
-Camera2D cam;
+unsigned int timer;
 Vector* additionalSystems;
 
 
 void gameLibInit(){
     spritesLoadAll();
     additionalSystems = VectorInit();
-    cam.target = (Vector2){0, 0};
-    cam.zoom = 3.0f;
+    timer = 0;
 
     WorldObjectManagerInit();
     ObjectControllerManagerInit();
@@ -42,10 +41,18 @@ void gameLibRegisterAdditionalSystem(void (*systemUpdateFunction)()){
 
 void gameLibUpdate(){
     WorldObjectManagerUpdate();
+    updateCamera();
     drawSpriteBatch(getCamera());
 
     // additional updates
     for (int i = 0; i < additionalSystems->elementCount; i++){
         ((void (*)())VectorGet(additionalSystems, i))();
     }
+
+    timer++;
 }
+
+unsigned int getGlobalTimer(){
+    return timer;
+}
+

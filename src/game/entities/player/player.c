@@ -26,7 +26,7 @@ void PlayerInit(float x, float y){
 }
 
 
-#define PLAYER_SPEED_MULTIPLIER 2.0f
+#define PLAYER_SPEED_MULTIPLIER 3.5f
 #define PLAYER_SPEED_BUILDUP 0.07f
 #define GUN_OFFSET 23.0f
 
@@ -93,6 +93,7 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && data->fireCooldown == 0){
         ProjectileInit(bulletOriginX, bulletOriginY, gunDirection, 8);
         data->fireCooldown = 10;
+        addScreenshake(5.0f);
     }
 
     spriteDraw("debug_gun", gunX, gunY, FLIP_NONE, gunDirection, 1.0f, 1.0f, WHITE, 1, false);
