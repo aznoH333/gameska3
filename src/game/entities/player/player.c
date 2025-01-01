@@ -20,6 +20,7 @@ void PlayerInit(float x, float y){
     data->xVelocity = 0;
     data->yVelocity = 0;
     data->fireCooldown = 0;
+    data->dashCooldown = 0;
 
 
     GameObjectCreate(playerWorldObject, controller, data);
@@ -32,6 +33,14 @@ void PlayerInit(float x, float y){
 
 void PlayerUpdate(WorldObject* this, PlayerData* data){
     
+    // dashing
+    if (IsKeyPressed(KEY_SPACE) && data->dashCooldown == 0 && (fabs(data->xVelocity) > 0.1f || fabs(data->yVelocity) > 0.1f)){
+        data->dashCooldown = 65;
+        float dashDirection = directionTowards(0, 0, data->xVelocity, data->yVelocity);
+        data->xVelocity = cos(dashDirection) * 2.5f;
+        data->yVelocity = sin(dashDirection) * 2.5f;
+    }
+    data->dashCooldown -= data->dashCooldown > 0;
 
 
     // movement input
@@ -75,19 +84,17 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     // camera follow
     setCameraTarget(this->x, this->y);
 
-    // TODO: dashing
 
-
+    // TODO : gun ammo
+    // TODO : gun reloading
     
     // gun
-    // temp
     float gunDirection = directionTowards(this->x + (this->width / 2), this->y + (this->height / 2), getInWorldMousePositionX(), getInWorldMousePositionY());
     float gunX = this->x + (cos(gunDirection) * GUN_OFFSET * 1.25f);
     float gunY = this->y + (sin(gunDirection) * GUN_OFFSET);
     float bulletOriginX = gunX + (cos(gunDirection) * 24);
     float bulletOriginY = gunY + (sin(gunDirection) * 24);
     
-
     data->fireCooldown -= data->fireCooldown > 0;
 
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && data->fireCooldown == 0){

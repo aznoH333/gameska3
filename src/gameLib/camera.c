@@ -21,8 +21,8 @@ void resetCamera(){
 
 
 void updateCamera(){
-    float finalX = cameraX + (cos(screenShake + getGlobalTimer()) * fmin(screenShake * 0.75f, MAX_SCREEN_SHAKE_OFFSET));
-    float finalY = cameraY + (sin(screenShake + getGlobalTimer()) * fmin(screenShake * 0.75f, MAX_SCREEN_SHAKE_OFFSET));
+    float finalX = cameraX + (cos(screenShake + getGlobalTimer()) * fmin(screenShake * 0.65f, MAX_SCREEN_SHAKE_OFFSET));
+    float finalY = cameraY + (sin(screenShake + getGlobalTimer()) * fmin(screenShake * 0.65f, MAX_SCREEN_SHAKE_OFFSET));
 
     camera.target.x = finalX;
     camera.target.y = finalY;
