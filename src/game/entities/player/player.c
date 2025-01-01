@@ -35,9 +35,20 @@ void PlayerInit(float x, float y){
 void PlayerUpdate(WorldObject* this, PlayerData* data){
     
     // dashing
-    if (IsKeyPressed(KEY_SPACE) && data->dashCooldown == 0 && (fabs(data->xVelocity) > 0.1f || fabs(data->yVelocity) > 0.1f)){
+    float dashXVel = (IsKeyDown(KEY_A) * -1) + (IsKeyDown(KEY_D));
+    float dashYVel = (IsKeyDown(KEY_W) * -1) + (IsKeyDown(KEY_S));
+
+    if (dashXVel == 0){
+        dashXVel = data->xVelocity;
+    }
+
+    if (dashYVel == 0){
+        dashYVel = data->yVelocity;
+    }
+
+    if (IsKeyPressed(KEY_SPACE) && data->dashCooldown == 0 && (fabs(dashXVel) > 0.1f || fabs(dashYVel) > 0.1f)){
         data->dashCooldown = 65;
-        float dashDirection = directionTowards(0, 0, data->xVelocity, data->yVelocity);
+        float dashDirection = directionTowards(0, 0, dashXVel, dashYVel);
         data->xVelocity = cos(dashDirection) * 2.5f;
         data->yVelocity = sin(dashDirection) * 2.5f;
     }
@@ -85,8 +96,6 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     // camera follow
     setCameraTarget(this->x, this->y);
 
-    // TODO : tweak dashing
-    
     // gun
     bool isReloading = data->reloadTimer > 0;
     float gunDirection = directionTowards(this->x + (this->width / 2), this->y + (this->height / 2), getInWorldMousePositionX(), getInWorldMousePositionY());
