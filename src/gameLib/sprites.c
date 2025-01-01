@@ -240,6 +240,10 @@ void registerShader(const char* shaderPath, ShaderType shaderType){
             break;
     }
 
+    if (!IsShaderReady(shader)){
+        crashMessage("failed to load shader [%s]", shaderPath);
+    }
+
     Shader* s = malloc(sizeof(shader));
     s->id = shader.id;
     s->locs = shader.locs;
