@@ -21,7 +21,8 @@ void PlayerInit(float x, float y){
     data->yVelocity = 0;
     data->fireCooldown = 0;
     data->dashCooldown = 0;
-
+    data->ammoCount = 10;
+    data->reloadTimer = 0;
 
     GameObjectCreate(playerWorldObject, controller, data);
 }
@@ -85,10 +86,9 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     setCameraTarget(this->x, this->y);
 
 
-    // TODO : gun ammo
-    // TODO : gun reloading
     
     // gun
+    bool isReloading = data->reloadTimer > 0;
     float gunDirection = directionTowards(this->x + (this->width / 2), this->y + (this->height / 2), getInWorldMousePositionX(), getInWorldMousePositionY());
     float gunX = this->x + (cos(gunDirection) * GUN_OFFSET * 1.25f);
     float gunY = this->y + (sin(gunDirection) * GUN_OFFSET);
@@ -97,10 +97,31 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     
     data->fireCooldown -= data->fireCooldown > 0;
 
-    if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && data->fireCooldown == 0){
-        ProjectileInit(bulletOriginX, bulletOriginY, gunDirection, 8);
-        data->fireCooldown = 10;
-        addScreenshake(5.0f);
+    if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && data->fireCooldown == 0 && !isReloading){
+        if (data->ammoCount > 0){
+            ProjectileInit(bulletOriginX, bulletOriginY, gunDirection, 8);
+            data->fireCooldown = 10;
+            addScreenshake(5.0f);
+            data->ammoCount--;
+            // TODO : shoot sound effect
+        }else {
+            // TODO : click sound effect
+        }
+    }
+
+    if (IsKeyPressed(KEY_R) && !isReloading){
+        data->reloadTimer = 30;
+        // TODO : reload sound effect
+    }
+
+    data->reloadTimer -= data->reloadTimer > 0;
+    // gun spin animation
+    if (isReloading){
+        gunDirection -= (data->reloadTimer / 30.0f) * (PI * 2);
+        if (data->reloadTimer == 1){
+            // TODO : click sound effect
+            data->ammoCount = 10;
+        }
     }
 
     spriteDraw("debug_gun", gunX, gunY, FLIP_NONE, gunDirection, 1.0f, 1.0f, WHITE, 1, false);

@@ -8,6 +8,8 @@ struct PlayerData{
     float yVelocity;
     int fireCooldown;
     int dashCooldown;
+    unsigned int ammoCount;
+    unsigned int reloadTimer;
 
 }; typedef struct PlayerData PlayerData;
 
