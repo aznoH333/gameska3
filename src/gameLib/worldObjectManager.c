@@ -1,6 +1,7 @@
 #include "worldObjectManager.h"
 
 #include <stdlib.h>
+#include "objectController.h"
 #include "sprites.h"
 #include "map.h"
 #include "memoryMacros.h"
@@ -60,14 +61,20 @@ void WorldObjectManagerUpdate(){
 
         if (object->state != OBJECT_STATE_NORMAL){
             
-            if (object->state != OBJECT_STATE_HIDDEN_DESTROY && object->controllerId != UNDEFINED){
-                ObjectController* controller = ObjectControllerManagerGet(object->controllerId);
+            ObjectController* controller = UNDEFINED;
+            if (object->controllerId != UNDEFINED){
+                controller = ObjectControllerManagerGet(object->controllerId);
+            }
 
-                if (controller->objectDestroy != UNDEFINED){
-                    controller->objectDestroy(object, body);
-                }
+            if (object->state != OBJECT_STATE_HIDDEN_DESTROY && object->controllerId != UNDEFINED && controller->objectDestroy != UNDEFINED){
+                controller->objectDestroy(object, body);
+            }
+
+            if (controller != UNDEFINED && controller->objectCleanUp != UNDEFINED){
+                controller->objectCleanUp(object, body);
             }
             
+
             GameObjectRemove(object->id);
             i--;
             continue;

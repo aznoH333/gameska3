@@ -138,7 +138,4 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     }
 
     spriteDraw("debug_gun", gunX, gunY, flipGun, gunDirection, 1.0f, 1.0f, WHITE, 1, false);
-
-
-
 }

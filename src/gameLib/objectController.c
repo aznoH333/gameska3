@@ -10,6 +10,7 @@ ObjectController* ObjectControllerInit(){
     this->objectCollide = UNDEFINED;
     this->objectDestroy = UNDEFINED;
     this->objectUpdate = UNDEFINED;
+    this->objectCleanUp = UNDEFINED;
 
     return this;
 }
