@@ -2,8 +2,11 @@
 #include "gameLib/gamelibInclude.h"
 #include "math.h"
 #include "game/systemsInclude.h"
+#include "game/gameEnums/enumsInclude.h"
 
 void ProjectileUpdate(WorldObject* this, ProjectileData* data);
+void ProjectileCollide(WorldObject* this, ProjectileData* data, WorldObject* other);
+
 
 void ProjectileInit(float x, float y, float direction, float velocity, int objectTag){
     // init gameobject
@@ -16,6 +19,7 @@ void ProjectileInit(float x, float y, float direction, float velocity, int objec
     // controller
     ObjectController* controller = ObjectControllerInit();
     controller->objectUpdate = (void (*)(WorldObject *, void *))&ProjectileUpdate;
+    controller->objectCollide = (ControllerCollideFunction)&ProjectileCollide;
 
     ProjectileData* data = malloc(sizeof(ProjectileData));
     data->direction = direction;
@@ -37,4 +41,11 @@ void ProjectileUpdate(WorldObject* this, ProjectileData* data){
         this->state = OBJECT_STATE_DESTROY;
     }
     
+}
+
+void ProjectileCollide(WorldObject* this, ProjectileData* data, WorldObject* other){
+    if (other->objectTag == OBJECT_TAG_ENEMY){
+        this->state = OBJECT_STATE_DESTROY;
+        // TODO : deal damage
+    }
 }

@@ -82,7 +82,6 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     this->x += data->xVelocity * PLAYER_SPEED_MULTIPLIER;
 
 
-
     float yCollisionCheck = this->y + (data->yVelocity * PLAYER_SPEED_MULTIPLIER);
     if (collidesWithTerrain(this->x, yCollisionCheck, this->width, this->height)){
         data->yVelocity = 0;

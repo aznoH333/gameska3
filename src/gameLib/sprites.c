@@ -55,7 +55,6 @@ void spritesLoadAll(){
         char* textureFileName = StringSubstring(path, indexOf + 1, StringLength(path) - indexOf);
         char* textureName = StringSubstring(textureFileName, 0, StringIndexOf(textureFileName, "."));
         
-        debugMessage("Loaded texture [%s] with name [%s]", VectorGet(spritePaths, i), textureName);
         
         textureAtlas[i] = (struct TexturePair){textureName, LoadTexture(VectorGet(spritePaths, i))};
 
@@ -83,7 +82,6 @@ void spritesLoadAll(){
 
 void spritesUnloadAll(){
     for (int i = 0; i < loadedTextures; i++){
-        debugMessage("unloading texture [%s]", textureAtlas[i].name);
         UnloadTexture(textureAtlas[i].texture);
         free(textureAtlas[i].name);
     }

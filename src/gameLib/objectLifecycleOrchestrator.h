@@ -8,6 +8,7 @@ void GameObjectCreate(WorldObject* body, ObjectController* mind, void* soul);
 void GameObjectRemove(int objectId);
 
 #define ControllerUpdateFunction void (*)(WorldObject*, void*)
+#define ControllerCollideFunction void (*)(WorldObject*, void*, WorldObject*) 
 
 
 #endif

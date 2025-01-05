@@ -37,7 +37,6 @@ void ObjectDataManagerRemove(int index){
 
 void* ObjectDataManagerGet(int index){
     initHeapVariable(int, key, index);
-    debugMessage("val %d", key);
     Pair* value = MapGet(objectDataStorage, key);
 
     free(key);

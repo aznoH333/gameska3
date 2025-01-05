@@ -12,6 +12,7 @@
 #include "debug.h"
 #include "objectLifecycleOrchestrator.h"
 #include "worldObject.h"
+#include "worldSpaceUtils.h"
 
 Map* worldObjects;
 int keyIterator;
@@ -47,13 +48,12 @@ void WorldObjectManagerUpdate(){
             body = ObjectDataManagerGet(object->dataId);
         }
 
-        debugMessage("body id [%d] body prt [%p]", object->dataId, body);
 
 
-
+        ObjectController* controller = UNDEFINED;
         if (object->controllerId != UNDEFINED){
             // update
-            ObjectController* controller = ObjectControllerManagerGet(object->controllerId);
+            controller = ObjectControllerManagerGet(object->controllerId);
 
             controller->objectUpdate(object, body);
         }
@@ -61,7 +61,6 @@ void WorldObjectManagerUpdate(){
 
         if (object->state != OBJECT_STATE_NORMAL){
             
-            ObjectController* controller = UNDEFINED;
             if (object->controllerId != UNDEFINED){
                 controller = ObjectControllerManagerGet(object->controllerId);
             }
@@ -79,6 +78,22 @@ void WorldObjectManagerUpdate(){
             i--;
             continue;
         }
+
+
+
+        // collisions
+        for (int j = 0; j < worldObjects->values->elementCount; j++){
+            if (i == j){
+                continue;
+            }
+
+            WorldObject* other = ((Pair*)VectorGet(worldObjects->values, j))->second;
+
+            if (controller != UNDEFINED && controller->objectCollide != UNDEFINED &&
+                squaresCollide(object->x, object->y, object->width, object->height, other->x, other->y, other->width, other->height)){
+                controller->objectCollide(object, body, other);
+            }
+        }
     }
 }
 
@@ -91,7 +106,6 @@ WorldObject* WorldObjectManagerGetClosestObjectInRange(WorldObject* searchingObj
         WorldObject* obj = ((Pair*)VectorGet(worldObjects->values, i))->second;
 
         float distance = distanceTo(searchingObject->x, searchingObject->y, obj->x, obj->y);
-        debugMessage("tag[%d], obj[%d], distance[%d], maxdistance[%d]", targetTag, obj->objectTag, distance, maxTargetDistance);
 
         if (obj->objectTag == targetTag && (distance < maxTargetDistance || maxTargetDistance == UNDEFINED)){
 
