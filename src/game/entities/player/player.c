@@ -73,24 +73,24 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
         data->yVelocity = limitedIncrement(data->yVelocity, 1.0f, PLAYER_SPEED_BUILDUP);
     }
 
-
+    // update position
     // terrain collisions
     float xCollisionCheck = this->x + (data->xVelocity * PLAYER_SPEED_MULTIPLIER);
     if (collidesWithTerrain(xCollisionCheck, this->y, this->width, this->height)){
         data->xVelocity = 0;
     }
+    this->x += data->xVelocity * PLAYER_SPEED_MULTIPLIER;
+
 
 
     float yCollisionCheck = this->y + (data->yVelocity * PLAYER_SPEED_MULTIPLIER);
     if (collidesWithTerrain(this->x, yCollisionCheck, this->width, this->height)){
         data->yVelocity = 0;
     }
-
-
-
-    // update position
-    this->x += data->xVelocity * PLAYER_SPEED_MULTIPLIER;
     this->y += data->yVelocity * PLAYER_SPEED_MULTIPLIER;
+
+
+
 
 
     // camera follow
