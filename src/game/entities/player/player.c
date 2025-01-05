@@ -4,12 +4,13 @@
 #include "game/systemsInclude.h"
 #include "math.h"
 #include "game/entities/projectiles/projectile.h"
+#include "game/gameEnums/enumsInclude.h"
 
 void PlayerUpdate(WorldObject* this, PlayerData* data);
 
 void PlayerInit(float x, float y){
     // init gameobject
-    WorldObject* playerWorldObject = InitWorldObject(x, y, 32, 32);
+    WorldObject* playerWorldObject = InitWorldObjectT(x, y, 32, 32, OBJECT_TAG_PLAYER);
     playerWorldObject->spriteIndex = getSpriteIndex("debug_man");
 
     // controller
@@ -111,7 +112,7 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
 
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && data->fireCooldown == 0 && !isReloading){
         if (data->ammoCount > 0){
-            ProjectileInit(bulletOriginX, bulletOriginY, gunDirection, 8);
+            ProjectileInit(bulletOriginX, bulletOriginY, gunDirection, 8, OBJECT_TAG_PLAYER_PROJECTILE);
             data->fireCooldown = 10;
             addScreenshake(5.0f);
             data->ammoCount--;

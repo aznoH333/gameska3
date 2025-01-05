@@ -8,6 +8,6 @@ struct ProjectileData{
 typedef struct ProjectileData ProjectileData;
 
 
-void ProjectileInit(float x, float y, float direction, float velocity);
+void ProjectileInit(float x, float y, float direction, float velocity, int objectTag);
 
 #endif

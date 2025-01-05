@@ -1,12 +1,12 @@
 #include "enemy.h"
 #include <stdlib.h>
-
+#include "game/gameEnums/enumsInclude.h"
 
 void EnemyUpdate(WorldObject* this, EnemyData* data);
 void EnemyClean(WorldObject* this, EnemyData* data);
 
 WorldObject* GenericEnemyInit(float x, float y, float w, float h, int spriteIndex, EnemyType enemyType, void (*extraUpdate)(WorldObject* this, struct EnemyData* data, void* extraData), void* extraData){
-    WorldObject* body = InitWorldObject(x, y, w, h);
+    WorldObject* body = InitWorldObjectT(x, y, w, h, OBJECT_TAG_ENEMY);
     body->spriteIndex = spriteIndex;
     body->layer = 0;
     

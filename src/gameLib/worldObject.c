@@ -3,6 +3,11 @@
 #include "memoryMacros.h"
 
 WorldObject* InitWorldObject(float x, float y, float width, float height){
+    return InitWorldObjectT(x, y, width, height, UNDEFINED);
+}
+
+
+WorldObject* InitWorldObjectT(float x, float y, float width, float height, int objectTag){
     WorldObject* this = malloc(sizeof(WorldObject));
 
     this->x = x;
@@ -15,6 +20,7 @@ WorldObject* InitWorldObject(float x, float y, float width, float height){
     this->rotation = 0;
     this->layer = 0;
     this->state = OBJECT_STATE_NORMAL;
+    this->objectTag = objectTag;
 
     return this;
 }

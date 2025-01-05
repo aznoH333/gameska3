@@ -10,5 +10,6 @@ void WorldObjectManagerRemove(int id);
 void WorldObjectManagerUpdate();
 void WorldObjectManagerDispose();
 WorldObject* WorldObjectManagerGet(int id);
+WorldObject* WorldObjectManagerGetClosestObjectInRange(WorldObject* searchingObject, int targetTag, float maxTargetDistance);
 
 #endif

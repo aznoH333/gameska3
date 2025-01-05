@@ -30,7 +30,7 @@ int main(int argc, char **argv)
 
     // temporary initialization
     PlayerInit(128, 128);
-    InitEnemyGrunt(150, 128);
+    InitEnemyGrunt(250, 128);
     generateNewRoom();
 
     // TODO : object collisions

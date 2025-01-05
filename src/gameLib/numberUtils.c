@@ -1,4 +1,5 @@
 #include "numberUtils.h"
+#include <math.h>
 #include <stdint.h>
 #include "math.h"
 
@@ -38,3 +39,7 @@ int boolToSign(bool input){
     return input * 2 - 1;
 }
 
+
+float distanceTo(float x1, float y1, float x2, float y2){
+    return sqrtf(pow((x1-x2), 2) + pow(y1 - y2, 2));
+}

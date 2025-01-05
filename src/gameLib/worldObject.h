@@ -12,6 +12,7 @@ struct WorldObject{
     int spriteIndex;
     int controllerId;
     int dataId;
+    int objectTag;
     float x;
     float y;
     float width;
@@ -24,6 +25,8 @@ struct WorldObject{
 
 
 WorldObject* InitWorldObject(float x, float y, float width, float height);
+WorldObject* InitWorldObjectT(float x, float y, float width, float height, int objectTag);
+
 
 
 

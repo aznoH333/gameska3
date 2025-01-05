@@ -5,9 +5,9 @@
 
 void ProjectileUpdate(WorldObject* this, ProjectileData* data);
 
-void ProjectileInit(float x, float y, float direction, float velocity){
+void ProjectileInit(float x, float y, float direction, float velocity, int objectTag){
     // init gameobject
-    WorldObject* worldObject = InitWorldObject(x, y, 32, 32);
+    WorldObject* worldObject = InitWorldObjectT(x, y, 32, 32, objectTag);
     worldObject->spriteIndex = getSpriteIndex("debug_bullet");
     worldObject->layer = 0;
     worldObject->rotation = direction;

@@ -1,6 +1,7 @@
 #include "worldObjectManager.h"
 
 #include <stdlib.h>
+#include "numberUtils.h"
 #include "objectController.h"
 #include "sprites.h"
 #include "map.h"
@@ -10,6 +11,7 @@
 #include "genericComparisons.h"
 #include "debug.h"
 #include "objectLifecycleOrchestrator.h"
+#include "worldObject.h"
 
 Map* worldObjects;
 int keyIterator;
@@ -81,6 +83,30 @@ void WorldObjectManagerUpdate(){
 }
 
 
+WorldObject* WorldObjectManagerGetClosestObjectInRange(WorldObject* searchingObject, int targetTag, float maxTargetDistance){
+    WorldObject* closest = UNDEFINED;
+    float closestDistance = UNDEFINED;
+    
+    for (int i = 0; i < worldObjects->values->elementCount; i++){
+        WorldObject* obj = ((Pair*)VectorGet(worldObjects->values, i))->second;
+
+        float distance = distanceTo(searchingObject->x, searchingObject->y, obj->x, obj->y);
+        debugMessage("tag[%d], obj[%d], distance[%d], maxdistance[%d]", targetTag, obj->objectTag, distance, maxTargetDistance);
+
+        if (obj->objectTag == targetTag && (distance < maxTargetDistance || maxTargetDistance == UNDEFINED)){
+
+            if (closest == UNDEFINED || distance < closestDistance){
+                closest = obj;
+                closestDistance = distance;
+            }
+        }
+    }
+
+    return closest;
+}
+
+
+
 void WorldObjectManagerRemove(int id){
     initHeapVariable(int, key, id);
     MapRemove(worldObjects, key);
@@ -94,8 +120,6 @@ WorldObject* WorldObjectManagerGet(int id){
     free(key);
     return output;
 }
-
-
 
 
 void WorldObjectManagerDispose(){
