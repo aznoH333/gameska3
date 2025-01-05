@@ -33,7 +33,6 @@ void PlayerInit(float x, float y){
 #define GUN_OFFSET 23.0f
 
 void PlayerUpdate(WorldObject* this, PlayerData* data){
-    
     // dashing
     float dashXVel = (IsKeyDown(KEY_A) * -1) + (IsKeyDown(KEY_D));
     float dashYVel = (IsKeyDown(KEY_W) * -1) + (IsKeyDown(KEY_S));
@@ -54,7 +53,7 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     }
     data->dashCooldown -= data->dashCooldown > 0;
 
-
+    
     // movement input
     if (IsKeyDown(KEY_D) == IsKeyDown(KEY_A)){
         data->xVelocity = limitedIncrement(data->xVelocity, 0.0f, PLAYER_SPEED_BUILDUP);

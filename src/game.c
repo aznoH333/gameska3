@@ -1,7 +1,9 @@
 
+#include "game/entities/enemies/enemyGrunt.h"
 #include "gameLib/gamelibInclude.h"
 #include "game/entitiesInclude.h"
 #include "game/systemsInclude.h"
+#include "gameLib/sprites.h"
 
 
 int main(int argc, char **argv)
@@ -28,6 +30,7 @@ int main(int argc, char **argv)
 
     // temporary initialization
     PlayerInit(128, 128);
+    InitEnemyGrunt(150, 128);
     generateNewRoom();
 
     // TODO : object collisions
