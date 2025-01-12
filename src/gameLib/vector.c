@@ -68,3 +68,11 @@ void VectorFree(Vector* this){
     free(this->elements);
     free(this);
 }
+
+
+void VectorFreeValues(Vector* this){
+    for (int i = 0; i < this->elementCount; i++){
+        free(this->elements[i]);
+    }
+    VectorFree(this);
+}

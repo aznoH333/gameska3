@@ -1,7 +1,9 @@
 #include "terrainSystem.h"
 #include "gameLib/gamelibInclude.h"
 #include "math.h"
+#include <math.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #define WORLD_SIZE 32
 #define TILE_SIZE 32
@@ -16,7 +18,13 @@ void TerrainGenerateNewRoom(){
             collisionMap[x][y] = (x < DEBUG_BORDER || y < DEBUG_BORDER || x >= WORLD_SIZE - DEBUG_BORDER || y >= WORLD_SIZE - DEBUG_BORDER);
         }
     }
-    collisionMap[10][8] = 1;
+
+    for (int i = 10; i < 15; i++){
+        collisionMap[i][8] = 1;
+        collisionMap[8][i] = 1;
+        collisionMap[15][i - 1] = 1;
+
+    }
 }
 
 
@@ -52,7 +60,7 @@ void TerrainUpdate(){
     
 }
 
-#define JANK_LOS_DISTANCE 0.45f
+#define JANK_LOS_DISTANCE 0.25f
 bool TerrainCheckForLineOfSight(float x, float y, float w, float h, float targetX, float targetY){
     float direction = directionTowards(x, y, targetX, targetY);
     float distance = distanceTo(x, y, targetX, targetY);
@@ -70,3 +78,133 @@ bool TerrainCheckForLineOfSight(float x, float y, float w, float h, float target
     }
     return true;
 }
+
+
+struct PathFindingNode{
+    int x;
+    int y;
+    float pathFindingWeight;
+    float g;
+    float h;
+    struct PathFindingNode* predecesor;
+}; typedef struct PathFindingNode PathFindingNode ;
+
+
+PathFindingNode* PathFindingNodeInit(int x, int y, float f, float g, float h){
+    PathFindingNode* this = malloc(sizeof(PathFindingNode));
+    this->x = x;
+    this->y = y;
+    this->g = g;
+    this->h = h;
+    this->pathFindingWeight = f;
+    this->predecesor = UNDEFINED;
+    return this;
+}
+
+
+void attemptPathFindingNodeGeneration(int x, int y, int targetX, int targetY, Vector* closedNodes, Vector* openNodes, PathFindingNode* parent, PathFindingNode** goalNode){
+    if (collisionMap[x][y]){
+        return;
+    }
+
+    float g = parent->g + distanceTo(x, y, parent->x, parent->y);
+    float h = distanceTo(x, y, targetX, targetY);
+
+    PathFindingNode* successor = PathFindingNodeInit(x, y, h + g, g, h);
+    successor->predecesor = parent;
+    if (x == targetX && y == targetY){
+        *goalNode = successor;
+    }
+    // skip if a closer path exists
+    for (int i = 0; i < openNodes->elementCount; i++){
+        PathFindingNode* p = VectorGet(openNodes, i);
+        if (p->x == x && p->y == y && p->pathFindingWeight < successor->pathFindingWeight){
+            free(successor);
+            return;
+        }
+    }
+
+    // skip if already closed
+    for (int i = 0; i < closedNodes->elementCount; i++){
+        PathFindingNode* p = VectorGet(closedNodes, i);
+        if (p->x == x && p->y == y && p->pathFindingWeight < successor->pathFindingWeight){
+            free(successor);
+            return;
+        }
+    }
+
+    VectorAdd(openNodes, successor);
+}
+
+
+PathFindingOutput TerrainPathFindTowards(float x, float y, float targetX, float targetY){
+    // find start location
+    int startX = roundf(x / TILE_SIZE);
+    int startY = roundf(y / TILE_SIZE);
+
+    int goalX = roundf(targetX / TILE_SIZE);
+    int goalY = roundf(targetY / TILE_SIZE);
+
+    Vector* openNodes = VectorInit();
+    Vector* closedNodes = VectorInit();
+
+    VectorAdd(openNodes, PathFindingNodeInit(startX, startY, 0.0f, 0.0f, 0.0f));
+    PathFindingNode* goalNode = UNDEFINED;
+
+    while (openNodes->elementCount != 0){
+        // find node with lowest f
+        PathFindingNode* q = UNDEFINED;
+        int qIndex = UNDEFINED;
+        for (int i = 0; i < openNodes->elementCount; i++){
+            PathFindingNode* node = VectorGet(openNodes, i);
+            if (q == UNDEFINED || node->pathFindingWeight < q->pathFindingWeight){
+                q = node;
+                qIndex = i;
+            }
+        }
+        VectorRemove(openNodes, qIndex);
+        VectorAdd(closedNodes, q);
+
+
+        attemptPathFindingNodeGeneration(q->x - 1, q->y, goalX, goalY, closedNodes, openNodes, q, &goalNode);
+        attemptPathFindingNodeGeneration(q->x + 1, q->y, goalX, goalY, closedNodes, openNodes, q, &goalNode);
+
+        attemptPathFindingNodeGeneration(q->x - 1, q->y + 1, goalX, goalY, closedNodes, openNodes, q, &goalNode);
+        attemptPathFindingNodeGeneration(q->x + 1, q->y + 1, goalX, goalY, closedNodes, openNodes, q, &goalNode);
+
+        attemptPathFindingNodeGeneration(q->x - 1, q->y - 1, goalX, goalY, closedNodes, openNodes, q, &goalNode);
+        attemptPathFindingNodeGeneration(q->x + 1, q->y - 1, goalX, goalY, closedNodes, openNodes, q, &goalNode);
+
+        attemptPathFindingNodeGeneration(q->x, q->y - 1, goalX, goalY, closedNodes, openNodes, q, &goalNode);
+        attemptPathFindingNodeGeneration(q->x, q->y + 1, goalX, goalY, closedNodes, openNodes, q, &goalNode);
+
+        if (goalNode != UNDEFINED){
+            break;
+        }
+    }
+
+    // find first
+    PathFindingNode* first = goalNode;
+    while (first->predecesor != UNDEFINED && !(first->predecesor->x == startX && first->predecesor->y == startY) ){
+        first = first->predecesor;
+
+        if (isDebugModeOn()){
+            spriteDrawBasic("debug_man", first->x * TILE_SIZE, first->y * TILE_SIZE, FLIP_NONE, 2);
+        }
+    }
+
+    PathFindingOutput output = {};
+    if (first == UNDEFINED){
+        output.canReach = false;
+    }else {
+        output.canReach = true;
+        output.nextX = first->x * TILE_SIZE;
+        output.nextY = first->y * TILE_SIZE;
+    }
+
+    VectorFreeValues(openNodes);
+    VectorFreeValues(closedNodes);
+
+    return output;
+}
+
