@@ -21,8 +21,9 @@ void TerrainGenerateNewRoom(){
 
     for (int i = 10; i < 15; i++){
         collisionMap[i][8] = 1;
-        collisionMap[8][i] = 1;
-        collisionMap[15][i - 1] = 1;
+        collisionMap[7][i - 2] = 1;
+        collisionMap[14][i - 1] = 1;
+        collisionMap[i - 3][13] = 1;
 
     }
 }

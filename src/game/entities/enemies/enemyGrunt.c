@@ -48,8 +48,20 @@ void extraGruntUpdate(WorldObject* this, EnemyData* data, EnemyGruntData* extraD
 
     }
 
+    if (TerrainCheckCollisions(this->x + xSpeed, this->y, this->width, this->height)){
+        xSpeed = 0;
+        ySpeed = sign(ySpeed) * GRUNT_SPEED;
+    }
+
+    if (TerrainCheckCollisions(this->x, this->y + ySpeed, this->width, this->height)){
+        ySpeed = 0;
+        xSpeed = sign(xSpeed) * GRUNT_SPEED;
+    }
+
     this->x += xSpeed;
     this->y += ySpeed;
+
     
     // TODO : dealing damage
+    // TODO : fix pathfinding through imposible to reach gaps
 }
