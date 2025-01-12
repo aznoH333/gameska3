@@ -4,7 +4,7 @@
 
 void EnemyUpdate(WorldObject* this, EnemyData* data);
 void EnemyClean(WorldObject* this, EnemyData* data);
-void EnemyInteract(WorldObject* this, EnemyData* data, int interactionType, void* interactionValue);
+void EnemyInteract(WorldObject* this, EnemyData* data, ObjectInteraction* interactionData);
 
 WorldObject* GenericEnemyInit(float x, float y, float w, float h, int spriteIndex, float health, EnemyType enemyType, void (*extraUpdate)(WorldObject* this, struct EnemyData* data, void* extraData), void* extraData){
     WorldObject* body = InitWorldObjectT(x, y, w, h, OBJECT_TAG_ENEMY);
@@ -50,9 +50,9 @@ void takeDamage(WorldObject* this, EnemyData* data, float* damage){
 } 
 
 
-void EnemyInteract(WorldObject* this, EnemyData* data, int interactionType, void* interactionValue){
-    switch (interactionType) {
+void EnemyInteract(WorldObject* this, EnemyData* data, ObjectInteraction* interactionData){
+    switch (interactionData->interactionType) {
         case INTERACTION_DEAL_DAMAGE:
-            takeDamage(this, data, interactionValue);
+            takeDamage(this, data, interactionData->interactionValue);
     };
 }

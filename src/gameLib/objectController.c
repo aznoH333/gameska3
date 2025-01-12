@@ -4,6 +4,20 @@
 #include "memoryMacros.h"
 
 
+
+ObjectInteraction* ObjectInteractionInit(int type, void* value){
+    ObjectInteraction* this = malloc(sizeof(ObjectInteraction));
+    this->interactionType = type;
+    this->interactionValue = value;
+    return this;
+}
+
+void ObjectInteractionFree(ObjectInteraction* this){
+    free(this->interactionValue);
+    free(this);
+}
+
+
 ObjectController* ObjectControllerInit(){
     ObjectController* this = malloc(sizeof(ObjectController));
 

@@ -11,6 +11,6 @@ void* GameObjectGetData(WorldObject* object);
 
 #define ControllerUpdateFunction void (*)(WorldObject*, void*)
 #define ControllerCollideFunction void (*)(WorldObject*, void*, WorldObject*) 
-#define ControllerInteractFunction void (*)(WorldObject*, void*, int, void*)
+#define ControllerInteractFunction void (*)(WorldObject*, void*, ObjectInteraction*)
 
 #endif

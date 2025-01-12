@@ -50,6 +50,5 @@ void ProjectileCollide(WorldObject* this, ProjectileData* data, WorldObject* oth
         debugMessage("doing stuff %f", data->damage);
         initHeapVariable(float, damage, data->damage);
         GameObjectInteractIfPossible(other, INTERACTION_DEAL_DAMAGE, damage);
-        free(damage);
     }
 }

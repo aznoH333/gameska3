@@ -27,9 +27,6 @@ void extraGruntUpdate(WorldObject* this, EnemyData* data, EnemyGruntData* extraD
         this->y += sinf(directionToPlayer) * GRUNT_SPEED;
     }
     
-    
-    
     // TODO : pathfinding
-    // TODO : taking damage
     // TODO : dealing damage
 }

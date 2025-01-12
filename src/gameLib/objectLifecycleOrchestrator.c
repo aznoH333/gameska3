@@ -35,16 +35,18 @@ void GameObjectInteractIfPossible(WorldObject* targetObject, int interactionType
     if (targetObject->controllerId == UNDEFINED){
         return;
     }
-    debugMessage("got here 1 %d", targetObject->dataId);
     ObjectController* controller = ObjectControllerManagerGet(targetObject->controllerId);
 
     if (controller == UNDEFINED || controller->objectInteract == UNDEFINED){
         return;
     }
-    debugMessage("got here 2");
+
+    ObjectInteraction* intData = ObjectInteractionInit(interactionType, interactionData);
 
     void* targetData = GameObjectGetData(targetObject);
-    controller->objectInteract(targetObject, targetData, interactionType, interactionData);
+    controller->objectInteract(targetObject, targetData, intData);
+
+    ObjectInteractionFree(intData);
 }
 
 
