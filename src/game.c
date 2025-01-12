@@ -1,5 +1,6 @@
 
 #include "game/entities/enemies/enemyGrunt.h"
+#include "game/systems/terrainSystem.h"
 #include "gameLib/gamelibInclude.h"
 #include "game/entitiesInclude.h"
 #include "game/systemsInclude.h"
@@ -25,13 +26,13 @@ int main(int argc, char **argv)
     gameLibInit();
 
     // system init
-    gameLibRegisterAdditionalSystem(&terrainUpdate);
+    gameLibRegisterAdditionalSystem(&TerrainUpdate);
     registerShader("resources/shaders/testShader.fs", SHADER_FRAGMENT);
 
     // temporary initialization
     PlayerInit(128, 128);
     InitEnemyGrunt(250, 128);
-    generateNewRoom();
+    TerrainGenerateNewRoom();
 
     // TODO : object collisions
     

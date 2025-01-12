@@ -38,7 +38,7 @@ void ProjectileUpdate(WorldObject* this, ProjectileData* data){
     this->rotation = data->direction;
 
     // collisions
-    if (collidesWithTerrain(this->x, this->y, this->width, this->height)){
+    if (TerrainCheckCollisions(this->x, this->y, this->width, this->height)){
         this->state = OBJECT_STATE_DESTROY;
     }
     

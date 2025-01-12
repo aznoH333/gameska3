@@ -9,7 +9,7 @@
 unsigned char collisionMap[WORLD_SIZE][WORLD_SIZE];
 
 
-void generateNewRoom(){
+void TerrainGenerateNewRoom(){
     for (int x = 0; x < WORLD_SIZE; x++){
         for (int y = 0; y < WORLD_SIZE; y++){
             collisionMap[x][y] = (x < DEBUG_BORDER || y < DEBUG_BORDER || x >= WORLD_SIZE - DEBUG_BORDER || y >= WORLD_SIZE - DEBUG_BORDER);
@@ -19,7 +19,7 @@ void generateNewRoom(){
 }
 
 
-bool collidesWithTerrain(float x, float y, float w, float h){
+bool TerrainCheckCollisions(float x, float y, float w, float h){
     for (int i = floorf(x / TILE_SIZE); i < ceilf((x + w)/ TILE_SIZE); i++){
         for (int j = floorf(y / TILE_SIZE); j < ceilf((y + h)/ TILE_SIZE); j++){
             if (collisionMap[i][j]){
@@ -31,7 +31,7 @@ bool collidesWithTerrain(float x, float y, float w, float h){
 }
 
 
-void terrainUpdate(){
+void TerrainUpdate(){
     for (int x = 0; x < WORLD_SIZE; x++){
         for (int y = 0; y < WORLD_SIZE; y++){
             char* tile;
@@ -49,4 +49,9 @@ void terrainUpdate(){
         }
     }
     
+}
+
+
+void TerrainCheckForLineOfSight(float x, float y, float targetX, float targetY){
+
 }

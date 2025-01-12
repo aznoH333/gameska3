@@ -3,8 +3,9 @@
 
 #include <stdbool.h>
 
-void generateNewRoom();
-bool collidesWithTerrain(float x, float y, float w, float h);
-void terrainUpdate();
+void TerrainGenerateNewRoom();
+bool TerrainCheckCollisions(float x, float y, float w, float h);
+void TerrainUpdate();
+void TerrainCheckForLineOfSight(float x, float y, float targetX, float targetY);
 
 #endif
