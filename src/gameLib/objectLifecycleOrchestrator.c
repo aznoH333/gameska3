@@ -1,4 +1,5 @@
 #include "objectLifecycleOrchestrator.h"
+#include "objectController.h"
 #include "worldObjectManager.h"
 #include "objectDataManager.h"
 #include "objectControllerManager.h"
@@ -27,6 +28,31 @@ void GameObjectRemove(int objectId){
     }
 
     WorldObjectManagerRemove(objectId);
+}
 
 
+void GameObjectInteractIfPossible(WorldObject* targetObject, int interactionType, void* interactionData){
+    if (targetObject->controllerId == UNDEFINED){
+        return;
+    }
+    debugMessage("got here 1 %d", targetObject->dataId);
+    ObjectController* controller = ObjectControllerManagerGet(targetObject->controllerId);
+
+    if (controller == UNDEFINED || controller->objectInteract == UNDEFINED){
+        return;
+    }
+    debugMessage("got here 2");
+
+    void* targetData = GameObjectGetData(targetObject);
+    controller->objectInteract(targetObject, targetData, interactionType, interactionData);
+}
+
+
+void* GameObjectGetData(WorldObject* object){
+    if (object->dataId == UNDEFINED){
+        return UNDEFINED;
+    }
+    debugMessage("got here 3 [%d]", object->dataId);
+
+    return ObjectDataManagerGet(object->dataId);
 }

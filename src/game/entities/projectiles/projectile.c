@@ -8,7 +8,7 @@ void ProjectileUpdate(WorldObject* this, ProjectileData* data);
 void ProjectileCollide(WorldObject* this, ProjectileData* data, WorldObject* other);
 
 
-void ProjectileInit(float x, float y, float direction, float velocity, int objectTag){
+void ProjectileInit(float x, float y, float direction, float velocity, float damage, int objectTag){
     // init gameobject
     WorldObject* worldObject = InitWorldObjectT(x, y, 32, 32, objectTag);
     worldObject->spriteIndex = getSpriteIndex("debug_bullet");
@@ -24,6 +24,7 @@ void ProjectileInit(float x, float y, float direction, float velocity, int objec
     ProjectileData* data = malloc(sizeof(ProjectileData));
     data->direction = direction;
     data->velocity = velocity;
+    data->damage = damage;
 
 
     GameObjectCreate(worldObject, controller, data);
@@ -46,6 +47,9 @@ void ProjectileUpdate(WorldObject* this, ProjectileData* data){
 void ProjectileCollide(WorldObject* this, ProjectileData* data, WorldObject* other){
     if (other->objectTag == OBJECT_TAG_ENEMY){
         this->state = OBJECT_STATE_DESTROY;
-        // TODO : deal damage
+        debugMessage("doing stuff %f", data->damage);
+        initHeapVariable(float, damage, data->damage);
+        GameObjectInteractIfPossible(other, INTERACTION_DEAL_DAMAGE, damage);
+        free(damage);
     }
 }

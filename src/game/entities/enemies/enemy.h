@@ -12,6 +12,8 @@ enum EnemyType{
 
 struct EnemyData{
     EnemyType type;
+    float health;
+    float maxHealth;
     void* enemyExtraData;
     void (*extraUpdate)(WorldObject* this, struct EnemyData* data, void* enemyExtraData);
 };
@@ -19,7 +21,7 @@ typedef struct EnemyData EnemyData;
 
 
 #define EnemyExtraUpdate void (*)(WorldObject*, EnemyData*, void*)
-WorldObject* GenericEnemyInit(float x, float y, float w, float h, int spriteIndex, EnemyType enemyType, void (*extraUpdate)(WorldObject* this, struct EnemyData* data, void* enemyExtraData), void* extraData);
+WorldObject* GenericEnemyInit(float x, float y, float w, float h, int spriteIndex, float health, EnemyType enemyType, void (*extraUpdate)(WorldObject* this, struct EnemyData* data, void* enemyExtraData), void* extraData);
 
 
 

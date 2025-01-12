@@ -9,6 +9,7 @@ struct ObjectController{
     void (*objectCollide) (WorldObject* this, void* data, WorldObject* other);
     void (*objectDestroy) (WorldObject* this, void* data);
     void (*objectCleanUp) (WorldObject* this, void* data);
+    void (*objectInteract) (WorldObject* this, void* data, int interactionType, void* interactionValue);
 };
 typedef struct ObjectController ObjectController ;
 

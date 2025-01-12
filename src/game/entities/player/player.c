@@ -111,7 +111,7 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
 
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && data->fireCooldown == 0 && !isReloading){
         if (data->ammoCount > 0){
-            ProjectileInit(bulletOriginX, bulletOriginY, gunDirection, 8, OBJECT_TAG_PLAYER_PROJECTILE);
+            ProjectileInit(bulletOriginX, bulletOriginY, gunDirection, 8, 10.0f, OBJECT_TAG_PLAYER_PROJECTILE);
             data->fireCooldown = 10;
             addScreenshake(5.0f);
             data->ammoCount--;
