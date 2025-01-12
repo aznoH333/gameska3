@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "game/gameEnums/enumsInclude.h"
 #include "math.h"
+#include "game/systemsInclude.h"
 
 
 #define GRUNT_SPEED 1.8f
@@ -21,12 +22,20 @@ void extraGruntUpdate(WorldObject* this, EnemyData* data, EnemyGruntData* extraD
     WorldObject* player = WorldObjectManagerGetClosestObjectInRange(this, OBJECT_TAG_PLAYER, UNDEFINED);
 
     if (player != UNDEFINED){
-        float directionToPlayer = directionTowards(this->x, this->y, player->x, player->y);
 
-        this->x += cosf(directionToPlayer) * GRUNT_SPEED;
-        this->y += sinf(directionToPlayer) * GRUNT_SPEED;
+        if (TerrainCheckForLineOfSight(this->x, this->y, this->width, this->height, player->x, player->y)){
+
+            float directionToPlayer = directionTowards(this->x, this->y, player->x, player->y);
+
+            this->x += cosf(directionToPlayer) * GRUNT_SPEED;
+            this->y += sinf(directionToPlayer) * GRUNT_SPEED;
+
+
+        }else {
+            // TODO : pathfinding
+        }
+
     }
     
-    // TODO : pathfinding
     // TODO : dealing damage
 }

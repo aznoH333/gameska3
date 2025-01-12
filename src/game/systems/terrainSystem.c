@@ -1,6 +1,7 @@
 #include "terrainSystem.h"
 #include "gameLib/gamelibInclude.h"
 #include "math.h"
+#include <stdbool.h>
 
 #define WORLD_SIZE 32
 #define TILE_SIZE 32
@@ -51,7 +52,21 @@ void TerrainUpdate(){
     
 }
 
+#define JANK_LOS_DISTANCE 0.45f
+bool TerrainCheckForLineOfSight(float x, float y, float w, float h, float targetX, float targetY){
+    float direction = directionTowards(x, y, targetX, targetY);
+    float distance = distanceTo(x, y, targetX, targetY);
 
-void TerrainCheckForLineOfSight(float x, float y, float targetX, float targetY){
+    float iterator = 0.0f;
 
+    while (iterator < distance - JANK_LOS_DISTANCE){
+        iterator += JANK_LOS_DISTANCE;
+        float tryX = cos(direction) * iterator + x;
+        float tryY = sin(direction) * iterator + y;
+
+        if (TerrainCheckCollisions(tryX, tryY, w, h)){
+            return false;
+        }
+    }
+    return true;
 }

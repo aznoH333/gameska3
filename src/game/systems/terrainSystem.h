@@ -6,6 +6,6 @@
 void TerrainGenerateNewRoom();
 bool TerrainCheckCollisions(float x, float y, float w, float h);
 void TerrainUpdate();
-void TerrainCheckForLineOfSight(float x, float y, float targetX, float targetY);
+bool TerrainCheckForLineOfSight(float x, float y, float w, float h, float targetX, float targetY);
 
 #endif
