@@ -32,7 +32,7 @@ void TerrainGenerateNewRoom(){
 bool TerrainCheckCollisions(float x, float y, float w, float h){
     for (int i = floorf(x / TILE_SIZE); i < ceilf((x + w)/ TILE_SIZE); i++){
         for (int j = floorf(y / TILE_SIZE); j < ceilf((y + h)/ TILE_SIZE); j++){
-            if (collisionMap[i][j]){
+            if ((i < 0 || i > WORLD_SIZE || j < 0 || j > WORLD_SIZE) || collisionMap[i][j]){
                 return true;
             }
         } 
