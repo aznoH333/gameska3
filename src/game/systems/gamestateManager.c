@@ -1,4 +1,5 @@
 #include "gamestateManager.h"
+#include "enemyCoordinator.h"
 #include "terrainSystem.h"
 
 
@@ -7,6 +8,7 @@ void GameStateUpdate(){
     switch (currentGamestate) {
         case GAME_STATE_GAME:
             TerrainUpdate();
+            EnemyCoordinatorUpdate();
             break;
     }
 }

@@ -1,10 +1,14 @@
 
 #include "game/entities/enemies/enemyGrunt.h"
+#include "game/systems/enemyCoordinator.h"
 #include "game/systems/gamestateManager.h"
+#include "gameLib/debug.h"
+#include "gameLib/gamelib.h"
 #include "gameLib/gamelibInclude.h"
 #include "game/entitiesInclude.h"
 #include "game/systemsInclude.h"
 #include "gameLib/sprites.h"
+#include <raylib.h>
 
 
 int main(int argc, char **argv)
@@ -23,18 +27,20 @@ int main(int argc, char **argv)
 
 
     // init lib
+    gameLibRegisterInitEvent(&EnemyCoordinatorInit);
     gameLibInit();
+
 
     // system init
     gameLibRegisterAdditionalSystem(&GameStateUpdate);
+    gameLibRegisterDisposeEvent(&EnemyCoordinatorDispose);
     registerShader("resources/shaders/testShader.fs", SHADER_FRAGMENT);
+
 
     // temporary initialization
     PlayerInit(128, 128);
-    InitEnemyGrunt(250, 128);
     TerrainGenerateNewRoom();
 
-    // TODO : object collisions
     
     while (!WindowShouldClose())
     {

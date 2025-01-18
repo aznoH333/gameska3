@@ -1,4 +1,5 @@
 #include "gamelib.h"
+#include "memoryMacros.h"
 #include "sprites.h"
 #include <raylib.h>
 #include "worldObjectManager.h"
@@ -10,21 +11,53 @@
 
 unsigned int timer;
 Vector* additionalSystems;
+Vector* initEvents = UNDEFINED;
+Vector* disposeEvents;
+
+
+void gameLibRegisterInitEvent(void (*systemInitFunction)()){
+    if (initEvents == UNDEFINED){
+        initEvents = VectorInit();
+    }
+
+    VectorAdd(initEvents, systemInitFunction);
+}
+
+
+void gameLibRegisterDisposeEvent(void (*systemDisposeFunction)()){
+    VectorAdd(disposeEvents, systemDisposeFunction);
+}
+
 
 
 void gameLibInit(){
     spritesLoadAll();
     additionalSystems = VectorInit();
+    disposeEvents = VectorInit();
     timer = 0;
 
     WorldObjectManagerInit();
     ObjectControllerManagerInit();
     ObjectDataManagerInit();
     resetCamera();
+
+    // call init events
+    if (initEvents == UNDEFINED){
+        return;
+    }
+    for (int i = 0; i < initEvents->elementCount; i++){
+        void (*systemInitFunction)() = VectorGet(initEvents, i);
+        systemInitFunction();
+    }
 }
 
 
 void gameLibEnd(){
+    for (int i = 0; i < disposeEvents->elementCount; i++){
+        void (*systemDisposeFunction)() = VectorGet(disposeEvents, i);
+        systemDisposeFunction();
+    }
+    
     WorldObjectManagerDispose();
     spritesUnloadAll();
     ObjectControllerManagerDispose();
@@ -36,6 +69,8 @@ void gameLibEnd(){
 void gameLibRegisterAdditionalSystem(void (*systemUpdateFunction)()){
     VectorAdd(additionalSystems, systemUpdateFunction);
 }
+
+
 
 
 

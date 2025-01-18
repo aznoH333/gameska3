@@ -110,7 +110,7 @@ elif [ $valg = "true" ]; then
 else
     "$output_directory"/a.out
 fi
-clean up
+#clean up
 if [ $keep_output = "false" ]; then
     rm $output_directory/*.o
     rm $output_directory/*.out

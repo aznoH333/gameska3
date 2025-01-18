@@ -1,5 +1,6 @@
 #include "numberUtils.h"
 #include <math.h>
+#include <raylib.h>
 #include <stdint.h>
 #include "math.h"
 
@@ -42,4 +43,13 @@ int boolToSign(bool input){
 
 float distanceTo(float x1, float y1, float x2, float y2){
     return sqrtf(pow((x1-x2), 2) + pow(y1 - y2, 2));
+}
+
+
+float randomFloat(){
+    return GetRandomValue(0, 1000) / 1000.0f; // TODO : this is trash
+}
+
+float randomFloatRange(float min, float max){
+    return randomFloat() * (max - min) + min;
 }

@@ -26,6 +26,8 @@ void PlayerInit(float x, float y){
     data->reloadTimer = 0;
 
     GameObjectCreate(playerWorldObject, controller, data);
+
+    PlayerManagerSetPlayer(playerWorldObject);
 }
 
 

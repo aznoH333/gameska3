@@ -137,7 +137,7 @@ void attemptPathFindingNodeGeneration(int x, int y, int targetX, int targetY, Ve
     VectorAdd(openNodes, successor);
 }
 
-
+// TODO : pathfinding is super slow
 PathFindingOutput TerrainPathFindTowards(float x, float y, float targetX, float targetY){
     // find start location
     int startX = roundf(x / TILE_SIZE);

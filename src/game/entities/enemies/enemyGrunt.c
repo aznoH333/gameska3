@@ -34,6 +34,7 @@ void extraGruntUpdate(WorldObject* this, EnemyData* data, EnemyGruntData* extraD
 
 
         }else {
+            //return;
             PathFindingOutput pathFindingResult = TerrainPathFindTowards(this->x, this->y, player->x, player->y);
 
             if (pathFindingResult.canReach){
