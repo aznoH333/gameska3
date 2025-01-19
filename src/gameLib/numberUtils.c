@@ -53,3 +53,13 @@ float randomFloat(){
 float randomFloatRange(float min, float max){
     return randomFloat() * (max - min) + min;
 }
+
+unsigned int universalHash(void* object, int size){
+    unsigned int output = 0;
+    char* bytes = object;
+
+    for (int i = 0; i < size; i++){
+        output ^= hashInt(bytes[i]);
+    }
+    return output;
+}

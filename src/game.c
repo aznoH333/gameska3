@@ -7,9 +7,16 @@
 #include "gameLib/gamelibInclude.h"
 #include "game/entitiesInclude.h"
 #include "game/systemsInclude.h"
+#include "gameLib/memoryMacros.h"
+#include "gameLib/numberUtils.h"
 #include "gameLib/sprites.h"
 #include <raylib.h>
+#include "gameLib/hashMap.h"
 
+
+int hashish(void* key){
+    return hashInt(*((int*)key));
+}
 
 int main(int argc, char **argv)
 {

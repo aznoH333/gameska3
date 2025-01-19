@@ -1,8 +1,8 @@
 #include "objectDataManager.h"
 #include <stdlib.h>
+#include "debug.h"
 #include "genericComparisons.h"
 #include "map.h"
-#include "debug.h"
 #include "memoryMacros.h"
 
 Map* objectDataStorage;
@@ -49,7 +49,7 @@ void ObjectDataManagerDispose(){
 
     for (int i = 0; i < values->elementCount;i++){
         Pair* p = VectorGet(values, i);
-
+        debugMessage("got here");
         free(p->first);
         free(p->second);
     }

@@ -139,8 +139,6 @@ void drawSprite(struct DrawData* data){
     (Rectangle){0, 0, texture->width * boolToSign(!flipX), texture->height * boolToSign(!flipY)}, 
     (Rectangle){data->x + originOffsetX, data->y + originOffsetY, textureAtlas[data->spriteIndex].texture.width * data->width, textureAtlas[data->spriteIndex].texture.height * data->height}, 
     (Vector2) {originOffsetX, originOffsetY}, data->rotation * RAD2DEG, data->color);
-
-    
 }
 
 
