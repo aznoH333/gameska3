@@ -11,6 +11,7 @@
 #include "genericComparisons.h"
 #include "debug.h"
 #include "objectLifecycleOrchestrator.h"
+#include "vector.h"
 #include "worldObject.h"
 #include "worldSpaceUtils.h"
 
@@ -69,6 +70,7 @@ void WorldObjectManagerUpdate(){
                 controller->objectDestroy(object, body);
             }
 
+            debugMessage("%p %p", controller, controller->objectCleanUp);
             if (controller != UNDEFINED && controller->objectCleanUp != UNDEFINED){
                 controller->objectCleanUp(object, body);
             }
@@ -137,6 +139,12 @@ WorldObject* WorldObjectManagerGet(int id){
 
 
 void WorldObjectManagerDispose(){
+    for (int i = 0; i < worldObjects->values->elementCount; i++){
+        WorldObject* obj = VectorGet(worldObjects->values, i);
+
+        GameObjectClean(obj);        
+    }
+    
     MapFreeKeys(worldObjects);
     MapFreeValues(worldObjects);
     MapFree(worldObjects);

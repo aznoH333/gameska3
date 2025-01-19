@@ -58,3 +58,21 @@ void* GameObjectGetData(WorldObject* object){
 
     return ObjectDataManagerGet(object->dataId);
 }
+
+
+ObjectController* GameObjectGetController(WorldObject* object){
+    if (object->controllerId == UNDEFINED){
+        return UNDEFINED;
+    }
+    return ObjectControllerManagerGet(object->controllerId);
+}
+
+
+void GameObjectClean(WorldObject* object){
+    ObjectController* controller = GameObjectGetController(object);
+
+    if (controller != UNDEFINED && controller->objectCleanUp != UNDEFINED){
+        controller->objectCleanUp(object, object);
+    }
+}
+
