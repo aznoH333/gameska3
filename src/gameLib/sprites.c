@@ -88,8 +88,8 @@ void spritesUnloadAll(){
 
     // unload drawQueue
     for (int i = 0; i < MAX_SUPPORTED_LAYERS; i++){
-        VectorFree(drawQueue[i]);
-        VectorFree(staticDrawQueue[i]);
+        VectorFreeValues(drawQueue[i]);
+        VectorFreeValues(staticDrawQueue[i]);
     }
 
     // unload render texture
@@ -139,6 +139,7 @@ void drawSprite(struct DrawData* data){
     (Rectangle){0, 0, texture->width * boolToSign(!flipX), texture->height * boolToSign(!flipY)}, 
     (Rectangle){data->x + originOffsetX, data->y + originOffsetY, textureAtlas[data->spriteIndex].texture.width * data->width, textureAtlas[data->spriteIndex].texture.height * data->height}, 
     (Vector2) {originOffsetX, originOffsetY}, data->rotation * RAD2DEG, data->color);
+    free(data);
 }
 
 
@@ -159,7 +160,6 @@ void drawSpriteBatch(Camera2D* camera){
         for (int j = 0; j < drawQueue[i]->elementCount; j++){
             struct DrawData* data = VectorGet(drawQueue[i], j);
             drawSprite(data);
-            free(data);
         }
         VectorClear(drawQueue[i]);
     }
@@ -171,7 +171,6 @@ void drawSpriteBatch(Camera2D* camera){
         for (int j = 0; j < staticDrawQueue[i]->elementCount; j++){
             struct DrawData* data = VectorGet(staticDrawQueue[i], j);
             drawSprite(data);
-            free(data);
         }
         VectorClear(staticDrawQueue[i]);
     }
