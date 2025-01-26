@@ -35,10 +35,10 @@ void extraGruntUpdate(WorldObject* this, EnemyData* data, EnemyGruntData* extraD
 
         }else {
             //return;
-            PathFindingOutput pathFindingResult = TerrainPathFindTowards(this->x, this->y, player->x, player->y);
+            PathFindingOutput* pathFindingResult = TerrainPathFindTowards(this->x, this->y, player->x, player->y);
 
-            if (pathFindingResult.canReach){
-                float dirToNext = directionTowards(this->x, this->y, pathFindingResult.nextX, pathFindingResult.nextY);
+            if (pathFindingResult->canReach){
+                float dirToNext = directionTowards(this->x, this->y, pathFindingResult->nextX, pathFindingResult->nextY);
                 
                 xSpeed = cosf(dirToNext) * GRUNT_SPEED;
                 ySpeed = sinf(dirToNext) * GRUNT_SPEED;

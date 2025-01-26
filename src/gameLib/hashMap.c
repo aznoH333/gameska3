@@ -21,13 +21,14 @@ HashMap* HashMapInit(GenericHashFunction){
 }
 
 
-Pair* mapFind(HashMap* this, int key){
+Pair* mapFind(HashMap* this, unsigned int key){
+    debugMessage("got here %d", key);
+
     Vector* target = VectorGet(this->valueBucket, key % HASH_KOEFICIENT);
 
     for (int i = 0; i < target->elementCount; i++){
         Pair* p = VectorGet(target, i);
-
-        if (*(int*)(p->first) == key){
+        if ((*(int*)(p->first)) == key){
             return p;
         }
     }
@@ -37,7 +38,7 @@ Pair* mapFind(HashMap* this, int key){
 
 
 void HashMapPut(HashMap* this, Pair values){
-    initHeapVariable(int, key, this->hashFunction(values.first));
+    initHeapVariable(unsigned int, key, this->hashFunction(values.first));
 
 
     if (mapFind(this, *key) != UNDEFINED){
@@ -56,7 +57,7 @@ void HashMapPut(HashMap* this, Pair values){
 
 
 Pair* HashMapGet(HashMap* this, void* key){
-    int hashedKey = this->hashFunction(key);
+    unsigned int hashedKey = this->hashFunction(key);
 
     Pair* output = mapFind(this, hashedKey);
 
@@ -66,6 +67,13 @@ Pair* HashMapGet(HashMap* this, void* key){
 
     return output;
 }
+
+bool HashMapContains(HashMap* this, void* key){
+    unsigned int hashedKey = this->hashFunction(key);
+    Pair* output = mapFind(this, hashedKey);
+    return output != UNDEFINED;
+}
+
 
 
 void hashDispose(HashMap* this, bool freeValues){

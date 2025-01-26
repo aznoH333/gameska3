@@ -4,12 +4,29 @@
 #include <math.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include "gameLib/hashMap.h"
 
 #define WORLD_SIZE 32
 #define TILE_SIZE 32
 #define DEBUG_BORDER 3
 
 unsigned char collisionMap[WORLD_SIZE][WORLD_SIZE];
+HashMap* pathfindingResultCache = UNDEFINED;
+
+
+
+
+struct PathFindingInfo{
+    int startX;
+    int startY;
+    int endX;
+    int endY;
+}; typedef struct PathFindingInfo PathFindingInfo;
+
+
+unsigned int hashPathFindingInfo(void* info){
+    return universalHash(info, sizeof(PathFindingInfo));
+}
 
 
 void TerrainGenerateNewRoom(){
@@ -26,6 +43,15 @@ void TerrainGenerateNewRoom(){
         collisionMap[i - 3][13] = 1;
 
     }
+
+    
+    if (pathfindingResultCache != UNDEFINED){
+        HashMapDisposeFreeValues(pathfindingResultCache);
+        HashMapDispose(pathfindingResultCache);
+    }
+
+    pathfindingResultCache = HashMapInit(&hashPathFindingInfo);
+
 }
 
 
@@ -138,13 +164,25 @@ void attemptPathFindingNodeGeneration(int x, int y, int targetX, int targetY, Ve
 }
 
 // TODO : pathfinding is super slow
-PathFindingOutput TerrainPathFindTowards(float x, float y, float targetX, float targetY){
+PathFindingOutput* TerrainPathFindTowards(float x, float y, float targetX, float targetY){
     // find start location
     int startX = roundf(x / TILE_SIZE);
     int startY = roundf(y / TILE_SIZE);
 
     int goalX = roundf(targetX / TILE_SIZE);
     int goalY = roundf(targetY / TILE_SIZE);
+
+    PathFindingInfo* info = malloc(sizeof(PathFindingInfo));
+    info->startX = startX;
+    info->startY = startY;
+    info->endX = goalX;
+    info->endY = goalY;
+
+    if (HashMapContains(pathfindingResultCache, info)){
+        Pair* result = HashMapGet(pathfindingResultCache, info);
+        free(info);
+        return result->second;
+    }
 
     Vector* openNodes = VectorInit();
     Vector* closedNodes = VectorInit();
@@ -194,14 +232,16 @@ PathFindingOutput TerrainPathFindTowards(float x, float y, float targetX, float 
         }
     }
 
-    PathFindingOutput output = {};
+    PathFindingOutput* output = malloc(sizeof(PathFindingOutput));
     if (first == UNDEFINED){
-        output.canReach = false;
+        output->canReach = false;
     }else {
-        output.canReach = true;
-        output.nextX = first->x * TILE_SIZE;
-        output.nextY = first->y * TILE_SIZE;
+        output->canReach = true;
+        output->nextX = first->x * TILE_SIZE;
+        output->nextY = first->y * TILE_SIZE;
     }
+
+    HashMapPut(pathfindingResultCache, (Pair){info, output});
 
     VectorFreeValues(openNodes);
     VectorFreeValues(closedNodes);
