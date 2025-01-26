@@ -3,7 +3,6 @@
 
 
 struct EnemyGruntData{
-
 };typedef struct EnemyGruntData EnemyGruntData ;
 
 

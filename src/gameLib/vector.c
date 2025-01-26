@@ -50,9 +50,6 @@ void VectorRemove(Vector* this, int index){
 
 
 void* VectorGet(Vector* this, int index){
-    if (index > this->elementCount || index < 0){
-        crashMessage("Invalid vector access -> Vector[%d], element count [%d]", index, this->elementCount);
-    }
     
     return this->elements[index];
 }

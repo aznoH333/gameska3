@@ -24,6 +24,8 @@ WorldObject* GenericEnemyInit(float x, float y, float w, float h, int spriteInde
     data->type = enemyType;
     data->health = health;
     data->maxHealth = health;
+    debugMessage("i am %p", data->enemyExtraData);
+
 
     GameObjectCreate(body, controller, data);
     debugMessage("spawned [%d]", body->dataId);
@@ -37,6 +39,7 @@ void EnemyUpdate(WorldObject* this, EnemyData* data){
 
 
 void EnemyClean(WorldObject* this, EnemyData* data){
+    debugMessage("am free %p", data->enemyExtraData);
     free(data->enemyExtraData);
 }
 

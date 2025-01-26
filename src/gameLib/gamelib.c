@@ -60,9 +60,14 @@ void gameLibEnd(){
     
     WorldObjectManagerDispose();
     spritesUnloadAll();
-    ObjectControllerManagerDispose();
     ObjectDataManagerDispose();
+    ObjectControllerManagerDispose();
+
+    
+
     VectorFree(additionalSystems);
+    VectorFree(disposeEvents);
+    VectorFree(initEvents);
 }
 
 

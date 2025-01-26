@@ -49,7 +49,6 @@ void ObjectDataManagerDispose(){
 
     for (int i = 0; i < values->elementCount;i++){
         Pair* p = VectorGet(values, i);
-        debugMessage("got here");
         free(p->first);
         free(p->second);
     }

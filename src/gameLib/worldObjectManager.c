@@ -48,6 +48,7 @@ void WorldObjectManagerUpdate(){
         if (object->dataId != UNDEFINED){
             body = ObjectDataManagerGet(object->dataId);
         }
+        debugMessage("world object manager update [%d] spr[%d]", object->controllerId, object->spriteIndex);
 
 
 
@@ -66,15 +67,13 @@ void WorldObjectManagerUpdate(){
                 controller = ObjectControllerManagerGet(object->controllerId);
             }
 
-            if (object->state != OBJECT_STATE_HIDDEN_DESTROY && object->controllerId != UNDEFINED && controller->objectDestroy != UNDEFINED){
-                controller->objectDestroy(object, body);
-            }
-
-            debugMessage("%p %p", controller, controller->objectCleanUp);
             if (controller != UNDEFINED && controller->objectCleanUp != UNDEFINED){
                 controller->objectCleanUp(object, body);
             }
-            
+
+            if (object->state != OBJECT_STATE_HIDDEN_DESTROY && object->controllerId != UNDEFINED && controller->objectDestroy != UNDEFINED){
+                controller->objectDestroy(object, body);
+            }
 
             GameObjectRemove(object->id);
             i--;
@@ -140,7 +139,7 @@ WorldObject* WorldObjectManagerGet(int id){
 
 void WorldObjectManagerDispose(){
     for (int i = 0; i < worldObjects->values->elementCount; i++){
-        WorldObject* obj = VectorGet(worldObjects->values, i);
+        WorldObject* obj = ((Pair*)VectorGet(worldObjects->values, i))->second;
 
         GameObjectClean(obj);        
     }
