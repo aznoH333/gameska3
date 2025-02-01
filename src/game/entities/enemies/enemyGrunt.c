@@ -26,27 +26,10 @@ void extraGruntUpdate(WorldObject* this, EnemyData* data, EnemyGruntData* extraD
 
     if (player != UNDEFINED){
 
-        if (TerrainCheckForLineOfSight(this->x, this->y, this->width, this->height, player->x, player->y)){
-
-            float directionToPlayer = directionTowards(this->x, this->y, player->x, player->y);
-            xSpeed = cosf(directionToPlayer) * GRUNT_SPEED;
-            ySpeed = sinf(directionToPlayer) * GRUNT_SPEED;
-
-
-        }else {
-            //return;
-            PathFindingOutput* pathFindingResult = TerrainPathFindTowards(this->x, this->y, player->x, player->y);
-
-            if (pathFindingResult->canReach){
-                float dirToNext = directionTowards(this->x, this->y, pathFindingResult->nextX, pathFindingResult->nextY);
-                
-                xSpeed = cosf(dirToNext) * GRUNT_SPEED;
-                ySpeed = sinf(dirToNext) * GRUNT_SPEED;
-
-            }
-            
-        }
-
+        float directionToPlayer = directionTowards(this->x, this->y, player->x, player->y);
+        xSpeed = cosf(directionToPlayer) * GRUNT_SPEED;
+        ySpeed = sinf(directionToPlayer) * GRUNT_SPEED;
+        // TODO : bring back pathfinding
     }
 
     if (TerrainCheckCollisions(this->x + xSpeed, this->y, this->width, this->height)){
@@ -64,5 +47,4 @@ void extraGruntUpdate(WorldObject* this, EnemyData* data, EnemyGruntData* extraD
 
     
     // TODO : dealing damage
-    // TODO : fix pathfinding through imposible to reach gaps
 }
