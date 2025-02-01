@@ -4,9 +4,21 @@
 
 void EnemyUpdate(WorldObject* this, EnemyData* data);
 void EnemyClean(WorldObject* this, EnemyData* data);
+void EnemyCollide(WorldObject* this, EnemyData* data, WorldObject* other);
 void EnemyInteract(WorldObject* this, EnemyData* data, ObjectInteraction* interactionData);
 
-WorldObject* GenericEnemyInit(float x, float y, float w, float h, int spriteIndex, float health, EnemyType enemyType, void (*extraUpdate)(WorldObject* this, struct EnemyData* data, void* extraData), void* extraData){
+WorldObject* GenericEnemyInit(
+    float x, 
+    float y, 
+    float w, 
+    float h, 
+    int spriteIndex, 
+    float health, 
+    EnemyType enemyType, 
+    void (*extraUpdate)(WorldObject* this, struct EnemyData* data, void* extraData),
+    void (*extraCollisionUpdate)(WorldObject* this, struct EnemyData* data, void* enemyExtraData, WorldObject* other), 
+    void* extraData
+){
     WorldObject* body = InitWorldObjectT(x, y, w, h, OBJECT_TAG_ENEMY);
     body->spriteIndex = spriteIndex;
     body->layer = 0;
@@ -16,21 +28,28 @@ WorldObject* GenericEnemyInit(float x, float y, float w, float h, int spriteInde
     controller->objectUpdate = (ControllerUpdateFunction) &EnemyUpdate;
     controller->objectCleanUp = (ControllerUpdateFunction) &EnemyClean;
     controller->objectInteract = (ControllerInteractFunction) &EnemyInteract;
+    controller->objectCollide = (ControllerCollideFunction) &EnemyCollide;
 
     EnemyData* data = malloc(sizeof(EnemyData));
 
     data->extraUpdate = extraUpdate;
+    data->extraCollisionUpdate = extraCollisionUpdate;
     data->enemyExtraData = extraData;
     data->type = enemyType;
     data->health = health;
     data->maxHealth = health;
-    debugMessage("i am %p", data->enemyExtraData);
-
 
     GameObjectCreate(body, controller, data);
-    debugMessage("spawned [%d]", body->dataId);
     return body;
 }
+
+
+void EnemyCollide(WorldObject* this, EnemyData* data, WorldObject* other){
+    if (data->extraCollisionUpdate != UNDEFINED){
+        data->extraCollisionUpdate(this, data, data->enemyExtraData, other);
+    }
+}
+
 
 
 void EnemyUpdate(WorldObject* this, EnemyData* data){

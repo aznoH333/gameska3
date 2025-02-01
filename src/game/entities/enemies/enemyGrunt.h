@@ -3,6 +3,8 @@
 
 
 struct EnemyGruntData{
+    float collisionPushForceX;
+    float collisionPushForceY;
 };typedef struct EnemyGruntData EnemyGruntData ;
 
 

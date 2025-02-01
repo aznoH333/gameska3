@@ -16,12 +16,25 @@ struct EnemyData{
     float maxHealth;
     void* enemyExtraData;
     void (*extraUpdate)(WorldObject* this, struct EnemyData* data, void* enemyExtraData);
+    void (*extraCollisionUpdate)(WorldObject* this, struct EnemyData* data, void* enemyExtraData, WorldObject* other);
 };
 typedef struct EnemyData EnemyData;
 
 
 #define EnemyExtraUpdate void (*)(WorldObject*, EnemyData*, void*)
-WorldObject* GenericEnemyInit(float x, float y, float w, float h, int spriteIndex, float health, EnemyType enemyType, void (*extraUpdate)(WorldObject* this, struct EnemyData* data, void* enemyExtraData), void* extraData);
+#define EnemyExtraCollisionUpdate void (*)(WorldObject*, EnemyData*, void*, WorldObject*)
+WorldObject* GenericEnemyInit(
+    float x, 
+    float y, 
+    float w, 
+    float h, 
+    int spriteIndex, 
+    float health, 
+    EnemyType enemyType, 
+    void (*extraUpdate)(WorldObject* this, struct EnemyData* data, void* enemyExtraData), 
+    void (*extraCollisionUpdate)(WorldObject* this, struct EnemyData* data, void* enemyExtraData, WorldObject* other),
+    void* extraData
+);
 
 
 

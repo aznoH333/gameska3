@@ -2,7 +2,7 @@
 #define WORLD_OBJECT_MANAGER
 
 #include "worldObject.h"
-
+#include <stdbool.h>
 
 void WorldObjectManagerInit();
 int WorldObjectManagerAddObject(WorldObject* object);

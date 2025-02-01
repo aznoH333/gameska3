@@ -148,3 +148,4 @@ void WorldObjectManagerDispose(){
     MapFreeValues(worldObjects);
     MapFree(worldObjects);
 }
+
