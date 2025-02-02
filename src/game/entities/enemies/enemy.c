@@ -38,6 +38,7 @@ WorldObject* GenericEnemyInit(
     data->type = enemyType;
     data->health = health;
     data->maxHealth = health;
+    data->stunTimer = 0;
 
     GameObjectCreate(body, controller, data);
     return body;
@@ -53,28 +54,36 @@ void EnemyCollide(WorldObject* this, EnemyData* data, WorldObject* other){
 
 
 void EnemyUpdate(WorldObject* this, EnemyData* data){
+    
     data->extraUpdate(this, data, data->enemyExtraData);
+    
 }
 
 
 void EnemyClean(WorldObject* this, EnemyData* data){
-    debugMessage("am free %p", data->enemyExtraData);
     free(data->enemyExtraData);
 }
 
 
 void takeDamage(WorldObject* this, EnemyData* data, float* damage){
-    debugMessage("taking damage %f %f", *damage, data->health);
     data->health -= *damage;
     if (data->health <= 0){
         this->state = OBJECT_STATE_DESTROY;
     }
-} 
+}
+
+void push(WorldObject* this, EnemyData* data, ObjectInteractionPushData* pushData){
+    data->stunPushX = pushData->pushX;
+    data->stunPushY = pushData->pushY;
+    data->stunTimer = pushData->pushValue;
+}
 
 
 void EnemyInteract(WorldObject* this, EnemyData* data, ObjectInteraction* interactionData){
     switch (interactionData->interactionType) {
         case INTERACTION_DEAL_DAMAGE:
             takeDamage(this, data, interactionData->interactionValue);
+        case INTERACTION_PUSH:
+            push(this, data, interactionData->interactionValue);
     };
 }

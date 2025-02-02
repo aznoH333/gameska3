@@ -20,6 +20,8 @@ const char* enemyAnimationLookup[] = {
     "enemy_0005",
     "enemy_0006",
     "enemy_0007",
+    "enemy_0008",
+
 };
 
 
@@ -40,12 +42,26 @@ void extraGruntUpdate(WorldObject* this, EnemyData* data, EnemyGruntData* extraD
     float ySpeed = 0.0f;
 
 
-    if (player != UNDEFINED){
+    if (player != UNDEFINED && data->stunTimer == 0){
 
         float directionToPlayer = directionTowards(this->x, this->y, player->x, player->y);
         xSpeed = cosf(directionToPlayer) * GRUNT_SPEED;
         ySpeed = sinf(directionToPlayer) * GRUNT_SPEED;
+
+
+        if (xSpeed < -0.5f){
+            this->flip = FLIP_X;
+        }else if (xSpeed > 0.5f){
+            this->flip = FLIP_NONE;
+        }
+
         // TODO : bring back pathfinding
+    }else if (data->stunTimer != 0){
+        data->stunTimer--;
+        xSpeed = data->stunPushX;
+        ySpeed = data->stunPushY;
+        data->stunPushX /= 1.5f;
+        data->stunPushY /= 1.5f;
     }
 
 
@@ -74,17 +90,16 @@ void extraGruntUpdate(WorldObject* this, EnemyData* data, EnemyGruntData* extraD
 
     
     // update animation
-    if (xSpeed == 0 && ySpeed == 0){
+    if (data->stunTimer != 0){
+        this->spriteIndex = getSpriteIndex(enemyAnimationLookup[7]);
+    }
+    else if (xSpeed == 0 && ySpeed == 0){
         this->spriteIndex = getSpriteIndex(enemyAnimationLookup[0]);
     }else {
         this->spriteIndex = getSpriteIndex(enemyAnimationLookup[(getGlobalTimer() / 2) % 7]);
     }
 
-    if (xSpeed < -0.5f){
-        this->flip = FLIP_X;
-    }else if (xSpeed > 0.5f){
-        this->flip = FLIP_NONE;
-    }
+    
 
     // TODO : dealing damage
 }
