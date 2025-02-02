@@ -140,7 +140,7 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
         }
     }
 
-    if (IsKeyPressed(KEY_R) && !isReloading && data->ammoCount < 10){
+    if (IsKeyPressed(KEY_R) && !isReloading && data->ammoCount < 20){
         data->reloadTimer = 30;
         // TODO : reload sound effect
     }
