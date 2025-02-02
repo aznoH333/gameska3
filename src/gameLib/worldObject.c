@@ -1,5 +1,6 @@
 #include "worldObject.h"
 #include <stdlib.h>
+#include "gameLib/sprites.h"
 #include "memoryMacros.h"
 
 WorldObject* InitWorldObject(float x, float y, float width, float height){
@@ -21,6 +22,7 @@ WorldObject* InitWorldObjectT(float x, float y, float width, float height, int o
     this->layer = 0;
     this->state = OBJECT_STATE_NORMAL;
     this->objectTag = objectTag;
+    this->flip = FLIP_NONE;
 
     return this;
 }

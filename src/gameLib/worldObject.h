@@ -21,6 +21,7 @@ struct WorldObject{
     float rotation;
     float layer;
     ObjectState state;
+    int flip;
 }; typedef struct WorldObject WorldObject ;
 
 

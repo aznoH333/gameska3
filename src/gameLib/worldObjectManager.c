@@ -40,7 +40,7 @@ void WorldObjectManagerUpdate(){
         // TODO: height
         // TODO: color
 
-        spriteDrawIndexed(object->spriteIndex, object->x, object->y, FLIP_NONE, object->rotation, 1.0f, 1.0f, WHITE, object->layer, false);
+        spriteDrawIndexed(object->spriteIndex, object->x, object->y, object->flip, object->rotation, 1.0f, 1.0f, WHITE, object->layer, false);
 
         void* body = UNDEFINED;
 

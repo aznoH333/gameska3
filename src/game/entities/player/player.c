@@ -11,7 +11,7 @@ void PlayerUpdate(WorldObject* this, PlayerData* data);
 void PlayerInit(float x, float y){
     // init gameobject
     WorldObject* playerWorldObject = InitWorldObjectT(x, y, 32, 32, OBJECT_TAG_PLAYER);
-    playerWorldObject->spriteIndex = getSpriteIndex("debug_man");
+    playerWorldObject->spriteIndex = getSpriteIndex("player_0001");
 
     // controller
     ObjectController* controller = ObjectControllerInit();
@@ -30,6 +30,16 @@ void PlayerInit(float x, float y){
     PlayerManagerSetPlayer(playerWorldObject);
 }
 
+
+const char* animationLookup[] = {
+    "player_0001",
+    "player_0002",
+    "player_0003",
+    "player_0004",
+    "player_0005",
+    "player_0006",
+    "player_0007",
+};
 
 #define PLAYER_SPEED_MULTIPLIER 3.5f
 #define PLAYER_SPEED_BUILDUP 0.07f
@@ -62,8 +72,10 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
         data->xVelocity = limitedIncrement(data->xVelocity, 0.0f, PLAYER_SPEED_BUILDUP);
     }else if (IsKeyDown(KEY_D)){
         data->xVelocity = limitedIncrement(data->xVelocity, 1.0f, PLAYER_SPEED_BUILDUP);
+        this->flip = FLIP_NONE;
     }else if (IsKeyDown(KEY_A)){
         data->xVelocity = limitedIncrement(data->xVelocity, -1.0f, PLAYER_SPEED_BUILDUP);
+        this->flip = FLIP_X;
     }
 
 
@@ -91,7 +103,12 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     this->y += data->yVelocity * PLAYER_SPEED_MULTIPLIER;
 
 
-
+    // update animation
+    if (data->yVelocity == 0 && data->xVelocity == 0){
+        this->spriteIndex = getSpriteIndex(animationLookup[0]);
+    }else {
+        this->spriteIndex = getSpriteIndex(animationLookup[(getGlobalTimer() / 2) % 7]);
+    }
 
 
     // camera follow
@@ -114,7 +131,7 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && data->fireCooldown == 0 && !isReloading){
         if (data->ammoCount > 0){
             ProjectileInit(bulletOriginX, bulletOriginY, gunDirection, 8, 10.0f, OBJECT_TAG_PLAYER_PROJECTILE);
-            data->fireCooldown = 10;
+            data->fireCooldown = 7;
             addScreenshake(5.0f);
             data->ammoCount--;
             // TODO : shoot sound effect
@@ -134,9 +151,9 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
         gunDirection -= (data->reloadTimer / 30.0f) * (PI * 2);
         if (data->reloadTimer == 1){
             // TODO : click sound effect
-            data->ammoCount = 10;
+            data->ammoCount = 20;
         }
     }
 
-    spriteDraw("debug_gun", gunX, gunY, flipGun, gunDirection, 1.0f, 1.0f, WHITE, 1, false);
+    spriteDraw("guns_0002", gunX, gunY, flipGun, gunDirection, 1.0f, 1.0f, WHITE, 1, false);
 }

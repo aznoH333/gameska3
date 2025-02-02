@@ -73,9 +73,9 @@ void TerrainUpdate(){
             char* tile;
 
             if (collisionMap[x][y] == 1){
-                tile = "debug_tiles_0001";
+                tile = "wall";
             }else {
-                tile = "debug_tiles_0002";
+                tile = "floor_0001";
             }
 
 

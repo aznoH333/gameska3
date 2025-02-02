@@ -12,13 +12,24 @@ void extraGruntUpdate(WorldObject* this, EnemyData* data, EnemyGruntData* extraD
 void extraGruntCollisionUpdate(WorldObject* this, EnemyData* data, EnemyGruntData* extraData, WorldObject* other);
 
 
+const char* enemyAnimationLookup[] = {
+    "enemy_0001",
+    "enemy_0002",
+    "enemy_0003",
+    "enemy_0004",
+    "enemy_0005",
+    "enemy_0006",
+    "enemy_0007",
+};
+
+
 void InitEnemyGrunt(float x, float y){
     EnemyGruntData* extraData = malloc(sizeof(EnemyGruntData));
     
     extraData->collisionPushForceX = 0;
     extraData->collisionPushForceY = 0;
 
-    GenericEnemyInit(x, y, 32, 32, getSpriteIndex("debug_enemy"), 50.0f, ENEMY_TYPE_GRUNT, (EnemyExtraUpdate)&extraGruntUpdate, (EnemyExtraCollisionUpdate)&extraGruntCollisionUpdate, extraData);
+    GenericEnemyInit(x, y, 32, 32, getSpriteIndex("enemy_0001"), 50.0f, ENEMY_TYPE_GRUNT, (EnemyExtraUpdate)&extraGruntUpdate, (EnemyExtraCollisionUpdate)&extraGruntCollisionUpdate, extraData);
 }
 
 
@@ -62,6 +73,19 @@ void extraGruntUpdate(WorldObject* this, EnemyData* data, EnemyGruntData* extraD
     this->y += ySpeed;
 
     
+    // update animation
+    if (xSpeed == 0 && ySpeed == 0){
+        this->spriteIndex = getSpriteIndex(enemyAnimationLookup[0]);
+    }else {
+        this->spriteIndex = getSpriteIndex(enemyAnimationLookup[(getGlobalTimer() / 2) % 7]);
+    }
+
+    if (xSpeed < -0.5f){
+        this->flip = FLIP_X;
+    }else if (xSpeed > 0.5f){
+        this->flip = FLIP_NONE;
+    }
+
     // TODO : dealing damage
 }
 
