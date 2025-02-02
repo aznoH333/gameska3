@@ -6,6 +6,7 @@ enum ObjectTag{
     OBJECT_TAG_PLAYER_PROJECTILE,
     OBJECT_TAG_ENEMY,
     OBJECT_TAG_ENEMY_PROJECTILE,
+    OBJECT_TAG_NEUTRAL,
 };
 typedef enum ObjectTag ObjectTag;
 

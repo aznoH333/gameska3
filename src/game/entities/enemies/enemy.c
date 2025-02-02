@@ -1,11 +1,13 @@
 #include "enemy.h"
 #include <stdlib.h>
 #include "game/gameEnums/enumsInclude.h"
+#include "game/entities/effects/effectEntity.h"
 
 void EnemyUpdate(WorldObject* this, EnemyData* data);
 void EnemyClean(WorldObject* this, EnemyData* data);
 void EnemyCollide(WorldObject* this, EnemyData* data, WorldObject* other);
 void EnemyInteract(WorldObject* this, EnemyData* data, ObjectInteraction* interactionData);
+void EnemyDestroy(WorldObject* this, EnemyData* data);
 
 WorldObject* GenericEnemyInit(
     float x, 
@@ -29,6 +31,7 @@ WorldObject* GenericEnemyInit(
     controller->objectCleanUp = (ControllerUpdateFunction) &EnemyClean;
     controller->objectInteract = (ControllerInteractFunction) &EnemyInteract;
     controller->objectCollide = (ControllerCollideFunction) &EnemyCollide;
+    controller->objectDestroy = (ControllerUpdateFunction) &EnemyDestroy;
 
     EnemyData* data = malloc(sizeof(EnemyData));
 
@@ -86,4 +89,9 @@ void EnemyInteract(WorldObject* this, EnemyData* data, ObjectInteraction* intera
         case INTERACTION_PUSH:
             push(this, data, interactionData->interactionValue);
     };
+}
+
+
+void EnemyDestroy(WorldObject* this, EnemyData* data){
+    InitGoreExplosion(this->x, this->y);
 }
