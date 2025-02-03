@@ -4,6 +4,7 @@
 #include "gameLib/numberUtils.h"
 #include "math.h"
 #include "game/gameEnums/objectLayers.h"
+#include "gameLib/sounds.h"
 
 
 void pickRandomSprite(WorldObject* this){
@@ -76,6 +77,7 @@ void GoreUpdate(WorldObject* this, GoreData* data){
     data->zVelocity -= 0.5f;
 
     if (data->z < 0){
+        soundPlay("blood_splat");
         pickRandomSprite(this);
         data->isAirborne = false;
         if (data->bounceCount > 0){

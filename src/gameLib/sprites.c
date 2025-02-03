@@ -1,5 +1,4 @@
 #include "sprites.h"
-#include "sprites.h"
 #include "fileUtils.h"
 #include <raylib.h>
 #include <stdlib.h>

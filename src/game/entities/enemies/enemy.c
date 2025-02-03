@@ -3,6 +3,7 @@
 #include "game/gameEnums/enumsInclude.h"
 #include "game/entities/effects/effectEntity.h"
 #include "game/entities/effects/gore.h"
+#include "gameLib/sounds.h"
 
 void EnemyUpdate(WorldObject* this, EnemyData* data);
 void EnemyClean(WorldObject* this, EnemyData* data);
@@ -70,14 +71,21 @@ void EnemyClean(WorldObject* this, EnemyData* data){
 
 
 void takeDamage(WorldObject* this, EnemyData* data, float* damage){
+    
+    int goreCount = 0;
+    
     data->health -= *damage;
     if (data->health <= 0){
         this->state = OBJECT_STATE_DESTROY;
+        soundPlay("enemy_death");
+        goreCount = GetRandomValue(3, 6);
+    }else {
+        soundPlay("enemy_hit");
+        goreCount = GetRandomValue(1, 2);
     }
 
-    int rng = GetRandomValue(1, 3);
-    for (int i = 0; i < rng; i++){
-        InitGore(this->x, this->y, 1);
+    for (int i = 0; i < goreCount; i++){
+        InitGore(this->x, this->y, GetRandomValue(0, 1));
     }
 }
 

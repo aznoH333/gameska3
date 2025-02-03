@@ -48,6 +48,8 @@ int main(int argc, char **argv)
     PlayerInit(128, 128);
     TerrainGenerateNewRoom();
 
+    // TODO : sometimes enemies spawn outside the level
+
     
     while (!WindowShouldClose())
     {

@@ -5,6 +5,7 @@
 #include "math.h"
 #include "game/entities/projectiles/projectile.h"
 #include "game/gameEnums/enumsInclude.h"
+#include "gameLib/sounds.h"
 
 void PlayerUpdate(WorldObject* this, PlayerData* data);
 
@@ -132,18 +133,19 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && data->fireCooldown == 0 && !isReloading){
         if (data->ammoCount > 0){
             ProjectileInit(bulletOriginX, bulletOriginY, gunDirection, 8, 10.0f, OBJECT_TAG_PLAYER_PROJECTILE);
-            data->fireCooldown = 7;
             addScreenshake(5.0f);
             data->ammoCount--;
-            // TODO : shoot sound effect
+            soundPlay("gun");
         }else {
-            // TODO : click sound effect
+            soundPlay("click");
         }
+        data->fireCooldown = 7;
+
     }
 
     if (IsKeyPressed(KEY_R) && !isReloading && data->ammoCount < 20){
         data->reloadTimer = 30;
-        // TODO : reload sound effect
+        soundPlay("pickup");
     }
 
     data->reloadTimer -= data->reloadTimer > 0;
@@ -151,7 +153,7 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     if (isReloading){
         gunDirection -= (data->reloadTimer / 30.0f) * (PI * 2);
         if (data->reloadTimer == 1){
-            // TODO : click sound effect
+            soundPlay("click");
             data->ammoCount = 20;
         }
     }
