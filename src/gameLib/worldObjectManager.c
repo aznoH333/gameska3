@@ -32,15 +32,15 @@ int WorldObjectManagerAddObject(WorldObject* object){
 
 
 void WorldObjectManagerUpdate(){
+    debugMessage("object count [%d]", worldObjects->values->elementCount);
+    
     for (int i = 0; i < worldObjects->values->elementCount; i++){
         WorldObject* object = ((Pair*)VectorGet(worldObjects->values, i))->second;
 
-        // TODO: flipping
         // TODO: width
         // TODO: height
-        // TODO: color
 
-        spriteDrawIndexed(object->spriteIndex, object->x, object->y, object->flip, object->rotation, 1.0f, 1.0f, WHITE, object->layer, false);
+        spriteDrawIndexed(object->spriteIndex, object->x, object->y, object->flip, object->rotation, 1.0f, 1.0f, object->color, object->layer, false);
 
         void* body = UNDEFINED;
 
@@ -48,8 +48,6 @@ void WorldObjectManagerUpdate(){
         if (object->dataId != UNDEFINED){
             body = ObjectDataManagerGet(object->dataId);
         }
-        debugMessage("world object manager update [%d] spr[%d]", object->controllerId, object->spriteIndex);
-
 
 
         ObjectController* controller = UNDEFINED;
@@ -80,19 +78,22 @@ void WorldObjectManagerUpdate(){
             continue;
         }
 
+        if (object->checkCollisions){
 
+            // collisions
+            for (int j = 0; j < worldObjects->values->elementCount; j++){
+                if (i == j){
+                    continue;
+                }
 
-        // collisions
-        for (int j = 0; j < worldObjects->values->elementCount; j++){
-            if (i == j){
-                continue;
-            }
+                WorldObject* other = ((Pair*)VectorGet(worldObjects->values, j))->second;
 
-            WorldObject* other = ((Pair*)VectorGet(worldObjects->values, j))->second;
+                
 
-            if (controller != UNDEFINED && controller->objectCollide != UNDEFINED &&
-                squaresCollide(object->x, object->y, object->width, object->height, other->x, other->y, other->width, other->height)){
-                controller->objectCollide(object, body, other);
+                if (controller != UNDEFINED && controller->objectCollide != UNDEFINED &&
+                    squaresCollide(object->x, object->y, object->width, object->height, other->x, other->y, other->width, other->height)){
+                    controller->objectCollide(object, body, other);
+                }
             }
         }
     }

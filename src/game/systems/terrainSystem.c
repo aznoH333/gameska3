@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include "gameLib/hashMap.h"
+#include "game/gameEnums/objectLayers.h"
 
 #define WORLD_SIZE 32
 #define TILE_SIZE 32
@@ -80,7 +81,7 @@ void TerrainUpdate(){
 
 
 
-            spriteDrawBasic(tile, x * TILE_SIZE, y * TILE_SIZE, FLIP_NONE, 0);
+            spriteDrawBasic(tile, x * TILE_SIZE, y * TILE_SIZE, FLIP_NONE, LAYER_WORLD);
 
         }
     }

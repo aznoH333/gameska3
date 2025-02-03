@@ -12,6 +12,7 @@ void PlayerInit(float x, float y){
     // init gameobject
     WorldObject* playerWorldObject = InitWorldObjectT(x, y, 32, 32, OBJECT_TAG_PLAYER);
     playerWorldObject->spriteIndex = getSpriteIndex("player_0001");
+    playerWorldObject->layer = LAYER_PLAYER;
 
     // controller
     ObjectController* controller = ObjectControllerInit();
@@ -155,5 +156,5 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
         }
     }
 
-    spriteDraw("guns_0002", gunX, gunY, flipGun, gunDirection, 1.0f, 1.0f, WHITE, 1, false);
+    spriteDraw("guns_0002", gunX, gunY, flipGun, gunDirection, 1.0f, 1.0f, WHITE, LAYER_PLAYER, false);
 }

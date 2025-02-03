@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "game/gameEnums/enumsInclude.h"
 #include "game/entities/effects/effectEntity.h"
+#include "game/entities/effects/gore.h"
 
 void EnemyUpdate(WorldObject* this, EnemyData* data);
 void EnemyClean(WorldObject* this, EnemyData* data);
@@ -23,7 +24,7 @@ WorldObject* GenericEnemyInit(
 ){
     WorldObject* body = InitWorldObjectT(x, y, w, h, OBJECT_TAG_ENEMY);
     body->spriteIndex = spriteIndex;
-    body->layer = 0;
+    body->layer = LAYER_ENEMY;
     
 
     ObjectController* controller = ObjectControllerInit();
@@ -72,6 +73,11 @@ void takeDamage(WorldObject* this, EnemyData* data, float* damage){
     data->health -= *damage;
     if (data->health <= 0){
         this->state = OBJECT_STATE_DESTROY;
+    }
+
+    int rng = GetRandomValue(1, 3);
+    for (int i = 0; i < rng; i++){
+        InitGore(this->x, this->y, 1);
     }
 }
 

@@ -1,12 +1,14 @@
 #include "effectEntity.h"
 #include "gameLib/gamelibInclude.h"
-#include "game/gameEnums/objectTags.h"
+#include "game/gameEnums/enumsInclude.h"
 
 
 void effectEntityUpdate(WorldObject* this, EffectEntityData* data);
 
 void InitGoreExplosion(float x, float y){
     WorldObject* body = InitWorldObjectT(x, y, 0, 0, OBJECT_TAG_NEUTRAL);
+    body->checkCollisions = false;
+    body->layer = LAYER_EFFECT;
     
     ObjectController* controller = ObjectControllerInit();
     controller->objectUpdate = (ControllerUpdateFunction)&effectEntityUpdate;

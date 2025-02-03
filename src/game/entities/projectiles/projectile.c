@@ -13,8 +13,8 @@ void ProjectileInit(float x, float y, float direction, float velocity, float dam
     // init gameobject
     WorldObject* worldObject = InitWorldObjectT(x, y, 32, 32, objectTag);
     worldObject->spriteIndex = getSpriteIndex("bullet");
-    worldObject->layer = 0;
     worldObject->rotation = direction;
+    worldObject->layer = LAYER_EFFECT;
     
 
     // controller

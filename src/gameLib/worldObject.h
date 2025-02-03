@@ -1,6 +1,9 @@
 #ifndef WORLD_OBJECT
 #define WORLD_OBJECT
 
+#include <stdbool.h>
+#include "raylib.h"
+
 enum ObjectState {
     OBJECT_STATE_NORMAL,
     OBJECT_STATE_DESTROY,
@@ -19,9 +22,11 @@ struct WorldObject{
     float height;
     int id;
     float rotation;
-    float layer;
+    int layer;
     ObjectState state;
     int flip;
+    bool checkCollisions;
+    Color color;
 }; typedef struct WorldObject WorldObject ;
 
 

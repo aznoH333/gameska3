@@ -23,6 +23,8 @@ WorldObject* InitWorldObjectT(float x, float y, float width, float height, int o
     this->state = OBJECT_STATE_NORMAL;
     this->objectTag = objectTag;
     this->flip = FLIP_NONE;
+    this->checkCollisions = true;
+    this->color = WHITE;
 
     return this;
 }
