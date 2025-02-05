@@ -7,8 +7,9 @@
 #include "gameLib/hashMap.h"
 #include "game/gameEnums/objectLayers.h"
 #include "game/entities/player/player.h"
+#include "gameLib/numberUtils.h"
 
-#define WORLD_SIZE 48
+#define WORLD_SIZE 64
 #define TILE_SIZE 32
 #define DEBUG_BORDER 10
 
@@ -32,19 +33,21 @@ unsigned int hashPathFindingInfo(void* info){
 
 
 void TerrainGenerateNewRoom(){
+    int borderSize = GetRandomValue(0, 10) + DEBUG_BORDER;
+    
     for (int x = 0; x < WORLD_SIZE; x++){
         for (int y = 0; y < WORLD_SIZE; y++){
-            collisionMap[x][y] = (x < DEBUG_BORDER || y < DEBUG_BORDER || x >= WORLD_SIZE - DEBUG_BORDER || y >= WORLD_SIZE - DEBUG_BORDER);
+            collisionMap[x][y] = (x < borderSize || y < borderSize || x >= WORLD_SIZE - borderSize || y >= WORLD_SIZE - borderSize);
         }
     }
 
     
 
     // add random obstacles
-    int obstacleCount = GetRandomValue(6, 12);
+    int obstacleCount = GetRandomValue(6, 12) + 10 - (borderSize - DEBUG_BORDER);
     for (int i = 0; i < obstacleCount; i++){
-        int startX = GetRandomValue(DEBUG_BORDER - 2, WORLD_SIZE - DEBUG_BORDER);
-        int startY = GetRandomValue(DEBUG_BORDER - 2, WORLD_SIZE - DEBUG_BORDER);
+        int startX = GetRandomValue(borderSize - 2, WORLD_SIZE - borderSize);
+        int startY = GetRandomValue(borderSize - 2, WORLD_SIZE - borderSize);
         int widthX = GetRandomValue(2, 6);
         int heightY = GetRandomValue(2, 6);
 
@@ -56,10 +59,55 @@ void TerrainGenerateNewRoom(){
         
     }
 
+    // remove 1 tile gaps
+    for (int x = borderSize; x <= WORLD_SIZE - borderSize; x++){
+        for (int y = borderSize; y <= WORLD_SIZE - borderSize; y++){
+            if (collisionMap[x][y] == false
+                && ((collisionMap[x-1][y] == true && collisionMap[x+1][y] == true)
+                ||  (collisionMap[x][y-1] == true && collisionMap[x][y+1] == true))
+            ){
+                collisionMap[x][y] = true;
+            }
+        }
+    }
 
+
+    // find player spawn
+    bool foundSpawn = false;
+    int spawnAttemptCount = 0;
+    float spawnX = 0;
+    float spawnY = 0;
+
+    do {
+        float direction = randomFloatRange(0, PI*2);
+        float distance = randomFloatRange(0, 256);
+
+        spawnX = (WORLD_SIZE * TILE_SIZE / 2) + (cos(direction) * distance);
+        spawnY = (WORLD_SIZE * TILE_SIZE / 2) + (sin(direction) * distance);
+
+        if (!TerrainCheckCollisions(spawnX, spawnY, 32, 32)){
+            foundSpawn = true;
+        }
+    }while(foundSpawn == false && spawnAttemptCount++ < 15);
+
+
+    // if took too many attempts give up and blow up a bunch of tiles around the player
+    if (foundSpawn == false){
+        for (int x = spawnX - 5; x < spawnX + 5; x++){
+            for (int y = spawnY - 5; y < spawnY + 5; y++){
+                collisionMap[x][y] = false;
+            }
+        }
+    }
 
     // spawn player
-    PlayerInit(WORLD_SIZE * TILE_SIZE / 2, WORLD_SIZE * TILE_SIZE / 2);
+    PlayerInit(spawnX, spawnY);
+
+    // TODO : enemies can get stuck in corners
+    // TODO : level generation can feel underwhelming
+    // TODO : destructible walls?
+    // TODO : level progression is too abrupt
+    // TODO : shops
 }
 
 
