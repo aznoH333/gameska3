@@ -1,6 +1,7 @@
 #include "gamestateManager.h"
 #include "enemyCoordinator.h"
 #include "terrainSystem.h"
+#include "gameLib/worldObjectManager.h"
 
 
 GameState currentGamestate = GAME_STATE_GAME;
@@ -16,4 +17,11 @@ void GameStateUpdate(){
 
 void GameStateSwitch(GameState newState){
     currentGamestate = newState;
+}
+
+
+void GameStateProgressLevel(){
+    EnemyCoordinatorStartNewWave();
+    WorldObjectManagerClear();
+    TerrainGenerateNewRoom();
 }

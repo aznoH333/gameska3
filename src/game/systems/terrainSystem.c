@@ -6,10 +6,11 @@
 #include <stdlib.h>
 #include "gameLib/hashMap.h"
 #include "game/gameEnums/objectLayers.h"
+#include "game/entities/player/player.h"
 
-#define WORLD_SIZE 32
+#define WORLD_SIZE 48
 #define TILE_SIZE 32
-#define DEBUG_BORDER 3
+#define DEBUG_BORDER 10
 
 unsigned char collisionMap[WORLD_SIZE][WORLD_SIZE];
 HashMap* pathfindingResultCache = UNDEFINED;
@@ -37,22 +38,28 @@ void TerrainGenerateNewRoom(){
         }
     }
 
-    for (int i = 10; i < 15; i++){
-        collisionMap[i][8] = 1;
-        collisionMap[7][i - 2] = 1;
-        collisionMap[14][i - 1] = 1;
-        collisionMap[i - 3][13] = 1;
-
-    }
-
     
-    if (pathfindingResultCache != UNDEFINED){
-        HashMapDisposeFreeValues(pathfindingResultCache);
-        HashMapDispose(pathfindingResultCache);
+
+    // add random obstacles
+    int obstacleCount = GetRandomValue(6, 12);
+    for (int i = 0; i < obstacleCount; i++){
+        int startX = GetRandomValue(DEBUG_BORDER - 2, WORLD_SIZE - DEBUG_BORDER);
+        int startY = GetRandomValue(DEBUG_BORDER - 2, WORLD_SIZE - DEBUG_BORDER);
+        int widthX = GetRandomValue(2, 6);
+        int heightY = GetRandomValue(2, 6);
+
+        for (int x = startX; x < startX + widthX; x++){
+            for (int y = startY; y < startY + heightY; y++){
+                collisionMap[x][y] = true;
+            }
+        }
+        
     }
 
-    pathfindingResultCache = HashMapInit(&hashPathFindingInfo);
 
+
+    // spawn player
+    PlayerInit(WORLD_SIZE * TILE_SIZE / 2, WORLD_SIZE * TILE_SIZE / 2);
 }
 
 

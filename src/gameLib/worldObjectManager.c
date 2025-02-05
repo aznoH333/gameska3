@@ -137,6 +137,16 @@ WorldObject* WorldObjectManagerGet(int id){
 }
 
 
+void WorldObjectManagerClear(){
+    for (int i = 0; i < worldObjects->values->elementCount; i++){
+        WorldObject* obj = ((Pair*)VectorGet(worldObjects->values, i))->second;
+
+        obj->state = OBJECT_STATE_HIDDEN_DESTROY;   
+    }
+}
+
+
+
 void WorldObjectManagerDispose(){
     for (int i = 0; i < worldObjects->values->elementCount; i++){
         WorldObject* obj = ((Pair*)VectorGet(worldObjects->values, i))->second;

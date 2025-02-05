@@ -8,6 +8,7 @@ typedef enum GameState GameState;
 
 void GameStateUpdate();
 void GameStateSwitch(GameState newState);
+void GameStateProgressLevel();
 
 
 #endif
