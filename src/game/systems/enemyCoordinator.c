@@ -24,7 +24,7 @@ typedef struct EnemyStorage EnemyStorage;
 void spawnEnemy(){
     // pick coordinates
     WorldObject* player = PlayerManagerGetPlayer();
-
+    
     if (player == UNDEFINED){
         return;
     }
@@ -54,6 +54,7 @@ void spawnEnemy(){
 
     // spawn enemy
     enemyToSpawn->spawnFunction(spawnX, spawnY);
+    aliveEnemies++;
     
 }
 
@@ -62,11 +63,12 @@ void EnemyCoordinatorUpdate(){
     spawnTimer++;
 
     int enemyCountTarget = 35 + ((difficulity / 5) * 4);
-    int nextSpawnTime = 60 - fmin(((difficulity / 10.0f) * 2), 30) + (30 * (aliveEnemies > enemyCountTarget));
+    int nextSpawnTime = 30 - fmin(((difficulity / 10.0f) * 2), 30) + (60 * (aliveEnemies > enemyCountTarget));
 
     if (spawnTimer >= nextSpawnTime){
         spawnEnemy();
         spawnTimer = 0;
+        debugMessage("enemies alive [%d]", aliveEnemies);
     }
 }
 

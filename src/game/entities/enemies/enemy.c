@@ -4,6 +4,7 @@
 #include "game/entities/effects/effectEntity.h"
 #include "game/entities/effects/gore.h"
 #include "gameLib/sounds.h"
+#include "game/systems/enemyCoordinator.h"
 
 void EnemyUpdate(WorldObject* this, EnemyData* data);
 void EnemyClean(WorldObject* this, EnemyData* data);
@@ -107,5 +108,6 @@ void EnemyInteract(WorldObject* this, EnemyData* data, ObjectInteraction* intera
 
 
 void EnemyDestroy(WorldObject* this, EnemyData* data){
+    EnemyCoordinatorKilledEnemy();
     InitGoreExplosion(this->x, this->y);
 }

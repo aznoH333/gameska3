@@ -32,7 +32,6 @@ int WorldObjectManagerAddObject(WorldObject* object){
 
 
 void WorldObjectManagerUpdate(){
-    debugMessage("object count [%d]", worldObjects->values->elementCount);
     
     for (int i = 0; i < worldObjects->values->elementCount; i++){
         WorldObject* object = ((Pair*)VectorGet(worldObjects->values, i))->second;
