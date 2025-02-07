@@ -9,3 +9,8 @@ void PlayerManagerSetPlayer(WorldObject* player){
 WorldObject* PlayerManagerGetPlayer(){
     return playerReference;
 }
+
+
+void PlayerManagerUpdate(){
+    
+}

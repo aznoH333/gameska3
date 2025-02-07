@@ -6,6 +6,7 @@
 
 void PlayerManagerSetPlayer(WorldObject* player);
 WorldObject* PlayerManagerGetPlayer();
+void PlayerManagerUpdate();
 
 
 #endif
