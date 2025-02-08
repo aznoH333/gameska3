@@ -1,10 +1,12 @@
 #include "enemy.h"
+#include <raylib.h>
 #include <stdlib.h>
 #include "game/gameEnums/enumsInclude.h"
 #include "game/entities/effects/effectEntity.h"
 #include "game/entities/effects/gore.h"
 #include "gameLib/sounds.h"
 #include "game/systems/enemyCoordinator.h"
+#include "game/entities/coin/coin.h"
 
 void EnemyUpdate(WorldObject* this, EnemyData* data);
 void EnemyClean(WorldObject* this, EnemyData* data);
@@ -92,6 +94,14 @@ void takeDamage(WorldObject* this, EnemyData* data, float* damage){
         this->state = OBJECT_STATE_DESTROY;
         soundPlay("enemy_death");
         goreCount = GetRandomValue(3, 6);
+
+        // init coins
+        int moneyCount = GetRandomValue(1, 4);
+        for (int i = 0; i < moneyCount; i++){
+            CoinInit(this->x, this->y, 1); 
+        }
+        // TODO: coin value
+        // TODO: multiple coins
     }else {
         soundPlay("enemy_hit");
         goreCount = GetRandomValue(1, 2);

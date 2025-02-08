@@ -191,6 +191,10 @@ void playerPush(WorldObject* this, PlayerData* data, ObjectInteractionPushData* 
     }
 }
 
+void pickupMoney(WorldObject* this, PlayerData* data, int money){
+
+}
+
 
 void PlayerInteract(WorldObject* this, PlayerData* data, ObjectInteraction* interaction){
     switch (interaction->interactionType) {
@@ -200,5 +204,9 @@ void PlayerInteract(WorldObject* this, PlayerData* data, ObjectInteraction* inte
         case INTERACTION_PUSH:
             playerPush(this, data, interaction->interactionValue);
             break;
+        case INTERACTION_GIVE_MONEY:
+            pickupMoney(this, data, *(int*)interaction->interactionValue);
+            break;
+
     }
 }

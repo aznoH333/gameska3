@@ -1,4 +1,5 @@
 #include "stringUtils.h"
+#include "memoryMacros.h"
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -60,3 +61,5 @@ int StringLength(char* this){
     }
     return i;
 }
+
+

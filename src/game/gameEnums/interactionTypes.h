@@ -4,6 +4,7 @@
 enum InteractionType{
     INTERACTION_DEAL_DAMAGE,
     INTERACTION_PUSH,
+    INTERACTION_GIVE_MONEY,
 };
 typedef enum InteractionType InteractionType;
 
