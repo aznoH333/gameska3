@@ -87,6 +87,8 @@ void extraGruntUpdate(WorldObject* this, EnemyData* data, EnemyGruntData* extraD
 
     this->x += xSpeed;
     this->y += ySpeed;
+    data->xMovement = xSpeed;
+    data->yMovement = ySpeed;
 
     
     // update animation

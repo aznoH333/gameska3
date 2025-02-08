@@ -7,6 +7,7 @@ enum GameLayer{
     LAYER_ENEMY,
     LAYER_EFFECT,
     LAYER_PLAYER,
+    LAYER_UI,
 };
 
 #endif

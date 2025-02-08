@@ -2,6 +2,7 @@
 #include "enemyCoordinator.h"
 #include "terrainSystem.h"
 #include "gameLib/worldObjectManager.h"
+#include "playerManager.h"
 
 
 GameState currentGamestate = GAME_STATE_GAME;
@@ -10,6 +11,7 @@ void GameStateUpdate(){
         case GAME_STATE_GAME:
             TerrainUpdate();
             EnemyCoordinatorUpdate();
+            PlayerManagerUpdate();
             break;
     }
 }

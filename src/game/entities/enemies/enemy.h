@@ -17,6 +17,8 @@ struct EnemyData{
     int stunTimer;
     float stunPushX;
     float stunPushY;
+    float xMovement;
+    float yMovement;
     void* enemyExtraData;
     void (*extraUpdate)(WorldObject* this, struct EnemyData* data, void* enemyExtraData);
     void (*extraCollisionUpdate)(WorldObject* this, struct EnemyData* data, void* enemyExtraData, WorldObject* other);

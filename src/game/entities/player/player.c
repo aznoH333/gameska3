@@ -8,6 +8,7 @@
 #include "gameLib/sounds.h"
 
 void PlayerUpdate(WorldObject* this, PlayerData* data);
+void PlayerInteract(WorldObject* this, PlayerData* data, ObjectInteraction* interaction);
 
 void PlayerInit(float x, float y){
     // init gameobject
@@ -18,6 +19,7 @@ void PlayerInit(float x, float y){
     // controller
     ObjectController* controller = ObjectControllerInit();
     controller->objectUpdate = (void (*)(WorldObject *, void *))&PlayerUpdate;
+    controller->objectInteract = (ControllerInteractFunction) &PlayerInteract;
 
     PlayerData* data = malloc(sizeof(PlayerData));
     data->xVelocity = 0;
@@ -26,6 +28,8 @@ void PlayerInit(float x, float y){
     data->dashCooldown = 0;
     data->ammoCount = 10;
     data->reloadTimer = 0;
+    data->stunTimer = 0;
+    data->invincibilityTimer = 0;
 
     GameObjectCreate(playerWorldObject, controller, data);
 
@@ -105,8 +109,18 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     this->y += data->yVelocity * PLAYER_SPEED_MULTIPLIER;
 
 
+    // invincibility flicker
+    if (data->invincibilityTimer > 0){
+        data->invincibilityTimer--;
+        this->color.a = 255 * (data->invincibilityTimer % 4 < 2);
+    }
+
     // update animation
-    if (data->yVelocity == 0 && data->xVelocity == 0){
+    if (data->stunTimer != 0){
+        this->spriteIndex = getSpriteIndex("player_0008");
+        data->stunTimer--;
+    }
+    else if (data->yVelocity == 0 && data->xVelocity == 0){
         this->spriteIndex = getSpriteIndex(animationLookup[0]);
     }else {
         this->spriteIndex = getSpriteIndex(animationLookup[(getGlobalTimer() / 2) % 7]);
@@ -159,4 +173,32 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     }
 
     spriteDraw("guns_0002", gunX, gunY, flipGun, gunDirection, 1.0f, 1.0f, WHITE, LAYER_PLAYER, false);
+}
+
+
+void playerDamage(WorldObject* this, PlayerData* data, int damage){
+    if (data->invincibilityTimer == 0){
+        PlayerManagerHurtPlayer(damage);
+        data->invincibilityTimer = 120;
+    }
+}
+
+void playerPush(WorldObject* this, PlayerData* data, ObjectInteractionPushData* pushData){
+    if (data->stunTimer == 0){
+        data->xVelocity = pushData->pushX * 1.25f;
+        data->yVelocity = pushData->pushY * 1.25f;
+        data->stunTimer = (int)pushData->pushValue;
+    }
+}
+
+
+void PlayerInteract(WorldObject* this, PlayerData* data, ObjectInteraction* interaction){
+    switch (interaction->interactionType) {
+        case INTERACTION_DEAL_DAMAGE:
+            playerDamage(this, data, *(int*)interaction->interactionValue);
+            break;
+        case INTERACTION_PUSH:
+            playerPush(this, data, interaction->interactionValue);
+            break;
+    }
 }

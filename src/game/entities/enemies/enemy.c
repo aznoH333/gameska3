@@ -45,6 +45,8 @@ WorldObject* GenericEnemyInit(
     data->health = health;
     data->maxHealth = health;
     data->stunTimer = 0;
+    data->xMovement = 0.0f;
+    data->yMovement = 0.0f;
 
     GameObjectCreate(body, controller, data);
     return body;
@@ -55,14 +57,24 @@ void EnemyCollide(WorldObject* this, EnemyData* data, WorldObject* other){
     if (data->extraCollisionUpdate != UNDEFINED){
         data->extraCollisionUpdate(this, data, data->enemyExtraData, other);
     }
+
+    if (other->objectTag == OBJECT_TAG_PLAYER){
+        initHeapVariable(int, damage, 1);
+        GameObjectInteractIfPossible(other, INTERACTION_DEAL_DAMAGE, damage);
+
+        ObjectInteractionPushData* pushData = malloc(sizeof(ObjectInteractionPushData));
+        pushData->pushX = data->xMovement;
+        pushData->pushY = data->yMovement;
+        pushData->pushValue = 20;
+        GameObjectInteractIfPossible(other, INTERACTION_PUSH, pushData);
+
+    }
 }
 
 
 
 void EnemyUpdate(WorldObject* this, EnemyData* data){
-    
     data->extraUpdate(this, data, data->enemyExtraData);
-    
 }
 
 

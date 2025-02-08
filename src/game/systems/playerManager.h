@@ -7,6 +7,7 @@
 void PlayerManagerSetPlayer(WorldObject* player);
 WorldObject* PlayerManagerGetPlayer();
 void PlayerManagerUpdate();
+void PlayerManagerHurtPlayer(int damage);
 
 
 #endif

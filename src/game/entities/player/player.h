@@ -10,7 +10,8 @@ struct PlayerData{
     int dashCooldown;
     unsigned int ammoCount;
     unsigned int reloadTimer;
-
+    unsigned int stunTimer;
+    unsigned int invincibilityTimer;
 }; typedef struct PlayerData PlayerData;
 
 void PlayerInit(float x, float y);

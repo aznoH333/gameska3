@@ -60,8 +60,8 @@ void TerrainGenerateNewRoom(){
     }
 
     // remove 1 tile gaps
-    for (int x = borderSize; x <= WORLD_SIZE - borderSize; x++){
-        for (int y = borderSize; y <= WORLD_SIZE - borderSize; y++){
+    for (int x = borderSize - 1; x <= WORLD_SIZE - borderSize; x++){
+        for (int y = borderSize - 1; y <= WORLD_SIZE - borderSize; y++){
             if (collisionMap[x][y] == false
                 && ((collisionMap[x-1][y] == true && collisionMap[x+1][y] == true)
                 ||  (collisionMap[x][y-1] == true && collisionMap[x][y+1] == true))
@@ -82,8 +82,8 @@ void TerrainGenerateNewRoom(){
         float direction = randomFloatRange(0, PI*2);
         float distance = randomFloatRange(0, 256);
 
-        spawnX = (WORLD_SIZE * TILE_SIZE / 2) + (cos(direction) * distance);
-        spawnY = (WORLD_SIZE * TILE_SIZE / 2) + (sin(direction) * distance);
+        spawnX = (WORLD_SIZE * TILE_SIZE / 2.0f) + (cos(direction) * distance);
+        spawnY = (WORLD_SIZE * TILE_SIZE / 2.0f) + (sin(direction) * distance);
 
         if (!TerrainCheckCollisions(spawnX, spawnY, 32, 32)){
             foundSpawn = true;
