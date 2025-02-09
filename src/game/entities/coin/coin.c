@@ -5,12 +5,14 @@
 #include <stdlib.h>
 #include "game/gameEnums/enumsInclude.h"
 #include "math.h"
+#include "game/entities/effects/effectEntity.h"
 
 
 #define ANIMATION_FRAME_LENGTH 3
 #define ANIMATION_FRAME_COUNT 20
 void CoinUpdate(WorldObject* this, CoinData* data);
 void CoinCollide(WorldObject* this, CoinData* data, WorldObject* other);
+void CoinDestroy(WorldObject* this, CoinData* data);
 
 void CoinInit(float x, float y, int coinValue){
     WorldObject* this = InitWorldObject(x, y, 16.0f, 16.0f);
@@ -21,6 +23,7 @@ void CoinInit(float x, float y, int coinValue){
     ObjectController* controller = ObjectControllerInit();
     controller->objectUpdate = (ControllerUpdateFunction) &CoinUpdate;
     controller->objectCollide = (ControllerCollideFunction) &CoinCollide;
+    controller->objectDestroy = (ControllerUpdateFunction) &CoinDestroy;
 
     CoinData* data = malloc(sizeof(CoinData));
     data->coinValue = coinValue;
@@ -48,6 +51,10 @@ void CoinUpdate(WorldObject* this, CoinData* data){
         this->spriteIndex = getSpriteIndex(TextFormat("coin_%04d", (data->animationTimer / ANIMATION_FRAME_LENGTH) + 1));
     }
 
+    if (data->animationTimer % 10 == 0){
+        InitCoinSparkle(this->x + GetRandomValue(0, this->width), this->y + GetRandomValue(0, this->height));
+    }
+
     if (data->isAirborne){
         this->x += data->xMovement;
         data->realY += data->yMovement;
@@ -71,5 +78,13 @@ void CoinCollide(WorldObject* this, CoinData* data, WorldObject* other){
         initHeapVariable(int, money, data->coinValue);
         GameObjectInteractIfPossible(other, INTERACTION_GIVE_MONEY, money);
         this->state = OBJECT_STATE_DESTROY;
+    }
+}
+
+
+void CoinDestroy(WorldObject* this, CoinData* data){
+    int rng = GetRandomValue(3, 6);
+    for (int i = 0; i < rng; i++){
+        InitCoinSparkle(this->x + GetRandomValue(0, this->width), this->y + GetRandomValue(0, this->height));
     }
 }

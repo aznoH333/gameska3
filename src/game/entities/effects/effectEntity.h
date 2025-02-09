@@ -9,10 +9,13 @@ struct EffectEntityData{
     int frameCount;
     int animationTimer;
     int animationSpeed;
+    float xMovement;
+    float yMovement;
 };
 typedef struct EffectEntityData EffectEntityData;
 
 void InitGoreExplosion(float x, float y);
+void InitCoinSparkle(float x, float y);
 
 #undef MAX_FRAMES
 #endif
