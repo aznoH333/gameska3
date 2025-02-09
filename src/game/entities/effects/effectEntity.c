@@ -53,7 +53,6 @@ void InitCoinSparkle(float x, float y){
     float speed = randomFloatRange(0.25f, 0.75f);
     data->xMovement = cos(direction) * speed;
     data->yMovement = sin(direction) * speed;
-    debugMessage("??? [%f] [%f]", data->xMovement, data->yMovement);
 
     genericInit(x, y, data);
 }

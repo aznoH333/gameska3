@@ -3,6 +3,7 @@
 #include "game/systems/enemyCoordinator.h"
 #include "game/systems/gamestateManager.h"
 #include "gameLib/debug.h"
+#include "gameLib/font.h"
 #include "gameLib/gamelib.h"
 #include "gameLib/gamelibInclude.h"
 #include "game/entitiesInclude.h"
@@ -53,6 +54,7 @@ int main(int argc, char **argv)
     while (!WindowShouldClose())
     {
         gameLibUpdate();
+        FontDraw("test", 20.0f, 20.0f, 3.0f, WHITE);
     }
 
     gameLibEnd();    

@@ -19,3 +19,4 @@
 #include "camera.h"
 #include "worldSpaceUtils.h"
 #include "sounds.h"
+#include "font.h"

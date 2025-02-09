@@ -7,6 +7,7 @@
 #include "screenUtils.h"
 #include "stringUtils.h"
 #include "numberUtils.h"
+#include "font.h"
 
 struct DrawData{
     int spriteIndex;
@@ -165,6 +166,7 @@ void drawSpriteBatch(Camera2D* camera){
 
     EndMode2D();
 
+
     // static sprites
     for (int i = 0; i < MAX_SUPPORTED_LAYERS; i++){
         for (int j = 0; j < staticDrawQueue[i]->elementCount; j++){
@@ -174,6 +176,8 @@ void drawSpriteBatch(Camera2D* camera){
         VectorClear(staticDrawQueue[i]);
     }
 
+    DrawFontBatch();
+    
     // end shaders
     for (int i = 0; i < loadedShaders->elementCount; i++){
         EndShaderMode();

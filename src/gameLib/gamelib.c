@@ -8,6 +8,7 @@
 #include "vector.h"
 #include "camera.h"
 #include "sounds.h"
+#include "font.h"
 
 
 unsigned int timer;
@@ -33,6 +34,7 @@ void gameLibRegisterDisposeEvent(void (*systemDisposeFunction)()){
 
 void gameLibInit(){
     spritesLoadAll();
+    FontLoad();
     soundsLoadAll();
     additionalSystems = VectorInit();
     disposeEvents = VectorInit();
@@ -62,6 +64,7 @@ void gameLibEnd(){
     
     WorldObjectManagerDispose();
     spritesUnloadAll();
+    FontUnload();
     soundsUnloadAll();
     ObjectDataManagerDispose();
     ObjectControllerManagerDispose();
