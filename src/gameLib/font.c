@@ -23,7 +23,6 @@ Font font;
 void FontLoad(){
     font = LoadFont("./resources/font/font.png");
     fontQueue = VectorInit();
-    debugMessage("loaded font %p", fontQueue);
 }
 
 
@@ -44,7 +43,7 @@ void FontDraw(const char* text, float x, float y, float scale, Color color, ...)
 
     data->x = x;
     data->y = y;
-    data->scale = scale;
+    data->scale = scale * 15 * 3;
     data->color = color;
 
     VectorAdd(fontQueue, data);
@@ -54,7 +53,6 @@ void FontDraw(const char* text, float x, float y, float scale, Color color, ...)
 void DrawFontBatch(){
     for (int i = 0; i < fontQueue->elementCount; i++){
         FontDrawData* data = VectorGet(fontQueue, i);
-        debugMessage("got here");
         DrawTextPro(font, data->text, (Vector2){data->x, data->y}, (Vector2){0,0}, 0.0f, data->scale, 1.0f, data->color);
         free(data);
     }

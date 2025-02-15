@@ -54,7 +54,6 @@ int main(int argc, char **argv)
     while (!WindowShouldClose())
     {
         gameLibUpdate();
-        FontDraw("test", 20.0f, 20.0f, 3.0f, WHITE);
     }
 
     gameLibEnd();    
