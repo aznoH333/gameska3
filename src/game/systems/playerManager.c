@@ -1,5 +1,6 @@
 #include "playerManager.h"
 #include "game/gameEnums/enumsInclude.h"
+#include "gameLib/font.h"
 
 
 WorldObject* playerReference = UNDEFINED;
@@ -36,6 +37,9 @@ void PlayerManagerUpdate(){
     for (int i = 0; i < playerHealth; i++){
         spriteDraw("healthbar_0004", HEALTH_BAR_X + (i * HEALTH_BAR_SEGMENT_WIDTH) + HEALTH_BAR_START_OFFSET, HEALTH_BAR_Y, FLIP_NONE, 0.0f, UI_SCALE, UI_SCALE, WHITE, LAYER_UI, true);
     }
+
+    // health text
+    FontDraw("%d/%d", HEALTH_BAR_X + (playerMaxHealth * HEALTH_BAR_SEGMENT_WIDTH) + HEALTH_BAR_START_OFFSET + 10, HEALTH_BAR_Y, 1.0f, WHITE, playerHealth, playerMaxHealth);
 }
 
 

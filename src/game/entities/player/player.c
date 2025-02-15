@@ -184,7 +184,7 @@ void playerDamage(WorldObject* this, PlayerData* data, int damage){
 }
 
 void playerPush(WorldObject* this, PlayerData* data, ObjectInteractionPushData* pushData){
-    if (data->stunTimer == 0){
+    if (data->stunTimer == 0 && data->invincibilityTimer == 0){
         data->xVelocity = pushData->pushX * 1.25f;
         data->yVelocity = pushData->pushY * 1.25f;
         data->stunTimer = (int)pushData->pushValue;

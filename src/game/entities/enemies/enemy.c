@@ -61,15 +61,15 @@ void EnemyCollide(WorldObject* this, EnemyData* data, WorldObject* other){
     }
 
     if (other->objectTag == OBJECT_TAG_PLAYER){
-        initHeapVariable(int, damage, 1);
-        GameObjectInteractIfPossible(other, INTERACTION_DEAL_DAMAGE, damage);
-
+        // push
         ObjectInteractionPushData* pushData = malloc(sizeof(ObjectInteractionPushData));
         pushData->pushX = data->xMovement;
         pushData->pushY = data->yMovement;
         pushData->pushValue = 20;
         GameObjectInteractIfPossible(other, INTERACTION_PUSH, pushData);
-
+        // damage
+        initHeapVariable(int, damage, 1);
+        GameObjectInteractIfPossible(other, INTERACTION_DEAL_DAMAGE, damage);
     }
 }
 
