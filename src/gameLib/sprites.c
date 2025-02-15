@@ -8,6 +8,7 @@
 #include "stringUtils.h"
 #include "numberUtils.h"
 #include "font.h"
+#include "worldSpaceUtils.h"
 
 struct DrawData{
     int spriteIndex;
@@ -126,13 +127,28 @@ void spriteDrawBasic(const char* spriteName, float x, float y, SpriteFlip flip, 
 }
 
 
-void drawSprite(struct DrawData* data){
+bool isSpriteOnScreen(float x, float y, int width, int height, Camera2D* camera){
+    float camX = camera->target.x - (camera->offset.x * camera->zoom);
+    float camY = camera->target.y - (camera->offset.y * camera->zoom);
+    float camWidth = (camera->offset.x * 2 * camera->zoom);
+    float camHeight = (camera->offset.y * 2 * camera->zoom);
+    
+    return squaresCollide(x, y, width, height, camX, camY, camWidth, camHeight);
+}
+
+
+void drawSprite(struct DrawData* data, Camera2D* camera){
     Texture2D* texture = &textureAtlas[data->spriteIndex].texture;
     float originOffsetX = (texture->width * data->width) / 2;
     float originOffsetY = (texture->height * data->height) / 2;
 
     bool flipX = data->flip == FLIP_X || data->flip == FLIP_BOTH;
     bool flipY = data->flip == FLIP_Y || data->flip == FLIP_BOTH;
+
+    if (!isSpriteOnScreen(data->x, data->y, texture->width, texture->height, camera) && !data->isStatic){
+        free(data);
+        return;
+    }
 
     
     DrawTexturePro(*texture, 
@@ -159,7 +175,7 @@ void drawSpriteBatch(Camera2D* camera){
     for (int i = 0; i < MAX_SUPPORTED_LAYERS; i++){
         for (int j = 0; j < drawQueue[i]->elementCount; j++){
             struct DrawData* data = VectorGet(drawQueue[i], j);
-            drawSprite(data);
+            drawSprite(data, camera);
         }
         VectorClear(drawQueue[i]);
     }
@@ -171,7 +187,7 @@ void drawSpriteBatch(Camera2D* camera){
     for (int i = 0; i < MAX_SUPPORTED_LAYERS; i++){
         for (int j = 0; j < staticDrawQueue[i]->elementCount; j++){
             struct DrawData* data = VectorGet(staticDrawQueue[i], j);
-            drawSprite(data);
+            drawSprite(data, camera);
         }
         VectorClear(staticDrawQueue[i]);
     }
