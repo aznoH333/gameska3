@@ -87,7 +87,9 @@ void WorldObjectManagerUpdate(){
 
                 WorldObject* other = ((Pair*)VectorGet(worldObjects->values, j))->second;
 
-                
+                if (!other->checkCollisions){
+                    continue;
+                }
 
                 if (controller != UNDEFINED && controller->objectCollide != UNDEFINED &&
                     squaresCollide(object->x, object->y, object->width, object->height, other->x, other->y, other->width, other->height)){

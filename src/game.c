@@ -30,7 +30,7 @@ int main(int argc, char **argv)
     }
 
     // init window
-    initWindow(1280, 720, "Test window", 60);
+    initWindow(1280, 720, "Test window", 120);
     fullscreen();
 
 
@@ -54,6 +54,10 @@ int main(int argc, char **argv)
     while (!WindowShouldClose())
     {
         gameLibUpdate();
+
+        if (isDebugModeOn()){
+            FontDraw("FPS %d", 0, 0, 1.0f, GREEN, GetFrameTime());
+        }
     }
 
     gameLibEnd();    

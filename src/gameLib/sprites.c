@@ -9,6 +9,7 @@
 #include "numberUtils.h"
 #include "font.h"
 #include "worldSpaceUtils.h"
+#include "GL/gl.h"
 
 struct DrawData{
     int spriteIndex;
@@ -208,6 +209,7 @@ void drawSpriteBatch(Camera2D* camera){
     (Vector2) {0,0}, 0, WHITE);
 
     EndDrawing();
+    glFlush(); // TODO : this sucks
 }
 
 
