@@ -1,5 +1,6 @@
 #include "gamelib.h"
 #include "memoryMacros.h"
+#include "screenUtils.h"
 #include "sprites.h"
 #include <raylib.h>
 #include "worldObjectManager.h"
@@ -86,7 +87,10 @@ void gameLibRegisterAdditionalSystem(void (*systemUpdateFunction)()){
 
 
 void gameLibUpdate(){
+    
+    updateWindow();
     WorldObjectManagerUpdate();
+
     updateCamera();
     drawSpriteBatch(getCamera());
 

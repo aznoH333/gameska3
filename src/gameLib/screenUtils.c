@@ -1,15 +1,22 @@
 #include "screenUtils.h"
 #include "raylib.h"
+#include <math.h>
 #include <unistd.h>
 #include "debug.h"
+#include "math.h"
 
 int windowWidth;
 int windowHeight;
 bool isFullscreen;
 int defaultWindowWidth;
 int defaultWindowHeight;
+int targetFps;
+double lastUpdateTime = 0.0f;
+double targetFrameTime;
+double timeSinceLastFrame;
 
-void initWindow(int width, int height, const char* title, int targetFps){
+
+void initWindow(int width, int height, const char* title, int fps){
     windowWidth = width;
     windowHeight = height;
 
@@ -19,9 +26,9 @@ void initWindow(int width, int height, const char* title, int targetFps){
     isFullscreen = false;
 
     InitWindow(width, height, title);
-    SetTargetFPS(targetFps);
-
-
+    //SetTargetFPS(targetFps);
+    targetFps = fps;
+    targetFrameTime = 1.0 / fps;
 }
 
 void closeWindow(){
@@ -57,3 +64,15 @@ int getWindowWidth(){
 int getWindowHeight(){
     return windowHeight;
 }
+
+void updateWindow(){
+    PollInputEvents();
+    SwapScreenBuffer();
+    timeSinceLastFrame = (GetTime() - lastUpdateTime);
+    if (timeSinceLastFrame < targetFrameTime){
+        WaitTime(targetFrameTime - timeSinceLastFrame);
+    }
+
+    lastUpdateTime = GetTime();
+}
+

@@ -7,7 +7,7 @@ void closeWindow();
 void fullscreen();
 int getWindowWidth();
 int getWindowHeight();
-
+void updateWindow();
 
 
 #endif

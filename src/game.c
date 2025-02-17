@@ -10,6 +10,7 @@
 #include "game/systemsInclude.h"
 #include "gameLib/memoryMacros.h"
 #include "gameLib/numberUtils.h"
+#include "gameLib/screenUtils.h"
 #include "gameLib/sprites.h"
 #include <raylib.h>
 #include "gameLib/hashMap.h"
@@ -30,7 +31,7 @@ int main(int argc, char **argv)
     }
 
     // init window
-    initWindow(1280, 720, "Test window", 120);
+    initWindow(1280, 720, "Test window", 60);
     fullscreen();
 
 
@@ -55,9 +56,6 @@ int main(int argc, char **argv)
     {
         gameLibUpdate();
 
-        if (isDebugModeOn()){
-            FontDraw("FPS %d", 0, 0, 1.0f, GREEN, GetFrameTime());
-        }
     }
 
     gameLibEnd();    
