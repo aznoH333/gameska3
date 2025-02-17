@@ -10,9 +10,14 @@
 
 #define ANIMATION_FRAME_LENGTH 3
 #define ANIMATION_FRAME_COUNT 20
+#define EXISTANCE_TIMER 300
+#define FADE_TIMER 60
+
 void CoinUpdate(WorldObject* this, CoinData* data);
 void CoinCollide(WorldObject* this, CoinData* data, WorldObject* other);
 void CoinDestroy(WorldObject* this, CoinData* data);
+
+
 
 void CoinInit(float x, float y, int coinValue){
     WorldObject* this = InitWorldObject(x, y, 16.0f, 16.0f);
@@ -38,6 +43,7 @@ void CoinInit(float x, float y, int coinValue){
     data->zMovement = randomFloatRange(1.5f, 3.5f);
     data->realY = this->y;
     data->isAirborne = true;
+    data->existanceTimer = EXISTANCE_TIMER;
 
     GameObjectCreate(this, controller, data);
 }
@@ -69,6 +75,16 @@ void CoinUpdate(WorldObject* this, CoinData* data){
 
         this->y = data->realY - data->z;
     }
+
+    data->existanceTimer--;
+    // fade animation
+    if (data->existanceTimer == 0){
+        this->state = OBJECT_STATE_DESTROY;
+    }
+    else if (data->existanceTimer < FADE_TIMER){
+        float fadePercent = (float)(data->existanceTimer - FADE_TIMER) / FADE_TIMER;
+        this->color.a = (unsigned char)(255 * fadePercent);
+    } 
     
 }
 

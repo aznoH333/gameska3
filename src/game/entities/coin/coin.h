@@ -13,7 +13,8 @@ struct CoinData{
     float z;
     float zMovement;
     float realY;
-    bool isAirborne;    
+    bool isAirborne;
+    int existanceTimer;
 };
 typedef struct CoinData CoinData ;
 
