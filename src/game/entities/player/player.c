@@ -1,5 +1,6 @@
 #include "player.h"
 #include "gameLib/gamelibInclude.h"
+#include "gun.h"
 #include "stdlib.h"
 #include "game/systemsInclude.h"
 #include "math.h"
@@ -9,6 +10,7 @@
 
 void PlayerUpdate(WorldObject* this, PlayerData* data);
 void PlayerInteract(WorldObject* this, PlayerData* data, ObjectInteraction* interaction);
+void PlayerSwapGun(WorldObject* this, PlayerData* data, Gun newGun);
 
 void PlayerInit(float x, float y){
     // init gameobject
@@ -24,12 +26,20 @@ void PlayerInit(float x, float y){
     PlayerData* data = malloc(sizeof(PlayerData));
     data->xVelocity = 0;
     data->yVelocity = 0;
-    data->fireCooldown = 0;
     data->dashCooldown = 0;
-    data->ammoCount = 10;
-    data->reloadTimer = 0;
     data->stunTimer = 0;
     data->invincibilityTimer = 0;
+    PlayerSwapGun(playerWorldObject, data, 
+        GunInit(
+            "guns_0002", 
+            20, 
+            7, 
+            10.0f, 
+            0.6f, 
+            1, 
+            30
+        )
+    );
 
     GameObjectCreate(playerWorldObject, controller, data);
 
@@ -131,48 +141,48 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     setCameraTarget(this->x, this->y);
 
     // gun
-    bool isReloading = data->reloadTimer > 0;
+    bool isReloading = data->gun.reloadTimer > 0;
     float gunDirection = directionTowards(this->x + (this->width / 2), this->y + (this->height / 2), getInWorldMousePositionX(), getInWorldMousePositionY());
     float gunX = this->x + (cos(gunDirection) * GUN_OFFSET * 1.25f);
     float gunY = this->y + (sin(gunDirection) * GUN_OFFSET);
     float bulletOriginX = gunX + (cos(gunDirection) * 24);
     float bulletOriginY = gunY + (sin(gunDirection) * 24);
     
-    data->fireCooldown -= data->fireCooldown > 0;
+    data->gun.fireCooldown -= data->gun.fireCooldown > 0;
     int flipGun = FLIP_Y;
     if (gunDirection < PI/2 && gunDirection > -PI/2){
         flipGun = FLIP_NONE;
     }    
 
-    if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && data->fireCooldown == 0 && !isReloading){
-        if (data->ammoCount > 0){
-            ProjectileInit(bulletOriginX, bulletOriginY, gunDirection, 8, 10.0f, OBJECT_TAG_PLAYER_PROJECTILE);
-            addScreenshake(5.0f);
-            data->ammoCount--;
-            soundPlay("gun");
+    if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && data->gun.fireCooldown == 0 && !isReloading){
+        if (data->gun.ammoCount > 0){ // TODO : bullet speed
+            ProjectileInit(bulletOriginX, bulletOriginY, gunDirection, 8, data->gun.damage, OBJECT_TAG_PLAYER_PROJECTILE);
+            addScreenshake(5.0f); // TODO : screen shake ammount
+            data->gun.ammoCount--;
+            soundPlay("gun"); // TODO : gun sounds
         }else {
-            soundPlay("click");
+            soundPlay("click"); // TODO : click sounds
         }
-        data->fireCooldown = 7;
+        data->gun.fireCooldown = data->gun.fireRate;
 
     }
 
-    if (IsKeyPressed(KEY_R) && !isReloading && data->ammoCount < 20){
-        data->reloadTimer = 30;
-        soundPlay("pickup");
+    if (IsKeyPressed(KEY_R) && !isReloading && data->gun.ammoCount < data->gun.maxAmmo){
+        data->gun.reloadTimer = data->gun.reloadSpeed;
+        soundPlay("pickup"); // TODO : reload sounds
     }
 
-    data->reloadTimer -= data->reloadTimer > 0;
+    data->gun.reloadTimer -= data->gun.reloadTimer > 0;
     // gun spin animation
     if (isReloading){
-        gunDirection -= (data->reloadTimer / 30.0f) * (PI * 2);
-        if (data->reloadTimer == 1){
+        gunDirection -= (data->gun.reloadTimer / (float)data->gun.reloadSpeed) * (PI * 2);
+        if (data->gun.reloadTimer == 1){
             soundPlay("click");
-            data->ammoCount = 20;
+            data->gun.ammoCount = data->gun.maxAmmo;
         }
     }
 
-    spriteDraw("guns_0002", gunX, gunY, flipGun, gunDirection, 1.0f, 1.0f, WHITE, LAYER_PLAYER, false);
+    spriteDraw(data->gun.sprite, gunX, gunY, flipGun, gunDirection, 1.0f, 1.0f, WHITE, LAYER_PLAYER, false);
 }
 
 
@@ -207,6 +217,10 @@ void PlayerInteract(WorldObject* this, PlayerData* data, ObjectInteraction* inte
         case INTERACTION_GIVE_MONEY:
             pickupMoney(this, data, *(int*)interaction->interactionValue);
             break;
-
     }
+}
+
+
+void PlayerSwapGun(WorldObject* this, PlayerData* data, Gun newGun){
+    data->gun = newGun;
 }
