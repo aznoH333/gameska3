@@ -228,3 +228,8 @@ void PlayerInteract(WorldObject* this, PlayerData* data, ObjectInteraction* inte
 void PlayerSwapGun(WorldObject* this, PlayerData* data, Gun newGun){
     data->gun = newGun;
 }
+
+Gun* PlayerGetGun(WorldObject* player){
+    PlayerData* p = GameObjectGetData(player);
+    return &p->gun;
+}

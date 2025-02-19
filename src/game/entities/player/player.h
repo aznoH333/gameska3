@@ -2,6 +2,7 @@
 #define Player
 
 #include "gun.h"
+#include "../../../gameLib/worldObject.h"
 
 struct PlayerData{
     float xVelocity;
@@ -16,7 +17,7 @@ struct PlayerData{
 
 
 void PlayerInit(float x, float y);
-
+Gun* PlayerGetGun(WorldObject* player);
 
 
 #endif
