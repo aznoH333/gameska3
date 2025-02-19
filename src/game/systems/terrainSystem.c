@@ -16,9 +16,6 @@
 unsigned char collisionMap[WORLD_SIZE][WORLD_SIZE];
 HashMap* pathfindingResultCache = UNDEFINED;
 
-
-
-
 struct PathFindingInfo{
     int startX;
     int startY;
@@ -69,8 +66,8 @@ void TerrainGenerateNewRoom(){
                 collisionMap[x][y] = true;
             }
         }
-    }
-
+    } // TODO : this doesn't always work
+    // TODO : fix "caves"
 
     // find player spawn
     bool foundSpawn = false;

@@ -35,7 +35,7 @@ void PlayerInit(float x, float y){
             20, 
             7, 
             10.0f, 
-            0.6f, 
+            0.1f, 
             1, 
             30
         )
@@ -156,7 +156,11 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
 
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && data->gun.fireCooldown == 0 && !isReloading){
         if (data->gun.ammoCount > 0){ // TODO : bullet speed
-            ProjectileInit(bulletOriginX, bulletOriginY, gunDirection, 8, data->gun.damage, OBJECT_TAG_PLAYER_PROJECTILE);
+            for (int i = 0; i < data->gun.bulletsPerShot; i++){
+                float bulletDirection = gunDirection + randomFloatRange(-data->gun.accuracy, data->gun.accuracy);
+                ProjectileInit(bulletOriginX, bulletOriginY, bulletDirection, 8, data->gun.damage, OBJECT_TAG_PLAYER_PROJECTILE);
+            }
+            
             addScreenshake(5.0f); // TODO : screen shake ammount
             data->gun.ammoCount--;
             soundPlay("gun"); // TODO : gun sounds
