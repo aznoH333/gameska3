@@ -206,7 +206,7 @@ void playerPush(WorldObject* this, PlayerData* data, ObjectInteractionPushData* 
 }
 
 void pickupMoney(WorldObject* this, PlayerData* data, int money){
-
+    PlayerManagerAddMoney(money);
 }
 
 

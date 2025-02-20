@@ -8,6 +8,7 @@ void PlayerManagerSetPlayer(WorldObject* player);
 WorldObject* PlayerManagerGetPlayer();
 void PlayerManagerUpdate();
 void PlayerManagerHurtPlayer(int damage);
+void PlayerManagerAddMoney(int ammount);
 
 
 #endif
