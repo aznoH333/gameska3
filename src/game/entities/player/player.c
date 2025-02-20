@@ -7,6 +7,9 @@
 #include "game/entities/projectiles/projectile.h"
 #include "game/gameEnums/enumsInclude.h"
 #include "gameLib/sounds.h"
+#include <raylib.h>
+#include <stdbool.h>
+#include "math.h"
 
 void PlayerUpdate(WorldObject* this, PlayerData* data);
 void PlayerInteract(WorldObject* this, PlayerData* data, ObjectInteraction* interaction);
@@ -29,6 +32,10 @@ void PlayerInit(float x, float y){
     data->dashCooldown = 0;
     data->stunTimer = 0;
     data->invincibilityTimer = 0;
+    data->usingKeyboard = false;
+    data->lastMouseX = 0;
+    data->lastMouseY = 0;
+    data->gunDirection = 0.0f;
     PlayerSwapGun(playerWorldObject, data, 
         GunInit(
             "guns_0002", 
@@ -142,22 +149,52 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
 
     // gun
     bool isReloading = data->gun.reloadTimer > 0;
-    float gunDirection = directionTowards(this->x + (this->width / 2), this->y + (this->height / 2), getInWorldMousePositionX(), getInWorldMousePositionY());
-    float gunX = this->x + (cos(gunDirection) * GUN_OFFSET * 1.25f);
-    float gunY = this->y + (sin(gunDirection) * GUN_OFFSET);
-    float bulletOriginX = gunX + (cos(gunDirection) * 24);
-    float bulletOriginY = gunY + (sin(gunDirection) * 24);
+    
+    // gun input
+
+    bool shouldFire = IsMouseButtonDown(MOUSE_LEFT_BUTTON);
+    if (fmax(fabs(GetMouseDelta().x), fabs(GetMouseDelta().y)) > 0.1f){
+        data->usingKeyboard = false;
+    }
+
+    bool buttonLeft = IsKeyDown(KEY_LEFT);
+    bool buttonRight = IsKeyDown(KEY_RIGHT);
+    bool buttonUp = IsKeyDown(KEY_UP);
+    bool buttonDown = IsKeyDown(KEY_DOWN);
+    if (data->usingKeyboard == false){
+        data->gunDirection = directionTowards(this->x + (this->width / 2), this->y + (this->height / 2), getInWorldMousePositionX(), getInWorldMousePositionY());
+    }
+
+    
+    if (buttonLeft || buttonRight || buttonDown || buttonUp){
+        shouldFire = true;
+        data->usingKeyboard = true;
+        float addX = 0.0f;
+        float addY = 0.0f;
+        if (buttonLeft)     addX -= 1;
+        if (buttonRight)    addX += 1;
+        if (buttonUp)       addY -= 1;
+        if (buttonDown)     addY += 1;
+
+        data->gunDirection = directionTowards(0, 0, addX, addY);
+    }
+    
+    
+    float gunX = this->x + (cos(data->gunDirection) * GUN_OFFSET * 1.25f);
+    float gunY = this->y + (sin(data->gunDirection) * GUN_OFFSET);
+    float bulletOriginX = gunX + (cos(data->gunDirection) * 24);
+    float bulletOriginY = gunY + (sin(data->gunDirection) * 24);
     
     data->gun.fireCooldown -= data->gun.fireCooldown > 0;
     int flipGun = FLIP_Y;
-    if (gunDirection < PI/2 && gunDirection > -PI/2){
+    if (data->gunDirection < PI/2 && data->gunDirection > -PI/2){
         flipGun = FLIP_NONE;
     }    
 
-    if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && data->gun.fireCooldown == 0 && !isReloading){
+    if (shouldFire && data->gun.fireCooldown == 0 && !isReloading){
         if (data->gun.ammoCount > 0){ // TODO : bullet speed
             for (int i = 0; i < data->gun.bulletsPerShot; i++){
-                float bulletDirection = gunDirection + randomFloatRange(-data->gun.accuracy, data->gun.accuracy);
+                float bulletDirection = data->gunDirection + randomFloatRange(-data->gun.accuracy, data->gun.accuracy);
                 ProjectileInit(bulletOriginX, bulletOriginY, bulletDirection, 8, data->gun.damage, OBJECT_TAG_PLAYER_PROJECTILE);
             }
             
@@ -178,15 +215,16 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
 
     data->gun.reloadTimer -= data->gun.reloadTimer > 0;
     // gun spin animation
+    float gunSpin = data->gunDirection;
     if (isReloading){
-        gunDirection -= (data->gun.reloadTimer / (float)data->gun.reloadSpeed) * (PI * 2);
+        gunSpin -= (data->gun.reloadTimer / (float)data->gun.reloadSpeed) * (PI * 2);
         if (data->gun.reloadTimer == 1){
             soundPlay("click");
             data->gun.ammoCount = data->gun.maxAmmo;
         }
     }
 
-    spriteDraw(data->gun.sprite, gunX, gunY, flipGun, gunDirection, 1.0f, 1.0f, WHITE, LAYER_PLAYER, false);
+    spriteDraw(data->gun.sprite, gunX, gunY, flipGun, gunSpin, 1.0f, 1.0f, WHITE, LAYER_PLAYER, false);
 }
 
 

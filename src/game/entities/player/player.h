@@ -10,6 +10,12 @@ struct PlayerData{
     int dashCooldown;
     unsigned int stunTimer;
     unsigned int invincibilityTimer;
+    
+    bool usingKeyboard;
+    int lastMouseX;
+    int lastMouseY;
+    float gunDirection;
+    
     Gun gun;
 }; typedef struct PlayerData PlayerData;
 

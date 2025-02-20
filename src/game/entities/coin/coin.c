@@ -10,8 +10,8 @@
 
 #define ANIMATION_FRAME_LENGTH 3
 #define ANIMATION_FRAME_COUNT 20
-#define EXISTANCE_TIMER 300
-#define FADE_TIMER 60
+#define EXISTANCE_TIMER 1800
+#define FADE_TIMER 600
 
 void CoinUpdate(WorldObject* this, CoinData* data);
 void CoinCollide(WorldObject* this, CoinData* data, WorldObject* other);

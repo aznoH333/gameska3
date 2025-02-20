@@ -102,7 +102,6 @@ void PlayerManagerUpdate(){
     FontDraw("%+8d", MONEY_DISPLAY_X + MONEY_DISPLAY_TEXT_OFFSET, MONEY_DISPLAY_Y - MONEY_FADING_OFFSET + (moneyFadingPercentage * MONEY_FADING_OFFSET), 1.0f, moneyColor, playerPickupAmmount);
     playerPickupTimer -= playerPickupTimer > 0;
     playerPickupAmmount *= playerPickupTimer > 0;
-    
 }
 
 
