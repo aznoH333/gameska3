@@ -85,7 +85,6 @@ void CoinUpdate(WorldObject* this, CoinData* data){
         float fadePercent = (float)(data->existanceTimer - FADE_TIMER) / FADE_TIMER;
         this->color.a = (unsigned char)(255 * fadePercent);
     } 
-    
 }
 
 

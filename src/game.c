@@ -2,6 +2,7 @@
 #include "game/entities/enemies/enemyGrunt.h"
 #include "game/systems/enemyCoordinator.h"
 #include "game/systems/gamestateManager.h"
+#include "game/systems/terrainSystem.h"
 #include "gameLib/debug.h"
 #include "gameLib/font.h"
 #include "gameLib/gamelib.h"
@@ -47,7 +48,8 @@ int main(int argc, char **argv)
 
 
     // temporary initialization
-    TerrainGenerateNewRoom();
+    //TerrainGenerateNewRoom(ROOM_GENERIC_COMBAT); // TODO : move this to gamestate manager
+    GameStateProgressLevel();
 
     // TODO : sometimes enemies spawn outside the level
 

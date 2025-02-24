@@ -9,7 +9,19 @@ struct PathFindingOutput{
     int nextY;
 }; typedef struct PathFindingOutput PathFindingOutput ;
 
-void TerrainGenerateNewRoom();
+enum RoomType{
+    // TODO this
+    ROOM_GENERIC_COMBAT = 0,
+    ROOM_GENERIC_SHOP,
+}; typedef enum RoomType RoomType;
+
+struct RoomTypeProperty{
+    bool spawnEnemies;
+}; typedef struct RoomTypeProperty RoomTypeProperty;
+
+
+void TerrainGenerateNewRoom(RoomType roomType);
+RoomTypeProperty GetRoomTypeProperties(RoomType RoomType);
 bool TerrainCheckCollisions(float x, float y, float w, float h);
 void TerrainUpdate();
 bool TerrainCheckForLineOfSight(float x, float y, float w, float h, float targetX, float targetY);

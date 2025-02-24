@@ -22,7 +22,6 @@ HashMap* HashMapInit(GenericHashFunction){
 
 
 Pair* mapFind(HashMap* this, unsigned int key){
-    debugMessage("got here %d", key);
 
     Vector* target = VectorGet(this->valueBucket, key % HASH_KOEFICIENT);
 

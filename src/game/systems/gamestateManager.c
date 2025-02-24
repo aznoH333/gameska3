@@ -5,6 +5,10 @@
 #include "playerManager.h"
 
 
+
+int currentLevel = 0;
+RoomType currentRoomType;
+
 GameState currentGamestate = GAME_STATE_GAME;
 void GameStateUpdate(){
     switch (currentGamestate) {
@@ -23,7 +27,20 @@ void GameStateSwitch(GameState newState){
 
 
 void GameStateProgressLevel(){
-    EnemyCoordinatorStartNewWave();
+    // set current room type
+    if ((currentLevel)%2==0){
+        currentRoomType = ROOM_GENERIC_COMBAT;
+    }else {
+        currentRoomType = ROOM_GENERIC_SHOP;
+    }
+
+    debugMessage("wth man %d %d", currentLevel, currentRoomType);
+
+    // spawn enemies
+    EnemyCoordinatorStartNewWave(GetRoomTypeProperties(currentRoomType).spawnEnemies);
+
+
     WorldObjectManagerClear();
-    TerrainGenerateNewRoom();
+    TerrainGenerateNewRoom(currentRoomType);
+    currentLevel++;
 }

@@ -29,65 +29,35 @@ unsigned int hashPathFindingInfo(void* info){
 }
 
 
-void TerrainGenerateNewRoom(){
-    int borderSize = GetRandomValue(0, 10) + DEBUG_BORDER;
-    
+void generateBaseSquare(int borderSize){
     for (int x = 0; x < WORLD_SIZE; x++){
         for (int y = 0; y < WORLD_SIZE; y++){
             collisionMap[x][y] = (x < borderSize || y < borderSize || x >= WORLD_SIZE - borderSize || y >= WORLD_SIZE - borderSize);
         }
     }
+}
 
-    
-
-    // add random obstacles
-    int obstacleCount = GetRandomValue(6, 12) + 10 - (borderSize - DEBUG_BORDER);
-    for (int i = 0; i < obstacleCount; i++){
-        int startX = GetRandomValue(borderSize - 2, WORLD_SIZE - borderSize);
-        int startY = GetRandomValue(borderSize - 2, WORLD_SIZE - borderSize);
-        int widthX = GetRandomValue(2, 6);
-        int heightY = GetRandomValue(2, 6);
-
-        for (int x = startX; x < startX + widthX; x++){
-            for (int y = startY; y < startY + heightY; y++){
-                collisionMap[x][y] = true;
-            }
-        }
-        
-    }
-
-    // remove 1 tile gaps
-    for (int x = borderSize - 1; x <= WORLD_SIZE - borderSize; x++){
-        for (int y = borderSize - 1; y <= WORLD_SIZE - borderSize; y++){
-            if (collisionMap[x][y] == false
-                && ((collisionMap[x-1][y] == true && collisionMap[x+1][y] == true)
-                ||  (collisionMap[x][y-1] == true && collisionMap[x][y+1] == true))
-            ){
-                collisionMap[x][y] = true;
-            }
-        }
-    } // TODO : this doesn't always work
-    // TODO : fix "caves"
+void findRandomizedCenteredPlayerSpawn(){
 
     // find player spawn
     bool foundSpawn = false;
     int spawnAttemptCount = 0;
     float spawnX = 0;
     float spawnY = 0;
-
+    
     do {
         float direction = randomFloatRange(0, PI*2);
         float distance = randomFloatRange(0, 256);
-
+    
         spawnX = (WORLD_SIZE * TILE_SIZE / 2.0f) + (cos(direction) * distance);
         spawnY = (WORLD_SIZE * TILE_SIZE / 2.0f) + (sin(direction) * distance);
-
+    
         if (!TerrainCheckCollisions(spawnX, spawnY, 32, 32)){
             foundSpawn = true;
         }
     }while(foundSpawn == false && spawnAttemptCount++ < 15);
-
-
+    
+    
     // if took too many attempts give up and blow up a bunch of tiles around the player
     if (foundSpawn == false){
         for (int x = spawnX - 5; x < spawnX + 5; x++){
@@ -100,6 +70,70 @@ void TerrainGenerateNewRoom(){
     // spawn player
     PlayerInit(spawnX, spawnY);
 
+}
+
+void findCenteredPlayerSpawn(){
+    float spawnX = (WORLD_SIZE * TILE_SIZE / 2.0f);
+    float spawnY = (WORLD_SIZE * TILE_SIZE / 2.0f);
+    PlayerInit(spawnX, spawnY);
+}
+
+
+void generateGenericCombarRoom(){
+    int borderSize = GetRandomValue(0, 10) + DEBUG_BORDER;
+    generateBaseSquare(borderSize);
+
+    // add random obstacles
+    int obstacleCount = GetRandomValue(6, 12) + 10 - (borderSize - DEBUG_BORDER);
+    for (int i = 0; i < obstacleCount; i++){
+        int startX = GetRandomValue(borderSize - 2, WORLD_SIZE - borderSize);
+        int startY = GetRandomValue(borderSize - 2, WORLD_SIZE - borderSize);
+        int widthX = GetRandomValue(2, 6);
+        int heightY = GetRandomValue(2, 6);
+    
+        for (int x = startX; x < startX + widthX; x++){
+            for (int y = startY; y < startY + heightY; y++){
+                collisionMap[x][y] = true;
+            }
+        }
+            
+    }
+    
+    // remove 1 tile gaps
+    for (int x = borderSize - 1; x <= WORLD_SIZE - borderSize; x++){
+        for (int y = borderSize - 1; y <= WORLD_SIZE - borderSize; y++){
+            if (collisionMap[x][y] == false
+                && ((collisionMap[x-1][y] == true && collisionMap[x+1][y] == true)
+                ||  (collisionMap[x][y-1] == true && collisionMap[x][y+1] == true))
+            ){
+                collisionMap[x][y] = true;
+            }
+        }
+    } // TODO : this doesn't always work
+    // TODO : fix "caves"
+    findRandomizedCenteredPlayerSpawn();
+}
+
+void generateGenericShopRoom(){
+    int borderSize = 20;
+    generateBaseSquare(borderSize);
+    findCenteredPlayerSpawn();
+}
+
+void TerrainGenerateNewRoom(RoomType roomType){
+    debugMessage("%d", roomType);
+    switch (roomType) {
+        case ROOM_GENERIC_COMBAT:
+            generateGenericCombarRoom();
+            debugMessage("normal room");
+            break;
+        case ROOM_GENERIC_SHOP:
+            generateGenericShopRoom();
+            debugMessage("shop room");
+            break;
+    }
+
+    // TODO : bring back pathfinding
     // TODO : enemies can get stuck in corners
     // TODO : level generation can feel underwhelming
     // TODO : destructible walls?
@@ -302,3 +336,14 @@ PathFindingOutput* TerrainPathFindTowards(float x, float y, float targetX, float
     return output;
 }
 
+
+RoomTypeProperty roomTypePropertyLookUpTable[] = {
+    // generic combat room
+    (RoomTypeProperty) {true},
+    // generic shop room
+    (RoomTypeProperty) {false},
+};
+
+RoomTypeProperty GetRoomTypeProperties(RoomType roomType){
+    return roomTypePropertyLookUpTable[roomType];
+}

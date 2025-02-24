@@ -15,6 +15,7 @@ int difficulity = 1; // TODO : difficulity scaling
 int enemiesKilled = 0;
 Vector* enemyStorage = UNDEFINED;
 #define ENEMY_SPAWN_DIST 360.0f
+bool spawnEnemies;
 
 
 struct EnemyStorage {
@@ -62,16 +63,18 @@ void spawnEnemy(){
 
 
 void EnemyCoordinatorUpdate(){
+    if (!spawnEnemies){
+        return;
+    }
     spawnTimer++;
 
-    bool isSpawning = enemiesKilled < 40 + (difficulity * 20);
+    bool isSpawning = enemiesKilled < 25 + (difficulity * 5);
     int enemyCountTarget = 35 + ((difficulity / 5) * 4);
     int nextSpawnTime = 30 - fmin(((difficulity / 10.0f) * 2), 30) + (60 * (aliveEnemies > enemyCountTarget));
 
     if (spawnTimer >= nextSpawnTime && isSpawning){
         spawnEnemy();
         spawnTimer = 0;
-        debugMessage("enemies alive [%d]", aliveEnemies);
     }
 
     if (!isSpawning && aliveEnemies < 5){
@@ -87,11 +90,12 @@ void EnemyCoordinatorKilledEnemy(){
 }
 
 
-void EnemyCoordinatorStartNewWave(){
+void EnemyCoordinatorStartNewWave(bool spewn){
     aliveEnemies = 0;
     spawnTimer = 0;
     enemiesKilled = 0;
     difficulity++;
+    spawnEnemies = spewn;
 }
 
 
