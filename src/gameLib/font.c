@@ -9,6 +9,7 @@
 
 
 Vector* fontQueue;
+Vector* fontInWorldQueue;
 
 struct FontDrawData{
     char text[MAX_STRING_LENGTH];
@@ -23,6 +24,7 @@ Font font;
 void FontLoad(){
     font = LoadFont("./resources/font/font.png");
     fontQueue = VectorInit();
+    fontInWorldQueue = VectorInit();
 }
 
 
@@ -32,21 +34,37 @@ void FontUnload(){
     VectorFreeValues(fontQueue);
 }
 
-
-void FontDraw(const char* text, float x, float y, float scale, Color color, ...){
+void fontDraw(const char* text, float x, float y, float scale, Color color, va_list args, Vector* target){
     FontDrawData* data = malloc(sizeof(FontDrawData));
-
-    va_list args;
-    va_start(args, color);
     vsprintf(data->text, text, args);
-    va_end(args);
 
     data->x = x;
     data->y = y;
     data->scale = scale * 15 * 3;
     data->color = color;
 
-    VectorAdd(fontQueue, data);
+    VectorAdd(target, data);
+}
+
+void FontDraw(const char* text, float x, float y, float scale, Color color, ...){
+    
+    va_list args;
+    va_start(args, color);
+
+    fontDraw(text, x, y, scale, color, args, fontQueue);
+
+    va_end(args);
+
+}
+
+void FontDrawInWorld(const char* text, float x, float y, float scale, Color color, ...){
+
+    va_list args;
+    va_start(args, color);
+
+    fontDraw(text, x, y, scale, color, args, fontInWorldQueue);
+
+    va_end(args);
 }
 
 
@@ -58,4 +76,14 @@ void DrawFontBatch(){
     }
 
     VectorClear(fontQueue);
+}
+
+void DrawFontInWorldBatch(){
+    for (int i = 0; i < fontInWorldQueue->elementCount; i++){
+        FontDrawData* data = VectorGet(fontInWorldQueue, i);
+        DrawTextPro(font, data->text, (Vector2){data->x, data->y}, (Vector2){0,0}, 0.0f, data->scale, 1.0f, data->color);
+        free(data);
+    }
+
+    VectorClear(fontInWorldQueue);
 }

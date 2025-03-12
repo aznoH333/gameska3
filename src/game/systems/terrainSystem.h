@@ -2,6 +2,7 @@
 #define TERRAIN_SYSTEM
 
 #include <stdbool.h>
+#include "../../gameLib/gamelibInclude.h"
 
 struct PathFindingOutput{
     bool canReach;
@@ -26,5 +27,7 @@ bool TerrainCheckCollisions(float x, float y, float w, float h);
 void TerrainUpdate();
 bool TerrainCheckForLineOfSight(float x, float y, float w, float h, float targetX, float targetY);
 PathFindingOutput* TerrainPathFindTowards(float x, float y, float targetX, float targetY);
+void RegisterExit(WorldObject* exit);
+WorldObject* GetExit();
 
 #endif

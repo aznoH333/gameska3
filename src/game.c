@@ -23,6 +23,8 @@ int hashish(void* key){
 
 int main(int argc, char **argv)
 {
+    
+    
     setDebugLevel(DEBUG_LEVEL_NORMAL);
     // handle args
     for (int i = 0; i < argc; i++){

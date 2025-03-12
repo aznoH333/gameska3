@@ -5,8 +5,7 @@
 #include "terrainSystem.h"
 #include <stdlib.h>
 #include "game/entitiesInclude.h"
-#include "game/systems/gamestateManager.h"
-
+#include "game/entities/exit/exit.h"
 
 
 int aliveEnemies;
@@ -78,8 +77,8 @@ void EnemyCoordinatorUpdate(){
     }
 
     if (!isSpawning && aliveEnemies < 5){
-        // go to next level
-        GameStateProgressLevel();
+        // open exit
+        ExitOpen(GetExit());
     }
 }
 

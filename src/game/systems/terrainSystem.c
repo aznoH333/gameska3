@@ -8,6 +8,8 @@
 #include "game/gameEnums/objectLayers.h"
 #include "game/entities/player/player.h"
 #include "gameLib/numberUtils.h"
+#include "game/entities/player/player.h"
+#include "game/entities/exit/exit.h"
 
 #define WORLD_SIZE 64
 #define TILE_SIZE 32
@@ -15,6 +17,7 @@
 
 unsigned char collisionMap[WORLD_SIZE][WORLD_SIZE];
 HashMap* pathfindingResultCache = UNDEFINED;
+WorldObject* exitReference;
 
 struct PathFindingInfo{
     int startX;
@@ -69,6 +72,7 @@ void findRandomizedCenteredPlayerSpawn(){
 
     // spawn player
     PlayerInit(spawnX, spawnY);
+    ExitInit(spawnX, spawnY, false);
 
 }
 
@@ -76,6 +80,8 @@ void findCenteredPlayerSpawn(){
     float spawnX = (WORLD_SIZE * TILE_SIZE / 2.0f);
     float spawnY = (WORLD_SIZE * TILE_SIZE / 2.0f);
     PlayerInit(spawnX, spawnY);
+    ExitInit(spawnX, spawnY, true);
+
 }
 
 
@@ -115,7 +121,7 @@ void generateGenericCombarRoom(){
 }
 
 void generateGenericShopRoom(){
-    int borderSize = 20;
+    int borderSize = 25;
     generateBaseSquare(borderSize);
     findCenteredPlayerSpawn();
 }
@@ -346,4 +352,14 @@ RoomTypeProperty roomTypePropertyLookUpTable[] = {
 
 RoomTypeProperty GetRoomTypeProperties(RoomType roomType){
     return roomTypePropertyLookUpTable[roomType];
+}
+
+
+void RegisterExit(WorldObject* exit){
+    exitReference = exit;
+}
+
+
+WorldObject* GetExit(){
+    return exitReference;
 }

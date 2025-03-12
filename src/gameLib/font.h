@@ -6,6 +6,10 @@
 void FontLoad();
 void FontUnload();
 void FontDraw(const char* text, float x, float y, float scale, Color color, ...);
+void FontDrawInWorld(const char* text, float x, float y, float scale, Color color, ...);
+
 void DrawFontBatch();
+void DrawFontInWorldBatch();
+
 
 #endif

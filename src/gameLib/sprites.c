@@ -180,7 +180,7 @@ void drawSpriteBatch(Camera2D* camera){
         }
         VectorClear(drawQueue[i]);
     }
-
+    DrawFontInWorldBatch();
     EndMode2D();
 
 

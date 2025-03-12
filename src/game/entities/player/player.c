@@ -15,6 +15,9 @@ void PlayerUpdate(WorldObject* this, PlayerData* data);
 void PlayerInteract(WorldObject* this, PlayerData* data, ObjectInteraction* interaction);
 void PlayerSwapGun(WorldObject* this, PlayerData* data, Gun newGun);
 
+#define DASH_SPEED_MULTIPLIER 3.0f
+
+
 void PlayerInit(float x, float y){
     // init gameobject
     WorldObject* playerWorldObject = InitWorldObjectT(x, y, 32, 32, OBJECT_TAG_PLAYER);
@@ -84,8 +87,8 @@ void PlayerUpdate(WorldObject* this, PlayerData* data){
     if (IsKeyPressed(KEY_SPACE) && data->dashCooldown == 0 && (fabs(dashXVel) > 0.1f || fabs(dashYVel) > 0.1f)){
         data->dashCooldown = 65;
         float dashDirection = directionTowards(0, 0, dashXVel, dashYVel);
-        data->xVelocity = cos(dashDirection) * 2.5f;
-        data->yVelocity = sin(dashDirection) * 2.5f;
+        data->xVelocity = cos(dashDirection) * DASH_SPEED_MULTIPLIER;
+        data->yVelocity = sin(dashDirection) * DASH_SPEED_MULTIPLIER;
     }
     data->dashCooldown -= data->dashCooldown > 0;
 
